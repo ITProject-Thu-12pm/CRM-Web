@@ -4,13 +4,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import FormFloatingCustom from "./components/FloatingLabel";
 // import ClickButton from "./components/ClickButton";
 import LoadSignPage from "./pages/SignIn";
+import NavScrollExample from "./components/NavBar";
 
 function App() {
   return (
     <div>
-      {/* <FormFloatingCustom />
-
-      <ClickButton value="Submit"/> */}
+      <NavScrollExample />
       <LoadSignPage />
     </div>
   );

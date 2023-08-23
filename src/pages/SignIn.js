@@ -1,9 +1,6 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { Form, FloatingLabel } from "react-bootstrap";
 import ClickButton from "../components/ClickButton";
-
-
 
 function FloatingSignIn() {
   return (
@@ -26,6 +23,7 @@ function FloatingSignIn() {
 function LoadSignPage() {
   return (
     <>
+      <h1>Connecting You to What Matters Most</h1>
       <FloatingSignIn />
       <ClickButton value="Sign in" />
     </>

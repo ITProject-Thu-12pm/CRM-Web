@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+// import { Button, Alert, Card } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+// import FormFloatingCustom from "./components/FloatingLabel";
+// import ClickButton from "./components/ClickButton";
+import LoadSignPage from "./pages/SignIn";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <FormFloatingCustom />
+
+      <ClickButton value="Submit"/> */}
+      <LoadSignPage />
     </div>
   );
 }
 
 export default App;
+
+

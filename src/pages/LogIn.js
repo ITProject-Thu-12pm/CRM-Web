@@ -1,4 +1,5 @@
 import React from "react";
+import './ButtonStyles.css';
 
 function LoadLogInPage() {
   return (
@@ -20,14 +21,14 @@ function LoadLogInPage() {
           <p>Log in here!</p> */}
         </div>
         <hr className="d-sm-none" />
-
+        
         <div className="col-sm-4 gx-5 pt-5 pl-3">
           <div
             className="title"
             style={{
-              textAlign: "center",
+              textAlign: "left",
               color: "#111111",
-              fontSize: 56,
+              fontSize: 49.9,
               fontFamily: "Poppins",
               fontWeight: "600",
             //   lineHeight: 64,
@@ -36,11 +37,24 @@ function LoadLogInPage() {
           >
             Connecting You to What Matters Most
           </div>
+          <br></br>
+          <br></br>
           <LogInForm />
           {/* <p className="mx-4"> Log in here!</p> */}
           {/* <p>Log in here!</p>
           <p>Log in here!</p>
           <p>Log in here!</p> */}
+          <br></br>
+          <button type="button" class="btn btn-lighter-secondary w-100 rounded-5 py-2" style={{color: "white"}}>Log in</button>
+          <br></br>
+          <br></br>
+          <button type="button" class="btn w-100 rounded-5 py-2">Forgot password?</button>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <button type="button" class="btn rounded-5 py-2">Don't have an account?</button>
+          <button type="button" class="btn btn-outline-secondary rounded-5 py-2">Sign up</button>
         </div>
       </div>
     </div>

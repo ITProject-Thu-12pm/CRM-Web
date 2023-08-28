@@ -9,7 +9,7 @@
 }
 
 .bottom-left-button {
-    position: absolute;
+    position: relative;
     bottom: 10px;  /* spacing from the bottom */
     left: 10px;   /* spacing from the left */
 }

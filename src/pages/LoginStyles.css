@@ -1,0 +1,41 @@
+.loginTitle1 {
+    color: "#111111";
+    font-size: 50px;
+    font-family: "Poppins";
+    font-weight: 900;
+    width: 526px;
+    word-wrap: "break-word";
+    text-align: left;
+    position: relative;
+    top: 30px;
+}
+
+.loginTitle2 {
+    font-size: 50px;
+    font-weight:normal;
+}
+
+.input {
+    position: relative;
+    top: 40px;
+}
+
+.login {
+    position: absolute;
+    top: 5px;
+    color: white;
+}
+.forgot-pass {
+    position: absolute;
+    top: 50px;
+}
+
+.new-acc {
+    position: relative;
+    top: 200px;
+}
+
+.sign-up {
+    position: relative;
+    left: 15px;
+}

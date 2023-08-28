@@ -1,5 +1,6 @@
 import React from "react";
 import './ButtonStyles.css';
+import './LoginStyles.css';
 
 function LoadLogInPage() {
   return (
@@ -12,49 +13,18 @@ function LoadLogInPage() {
             className="img-responsive "
             style={{ width: 767, height: 1031 }}
           />
-          {/* <p>Log in here!</p>
-          <p>Log in here!</p>
-          <p>Log in here!</p>
-          <p>Log in here!</p>
-          <p>Log in here!</p>
-          <p>Log in here!</p>
-          <p>Log in here!</p> */}
+          
         </div>
         <hr className="d-sm-none" />
         
         <div className="col-sm-4 gx-5 pt-5 pl-3">
-          <div
-            className="title"
-            style={{
-              textAlign: "left",
-              color: "#111111",
-              fontSize: 49.9,
-              fontFamily: "Poppins",
-              fontWeight: "600",
-            //   lineHeight: 64,
-              wordWrap: "break-word"
-            }}
-          >
-            Connecting You to What Matters Most
+          <div className="title loginTitle1">
+            Connecting You to
+            <div className="loginTitle2">What Matters Most</div>
           </div>
-          <br></br>
-          <br></br>
+         
           <LogInForm />
-          {/* <p className="mx-4"> Log in here!</p> */}
-          {/* <p>Log in here!</p>
-          <p>Log in here!</p>
-          <p>Log in here!</p> */}
-          <br></br>
-          <button type="button" class="btn btn-lighter-secondary w-100 rounded-5 py-2" style={{color: "white"}}>Log in</button>
-          <br></br>
-          <br></br>
-          <button type="button" class="btn w-100 rounded-5 py-2">Forgot password?</button>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <button type="button" class="btn rounded-5 py-2">Don't have an account?</button>
-          <button type="button" class="btn btn-outline-secondary rounded-5 py-2">Sign up</button>
+          <Buttons/>
         </div>
       </div>
     </div>
@@ -63,7 +33,7 @@ function LoadLogInPage() {
 
 function LogInForm() {
   return (
-    <form>
+    <form className="input">
       <div class="form-floating mb-3">
         <input
           type="email"
@@ -92,6 +62,22 @@ function LogInForm() {
         />
         <label for="floatingInputInvalid">Invalid input</label>
       </form> */}
+    </form>
+  );
+}
+
+function Buttons() {
+  return(
+    <form className="input">
+      
+      <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login">Log in</button>
+      <button type="button" className="btn w-100 rounded-5 py-2 forgot-pass">Forgot password?</button>
+
+      <div className="new-acc">
+      <span>Don't have an account?</span>
+      <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up">Sign up</button>
+      </div>
+      
     </form>
   );
 }

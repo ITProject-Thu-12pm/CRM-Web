@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import ClickButton from "./components/ClickButton";
 // import NavScrollExample  from "./components/NavBar";
 // import CardExample  from "./components/Card";
-// import SideBar from "./components/SideBar";
+import SideBar from "./components/SideBar";
 import LoadLogInPage from "./pages/LogIn";
 import LoadSignPage from "./pages/SignUp";
 import LoadForgotPage from "./pages/ResetPassword";
@@ -24,6 +24,9 @@ function App() {
       <CardExample /> 
       <CardExample />
       <CardExample />
+
+      
+
       <CardExample /> 
       <LoadSignPage />*/}
     <Router>
@@ -34,6 +37,7 @@ function App() {
         <Route path="/forgot" element={<LoadForgotPage />} />
       </Routes>
     </Router>
+
 
     </div>
   );

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import './ButtonStyles.css';
 import './LoginStyles.css';
+import './SignUpStyles.css';
 import InputForm from '../components/Input.js'
 
 /* function FloatingSignIn() {
@@ -42,6 +43,7 @@ function LoadSignPage() {
           </div>
 
           <SignUpForm />
+          <Authentication />
         </div>
       </div>
     </div>
@@ -51,12 +53,39 @@ function LoadSignPage() {
 function SignUpForm() {
   return (
     <div>
-      <InputForm inputTitle="First Name"/>;
-      <InputForm inputTitle="Lirst Name"/>;
-      <InputForm inputTitle="Email"/>;
-      <InputForm inputTitle="Passwordss"/>;
+      <InputForm inputTitle="First Name" />;
+      <InputForm inputTitle="Lirst Name" />;
+      <InputForm inputTitle="Email" />;
+      <InputForm inputTitle="Passwordss" />;
     </div>
   );
 }
+
+function Authentication() {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+  };
+
+  return (
+    <div className="authentication-container">
+
+      <input
+        className="form-check-input"
+        type="checkbox"
+        checked={isClicked}
+        onChange={handleClick}
+      />
+    
+      <span className="authentication-text">
+        By creating an account, I agree to our <a href="#">Terms of Use</a>{" "}
+        and <a href="#">Privacy Policy</a>
+      </span>
+
+    </div>
+  );
+}
+
 
 export default LoadSignPage;

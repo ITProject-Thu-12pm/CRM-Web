@@ -1,0 +1,10 @@
+.authentication-container {
+    position: relative;
+    top: 50px;
+}
+
+.authentication-text{
+    position: relative;
+    left: 10px;
+    font-size: 16px;
+}

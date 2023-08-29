@@ -1,43 +1,133 @@
 import React from "react";
+import "bootstrap";
+import "./Style.css";
 
 function SideBar() {
   return (
-    <div class="row">
-      <div class="col-sm-3 mx-4">
-        <ul class="nav nav-pills flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
+    <div class="row container-fluid">
+      {/* sidebar col */}
+      <div class="col-sm-2 mx-4 mt-2">
+        <div class="hstack gap-3 mb-4">
+          <div class="p-2">
+            <a class="navbar-brand" href="/" aria-label="MyCircles">
+              <img
+                src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/logo.jpg?raw=true"
+                class="mh-100 mw-100"
+                alt="logo"
+              ></img>
+            </a>
+          </div>
+
+          <div class="p-2">
+            <a class="navbar-brand" href="/" aria-label="MyCircles">
+              <h5>MyCricles</h5>
+            </a>
+          </div>
+          {/* <div class="p-2">Third item</div> */}
+        </div>
+        {/* row for web logo and name */}
+        {/* <div class="row mt-5 mb-5">
+          <div class="col-sm-3">
+            <a
+              class="navbar-brand"
+              href="/"
+              aria-label="MyCircles"
+            > */}
+        {/* web logo */}
+        {/* <img
+                src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/logo.jpg?raw=true"
+                class="h-50 w-50"
+                alt="logo"
+              ></img>
+            </a>
+          </div> */}
+
+        {/* web name */}
+
+        {/* <div class="col-sm-8" href="/">
+            <p class="display-6">MyCricles</p>
+          </div> */}
+        {/* </div> */}
+
+        {/* <ul class="nav nav-pills flex-column"> */}
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+          <li class="nav-item pb-2">
+            <a class="nav-link active" href="#dashboard">
               Dashboard
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item pb-2">
+            <a class="nav-link" href="#contacts">
               Contacts
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item pb-2">
+            <a class="nav-link" href="#todo">
               Todo
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item pb-2">
+            <a class="nav-link" href="#calendar">
               Calendar
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
+          <li class="nav-item pb-2">
+            <a class="nav-link disabled" href="#help">
               Help
             </a>
           </li>
         </ul>
         <hr class="d-sm-none" />
+        <div class="dropdown px-2 pb-5 position-absolute bottom-0 start-25">
+                    <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle"/>
+                        <span class="d-none d-sm-inline mx-1">loser</span>
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+        {/* <div class="dropdown">
+          <a
+            class="btn btn-secondary dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Dropdown link
+          </a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#">
+                Action
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                Another action
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                Something else here
+              </a>
+            </li>
+          </ul>
+        </div> */}
       </div>
-      <div class="col-sm-8">
+      <div class="col default-bg-color">
         <nav class="navbar bg-body-tertiary">
           <div class="container-fluid">
-            <a class="navbar-brand">
-              Hello Evano{" "}
+            <a class="navbar-brand" href="/">
+              Hello Evano
               <img
                 src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/hello(60%20x%2060).png?raw=true"
                 class="h-25 w-25"

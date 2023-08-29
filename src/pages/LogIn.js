@@ -1,9 +1,13 @@
 import React from "react";
+ 
 import './ButtonStyles.css';
 import './LoginStyles.css';
+import InputForm from '../components/Input.js'
+import { useNavigate } from 'react-router-dom'; //Login.js
 
 
 function LoadLogInPage() {
+
   return (
     <div className="container m-0 fix">
       <div className="row">
@@ -32,49 +36,33 @@ function LoadLogInPage() {
 
 function LogInForm() {
   return (
-    <form className="input">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="floatingInput"
-          placeholder="name@example.com"
-        />
-        <label for="floatingInput">Email address</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="password"
-          class="form-control"
-          id="floatingPassword"
-          placeholder="Password"
-        />
-        <label for="floatingPassword">Password</label>
-      </div>
-      {/* <form class="form-floating">
-        <input
-          type="email"
-          class="form-control is-invalid"
-          id="floatingInputInvalid"
-          placeholder="name@example.com"
-          value="test@example.com"
-        />
-        <label for="floatingInputInvalid">Invalid input</label>
-      </form> */}
-    </form>
+    <div>
+      <InputForm inputTitle="Email Address" />;
+      <InputForm inputTitle="Password" />;
+    </div>
   );
 }
 
 function Buttons() {
+  const navigate = useNavigate();
+
+  const handleSignInClick = () => {
+    navigate("/signup");
+  };
+
+  const handleForgotClick = () => {
+    navigate("/forgot");
+  };
   return (
     <form className="input">
 
       <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login">Log in</button>
-      <button type="button" className="btn w-100 rounded-5 py-2 forgot-pass">Forgot password?</button>
+      <button type="button" className="btn w-100 rounded-5 py-2 forgot-pass" onClick={handleForgotClick}>Forgot password?</button>
 
       <div className="new-acc">
         <span>Don't have an account?</span>
-        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up">Sign up</button>
+        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up" onClick={handleSignInClick}>Sign up</button>
+
       </div>
 
     </form>

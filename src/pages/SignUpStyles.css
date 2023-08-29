@@ -1,0 +1,20 @@
+.authentication-container {
+    position: relative;
+    top: 50px;
+}
+
+.authentication-text{
+    position: relative;
+    left: 10px;
+    font-size: 16px;
+}
+
+.butt-position {
+    position: relative;
+    top: 60px;
+}
+
+.already-acc {
+    position: relative;
+    top: 100px;
+}

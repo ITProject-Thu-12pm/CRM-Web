@@ -3,22 +3,42 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import FormFloatingCustom from "./components/FloatingLabel";
 // import ClickButton from "./components/ClickButton";
-// import LoadSignPage from "./pages/SignIn";
 // import NavScrollExample  from "./components/NavBar";
 // import CardExample  from "./components/Card";
 import SideBar from "./components/SideBar";
 import LoadLogInPage from "./pages/LogIn";
+import LoadSignPage from "./pages/SignUp";
+import LoadForgotPage from "./pages/ResetPassword";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom';
+
 function App() {
   return (
     <div>
       {/* <NavScrollExample /> 
        <SideBar /> 
        <LoadSignPage />
+      <CardExample /> 
       <CardExample />
       <CardExample />
-      <CardExample /> */}
-      {/* <LoadLogInPage /> */}
-      <SideBar />
+
+      
+
+      <CardExample /> 
+      <LoadSignPage />*/}
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoadLogInPage />} />
+        <Route path="/login" element={<LoadLogInPage />} />
+        <Route path="/signup" element={<LoadSignPage />} />
+        <Route path="/forgot" element={<LoadForgotPage />} />
+      </Routes>
+    </Router>
+
+
     </div>
   );
 }

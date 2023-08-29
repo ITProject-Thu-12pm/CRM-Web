@@ -2,9 +2,11 @@ import React from "react";
  
 import './ButtonStyles.css';
 import './LoginStyles.css';
+import { useNavigate } from 'react-router-dom'; //Login.js
 
 
 function LoadLogInPage() {
+
   return (
     <div className="container m-0 fix">
       <div className="row">
@@ -67,6 +69,11 @@ function LogInForm() {
 }
 
 function Buttons() {
+  const navigate = useNavigate();
+
+  const handleSignInClick = () => {
+    navigate("/signin");
+  };
   return (
     <form className="input">
 

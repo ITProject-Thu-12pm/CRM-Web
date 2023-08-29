@@ -4,6 +4,7 @@ import './ButtonStyles.css';
 import './LoginStyles.css';
 import './SignUpStyles.css';
 import InputForm from '../components/Input.js'
+import { useNavigate } from 'react-router-dom';
 
 /* function FloatingSignIn() {
   return (
@@ -80,8 +81,8 @@ function Authentication() {
       />
     
       <span className="authentication-text">
-        By creating an account, I agree to our <a href="#">Terms of Use</a>{" "}
-        and <a href="#">Privacy Policy</a>
+        By creating an account, I agree to our Terms of Use{" "}
+        and Privacy Policy
       </span>
 
     </div>
@@ -89,13 +90,18 @@ function Authentication() {
 }
 
 function LogInButtons() {
+  const navigate = useNavigate();
+
+  const handleLogInClick = () => {
+    navigate("/login");
+  };
   return (
     <form className="butt-position">
 
       <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login">Create an account</button>
       <div className="already-acc">
         <span>Already have an account?</span>
-        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up">Log in</button>
+        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up" onClick={handleLogInClick}>Log in</button>
 
       </div>
 

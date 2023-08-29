@@ -44,6 +44,7 @@ function LoadSignPage() {
 
           <SignUpForm />
           <Authentication />
+          <LogInButtons/>
         </div>
       </div>
     </div>
@@ -87,5 +88,19 @@ function Authentication() {
   );
 }
 
+function LogInButtons() {
+  return (
+    <form className="butt-position">
+
+      <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login">Create an account</button>
+      <div className="already-acc">
+        <span>Already have an account?</span>
+        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up">Log in</button>
+
+      </div>
+
+    </form>
+  );
+}
 
 export default LoadSignPage;

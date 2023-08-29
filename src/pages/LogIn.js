@@ -37,8 +37,8 @@ function LoadLogInPage() {
 function LogInForm() {
   return (
     <div>
-      <InputForm inputTitle="Email Address" />;
-      <InputForm inputTitle="Password" />;
+      <InputForm inputTitle="Email Address" />
+      <InputForm inputTitle="Password" />
     </div>
   );
 }

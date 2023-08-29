@@ -38,10 +38,10 @@ function LoadSignPage() {
 function SignUpForm() {
   return (
     <div>
-      <InputForm inputTitle="First Name" />;
-      <InputForm inputTitle="Last Name" />;
-      <InputForm inputTitle="Email" />;
-      <InputForm inputTitle="Password" />;
+      <InputForm inputTitle="First Name" />
+      <InputForm inputTitle="Last Name" />
+      <InputForm inputTitle="Email" />
+      <InputForm inputTitle="Password" />
     </div>
   );
 }

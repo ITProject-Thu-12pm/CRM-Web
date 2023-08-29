@@ -8,8 +8,8 @@ import LogIn from "./pages/LogIn";
 // import NavScrollExample  from "./components/NavBar";
 // import CardExample  from "./components/Card";
 // import SideBar from "./components/SideBar";
-import LoadLogInPage from "./pages/LogIn";
-
+// import LoadLogInPage from "./pages/LogIn";
+import LoadSignPage from "./pages/SignUp";
 
 function App() {
   return (
@@ -19,8 +19,10 @@ function App() {
        <LoadSignPage />
       <CardExample /> 
       <CardExample />
-  <CardExample /> */}
-      <LoadLogInPage />
+      <CardExample />
+      <CardExample /> */}
+      <LoadSignPage />
+
     </div>
   );
 }

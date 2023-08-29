@@ -1,4 +1,5 @@
 import React from "react";
+ 
 import './ButtonStyles.css';
 import './LoginStyles.css';
 import { useNavigate } from 'react-router-dom'; //Login.js
@@ -81,7 +82,8 @@ function Buttons() {
 
       <div className="new-acc">
         <span>Don't have an account?</span>
-        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up" onClick={handleSignInClick}>Sign up</button>
+        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up">Sign up</button>
+
       </div>
 
     </form>

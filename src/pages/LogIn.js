@@ -49,11 +49,15 @@ function Buttons() {
   const handleSignInClick = () => {
     navigate("/signup");
   };
+
+  const handleForgotClick = () => {
+    navigate("/forgot");
+  };
   return (
     <form className="input">
 
       <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login">Log in</button>
-      <button type="button" className="btn w-100 rounded-5 py-2 forgot-pass">Forgot password?</button>
+      <button type="button" className="btn w-100 rounded-5 py-2 forgot-pass" onClick={handleForgotClick}>Forgot password?</button>
 
       <div className="new-acc">
         <span>Don't have an account?</span>

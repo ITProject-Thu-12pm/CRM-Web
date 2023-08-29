@@ -3,7 +3,11 @@
     padding: 9;
     max-height: 630px;
 }
-
+.input {
+    position: relative;
+    top: 40px;
+    min-width: 200px;
+}
 .log-in-img {
     /* width: 767px;
     height: 1000px; */
@@ -44,10 +48,7 @@
     font-weight:normal;
 }
 
-.input {
-    position: relative;
-    top: 40px;
-}
+
 
 .login {
     position: absolute;

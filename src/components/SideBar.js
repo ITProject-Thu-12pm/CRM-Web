@@ -11,7 +11,7 @@ function SideBar() {
           <div class="p-2">
             <a class="navbar-brand" href="/" aria-label="MyCircles">
               <img
-                src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/logo.jpg?raw=true"
+                src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/logo-white-bg.png?raw=true"
                 class="mh-100 mw-100"
                 alt="logo"
               ></img>

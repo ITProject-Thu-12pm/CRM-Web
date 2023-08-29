@@ -18,7 +18,7 @@ function SideBar() {
             </a>
           </div>
 
-          <div class="p-2">
+          <div class="p-2 mt-1">
             <a class="navbar-brand" href="/" aria-label="MyCircles">
               <h5>MyCricles</h5>
             </a>

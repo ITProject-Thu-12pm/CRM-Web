@@ -7,7 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import NavScrollExample  from "./components/NavBar";
 // import CardExample  from "./components/Card";
 // import SideBar from "./components/SideBar";
-import LoadLogInPage from "./pages/LogIn";
+// import LoadLogInPage from "./pages/LogIn";
+import LoadSignPage from "./pages/SignUp";
 function App() {
   return (
     <div>
@@ -17,7 +18,7 @@ function App() {
       <CardExample />
       <CardExample />
       <CardExample /> */}
-      <LoadLogInPage />
+      <LoadSignPage />
     </div>
   );
 }

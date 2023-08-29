@@ -2,7 +2,7 @@ import React from "react";
 
 function SideBar() {
   return (
-    <>
+    <div class="row">
       <div class="col-sm-3 mx-4">
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
@@ -34,9 +34,32 @@ function SideBar() {
         <hr class="d-sm-none" />
       </div>
       <div class="col-sm-8">
+        <nav class="navbar bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand">
+              Hello Evano{" "}
+              <img
+                src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/hello(60%20x%2060).png?raw=true"
+                class="h-25 w-25"
+                alt="hello"
+              />
+            </a>
 
+            <form class="d-flex justify-content-end" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </nav>
       </div>
-    </>
+    </div>
   );
 }
 

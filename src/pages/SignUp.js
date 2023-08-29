@@ -28,7 +28,7 @@ function LoadSignPage() {
 
           <SignUpForm />
           <Authentication />
-          <LogInButtons/>
+          <LogInButtons />
         </div>
       </div>
     </div>
@@ -55,19 +55,18 @@ function Authentication() {
 
   return (
     <div className="authentication-container">
-
-      <input
-        className="form-check-input"
-        type="checkbox"
-        checked={isClicked}
-        onChange={handleClick}
-      />
-    
-      <span className="authentication-text">
-        By creating an account, I agree to our Terms of Use{" "}
-        and Privacy Policy
-      </span>
-
+      <div className="align-text-center">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          checked={isClicked}
+          onChange={handleClick}
+        />
+        <span className="authentication-text">
+          By creating an account, I agree to our Terms of Use{" "}
+          and Privacy Policy
+        </span>
+      </div>
     </div>
   );
 }

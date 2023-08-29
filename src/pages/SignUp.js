@@ -54,7 +54,7 @@ function SignUpForm() {
       <InputForm inputTitle="First Name"/>;
       <InputForm inputTitle="Lirst Name"/>;
       <InputForm inputTitle="Email"/>;
-      <InputForm inputTitle="Password"/>;
+      <InputForm inputTitle="Passwordss"/>;
     </div>
   );
 }

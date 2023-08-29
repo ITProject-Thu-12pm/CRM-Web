@@ -1,3 +1,23 @@
+* {
+    margin: 0;
+    padding: 9;
+    max-height: 630px;
+}
+
+.log-in-img {
+    /* width: 767px;
+    height: 1000px; */
+    max-width: 100%;
+    max-height: 100vh;
+    min-width: 90%;
+    min-height: auto;
+    overflow: hidden;
+
+}
+.fix {
+    display: grid;
+    height: 100%;
+}
 .loginTitle1 {
     color: "#111111";
     font-size: 50px;
@@ -10,8 +30,17 @@
     top: 30px;
 }
 
+@media (max-width: 1200px) {
+    .loginTitle1 {
+        font-size: 40px;
+    }
+    .loginTitle2 {
+        font-size: 32px;
+    }
+}
+
 .loginTitle2 {
-    font-size: 50px;
+    font-size: 40px;
     font-weight:normal;
 }
 
@@ -24,6 +53,7 @@
     position: absolute;
     top: 5px;
     color: white;
+    outline: none;
 }
 .forgot-pass {
     position: absolute;

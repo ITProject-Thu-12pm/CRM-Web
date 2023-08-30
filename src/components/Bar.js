@@ -6,7 +6,7 @@ function SideBar() {
     return (
         <div className="container-fluid sidebar-container">
             {/* sidebar col */}
-            <div className="mx-4 mt-2 all">
+            <div className="all">
                 {/* image and mycircle */}
                 <div className="my-circles">
                     <a class="navbar-brand" href="/" aria-label="MyCircles">

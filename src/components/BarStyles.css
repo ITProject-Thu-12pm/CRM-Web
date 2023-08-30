@@ -1,14 +1,19 @@
 .all {
     width: 200px;
+    
+    height: 100vh;
+    max-height: 100vh; /* fix bug in * loginstyles */
     box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
-   
     
 }
 .sidebar-container {
-    height: 100vh; 
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh !important; 
     display: flex; /* Use flexbox to manage layout */
-    overflow: hidden;
-    
+    /* overflow: hidden; */
 }
 
 .title-img {
@@ -26,7 +31,7 @@ h5 {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: -15px;
+    margin-left: -30px;
     margin-top: 15px;
     margin-bottom: 40px;
     padding: 0;
@@ -57,7 +62,6 @@ h5 {
 .sigle-button {
     margin: 0;
     padding: 0;
-    height: 40px;
     border: 0;
 }
 

@@ -9,6 +9,7 @@ import SideBar from "./components/SideBar";
 import LoadLogInPage from "./pages/LogIn";
 import LoadSignPage from "./pages/SignUp";
 import LoadForgotPage from "./pages/ForgotPassword";
+import Bar from "./components/Bar";
 import {
   BrowserRouter as Router,
   Routes,

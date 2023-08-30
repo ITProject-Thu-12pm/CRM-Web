@@ -1,0 +1,68 @@
+.all {
+    width: 200px;
+    box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
+   
+    
+}
+.sidebar-container {
+    height: 100vh; 
+    display: flex; /* Use flexbox to manage layout */
+    overflow: hidden;
+    
+}
+
+.title-img {
+    padding: 0;
+    width: 50px;
+    
+}
+h5 {
+    font-size: 30px;
+    display: inline;
+    margin: 0;
+}
+
+.my-circles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -15px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    padding: 0;
+}
+
+.remove-default-btn-style {
+    background-color: transparent !important; /* Important to override Bootstrap styles */
+    color: inherit !important; /* Use the same color as normal state */
+    border-color: transparent !important;
+}
+
+.icon-img {
+    height: 20px;
+    width: auto;
+}
+.button-style {
+    margin-bottom: 20px;
+}
+.button-title{
+    font-size: 20px;
+    color: #9197B3;
+}
+
+.user-name {
+    font-size: 20px;
+}
+
+.sigle-button {
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    border: 0;
+}
+
+.profile {
+    position: relative;
+    top: 50px;
+    left: 10px;
+}

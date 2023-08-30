@@ -39,9 +39,7 @@ function SideBar() {
                         <img
                             src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true" // Replace with actual image URL
                             alt="User Avatar"
-                            className="rounded-circle me-2"
-                            width="30"
-                            height="30"
+                            className="rounded-circle me-2 avatar"
                         />
                         <span className="d-none d-sm-inline user-name">Evano</span>
                     </a>
@@ -61,7 +59,7 @@ function SideBar() {
 
 const Button = ({ buttonTitle, iconSrc }) => {
     return (
-        <form className="single-button">
+        <form>
             <div className="form-floating">
                 <button
                     type="button"

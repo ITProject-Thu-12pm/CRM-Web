@@ -46,7 +46,11 @@ function LogInForm() {
 function Buttons() {
   const navigate = useNavigate();
 
-  const handleSignInClick = () => {
+  const handleNavBarClick = () => {
+    navigate("/bar");
+  };
+
+  const handleSignUpClick = () => {
     navigate("/signup");
   };
 
@@ -56,12 +60,12 @@ function Buttons() {
   return (
     <form className="input">
 
-      <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login">Log in</button>
+      <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login" onClick={handleNavBarClick}>Log in</button>
       <button type="button" className="btn w-100 rounded-5 py-2 forgot-pass" onClick={handleForgotClick}>Forgot password?</button>
 
       <div className="new-acc">
         <span>Don't have an account?</span>
-        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up" onClick={handleSignInClick}>Sign up</button>
+        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up" onClick={handleSignUpClick}>Sign up</button>
 
       </div>
 

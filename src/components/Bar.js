@@ -1,8 +1,14 @@
 import React from "react";
 import "bootstrap";
 import './BarStyles.css';
+import { useNavigate } from 'react-router-dom';
 
 function SideBar() {
+  const navigate = useNavigate();
+
+  const handleSignOutClick = () => {
+    navigate("/signout");
+  };
     return (
         <div className="container-fluid sidebar-container">
             {/* sidebar col */}
@@ -48,7 +54,7 @@ function SideBar() {
                         <li><a className="dropdown-item" href="#">Profile</a></li>
                         <li><a className="dropdown-item" href="#">Settings</a></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><a className="dropdown-item" href="#">Sign Out</a></li>
+                        <li><a className="dropdown-item" href="#" onClick={handleSignOutClick}>Sign Out</a></li>
                     </ul>
                 </div>
 

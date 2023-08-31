@@ -21,13 +21,14 @@
 .fix {
     display: grid;
     height: 100%;
+   
 }
 .loginTitle1 {
     color: "#111111";
-    font-size: 50px;
+    font-size: 45px;
     font-family: "Poppins";
     font-weight: 900;
-    width: 526px;
+    width: 410px;
     word-wrap: "break-word";
     text-align: left;
     position: relative;

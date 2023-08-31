@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 function LoadForgotPage() {
     return (
-        <div className="container m-0 fix">
+        <div className="container m-0 fix container-fluid">
             <div className="row">
                 <div className="col-sm-8 gx-0">
                     <img

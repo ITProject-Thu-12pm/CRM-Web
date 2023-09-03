@@ -9,4 +9,8 @@
     align-items: center;
 }
 
+.input-box-size {
+    min-width: 200px;
+}
+
 

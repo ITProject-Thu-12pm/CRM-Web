@@ -35,6 +35,11 @@
     top: 30px;
 }
 
+.loginTitle2 {
+    font-size: 40px;
+    font-weight:normal;
+}
+
 @media (max-width: 1200px) {
     .loginTitle1 {
         font-size: 40px;
@@ -44,10 +49,7 @@
     }
 }
 
-.loginTitle2 {
-    font-size: 40px;
-    font-weight:normal;
-}
+
 
 
 

@@ -37,11 +37,11 @@ function LoadSignPage() {
 
 function SignUpForm() {
   return (
-    <div>
+    <div className="input">
       <InputForm inputTitle="First Name" />
       <InputForm inputTitle="Last Name" />
-      <InputForm inputTitle="Email" />
-      <InputForm inputTitle="Password" />
+      <InputForm inputTitle="Email" inputType="email"/>
+      <InputForm inputTitle="Password" inputType="password"/>
     </div>
   );
 }

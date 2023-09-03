@@ -46,11 +46,11 @@ function ResetForm() {
     return (
         <div>
             <InputForm inputTitle="Email Address" />
-            <div className="row input-form-group">
-                <div className="col">
+            <div className="input-form-group d-flex align-items-center">
+                <div className="flex-grow-1">
                     <InputForm inputTitle="Email Verification Code" />
                 </div>
-                <div className="col-auto">
+                <div className="d-flex align-items-center">
                     <button
                         type="button"
                         className="btn btn-outline-secondary rounded-5 get-code-btn"

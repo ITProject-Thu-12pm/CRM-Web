@@ -1,36 +1,27 @@
 import React, { useState } from "react";
 
-import './ButtonStyles.css';
-import './LoginStyles.css';
-import './SignUpStyles.css';
 import InputForm from '../components/Input.js'
 import { useNavigate } from 'react-router-dom';
 
 
 function LoadSignPage() {
   return (
-    /* 我去掉了 container*/
-    <div className="m-0 fix">
-      <div className="row">
-        <div className="col-sm-7 gx-0">
-          <img
-            src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/mountain.jpg?raw=true"
-            alt="moutain"
-            className="img-responsive log-in-img"
-          />
-        </div>
-        <hr className="d-sm-none" />
+    <div className="container-all">
 
-        <div className="col-sm-4 gx-5 pt-5 pl-3 form-floating">
-          <div className="title loginTitle1 form-floating">
-            Connecting You to
-            <div className="loginTitle2">What Matters Most</div>
+      <div className="container-left">
+        {/* need: Add our logo here! */}
+      </div>
+      <div className="container-right">
+        <form className="content">
+          <div className="header">
+            <h1 className="title loginTitle1">Connecting You to</h1>
+            <h1 className="loginTitle2">What Matters Most</h1>
           </div>
 
           <SignUpForm />
           <Authentication />
           <LogInButtons />
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -41,8 +32,8 @@ function SignUpForm() {
     <div className="input">
       <InputForm inputTitle="First Name" />
       <InputForm inputTitle="Last Name" />
-      <InputForm inputTitle="Email" inputType="email"/>
-      <InputForm inputTitle="Password" inputType="password"/>
+      <InputForm inputTitle="Email" inputType="email" />
+      <InputForm inputTitle="Password" inputType="password" />
     </div>
   );
 }
@@ -79,12 +70,12 @@ function LogInButtons() {
     navigate("/login");
   };
   return (
-    <form className="butt-position">
+    <form className="btns">
 
-      <button type="button" className="btn btn-lighter-secondary w-100 rounded-5 py-2 login">Create an account</button>
+      <button type="button" className="btn btn-lighter-secondary rounded-5 login">Create an account</button>
       <div className="already-acc">
         <span>Already have an account?</span>
-        <button type="button" className="btn btn-outline-secondary rounded-5 py-2 sign-up" onClick={handleLogInClick}>Log in</button>
+        <button type="button" className="btn-outline-secondary rounded-5 sign-up" onClick={handleLogInClick}>Log in</button>
 
       </div>
 

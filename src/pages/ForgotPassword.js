@@ -1,37 +1,29 @@
 import React, { useState } from "react";
-
-import './ButtonStyles.css';
-import './LoginStyles.css';
-import './SignUpStyles.css';
-import './ForgotPasswordStyles.css';
 import InputForm from '../components/Input.js'
+import './ForgotPasswordStyles.css';
 import { useNavigate } from 'react-router-dom';
 
 function LoadForgotPage() {
     return (
-        <div className="container m-0 fix container-fluid">
-            <div className="row">
-                <div className="col-sm-8 gx-0">
-                    <img
-                        src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/mountain.jpg?raw=true"
-                        alt="moutain"
-                        className="img-responsive log-in-img"
-                    />
-                </div>
-                <hr className="d-sm-none" />
+        <div className="container-all">
 
-                <div className="col-sm-4 gx-5 pt-5 pl-3 form-floating">
-                    <div className="title loginTitle1 form-floating">
-                        Reset password
-                    </div>
-                    <div className="content">
-                        <ResetForm />
-                        <Buttons />
-                    </div>
+            <div className="container-left">
 
-
-                </div>
             </div>
+
+            <div className="container-right">
+                <form className="content">
+                    <div className="header">
+                        <h1 className="title loginTitle1">Reset password</h1>
+                    </div>
+
+                    <ResetForm />
+                    <Buttons />
+
+                </form>
+            </div>
+            
+
         </div>
     );
 }
@@ -46,14 +38,15 @@ function ResetForm() {
     return (
         <div>
             <InputForm inputTitle="Email Address" />
-            <div className="input-form-group d-flex align-items-center">
-                <div className="flex-grow-1">
+            <div className="vertification">
+                <div className="vertification-left">
                     <InputForm inputTitle="Email Verification Code" />
                 </div>
-                <div className="d-flex align-items-center">
+                
+                <div>
                     <button
                         type="button"
-                        className="btn btn-outline-secondary rounded-5 get-code-btn"
+                        className="btn-outline-secondary rounded-5 get-code"
                         onClick={handleGetCodeClick}
                     >
                         Get Code

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-
 import InputForm from '../components/Input.js'
+import './LoginStyles.css';
+import './SignUpStyles.css';
 import { useNavigate } from 'react-router-dom';
 
 

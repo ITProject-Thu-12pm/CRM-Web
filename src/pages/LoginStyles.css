@@ -119,7 +119,7 @@
 
 /* responsive */
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
     .container-left{
         display: none;
     }

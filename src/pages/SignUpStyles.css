@@ -18,7 +18,6 @@
 .authentication-text{
     font-size: 15px;
     margin-left: 10px;
-    
 }
 
 .already-acc {
@@ -27,13 +26,11 @@
     gap: 20px;
     margin-top: 1rem;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 /* reponsive to change authentication font-weight */
 @media (max-width: 600px) {
-    .authentication-text {
-        font-weight: 500;
-    }
+   
 }
 

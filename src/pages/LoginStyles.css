@@ -1,8 +1,8 @@
 * {
     margin: 0;
-    padding: 9;
-    max-height: 630px;
-}
+    padding: 0;
+    box-sizing: border-box;
+} 
 .input {
     position: relative;
     top: 40px;
@@ -28,7 +28,6 @@
     font-size: 45px;
     font-family: "Poppins";
     font-weight: 900;
-    width: 410px;
     word-wrap: "break-word";
     text-align: left;
     position: relative;

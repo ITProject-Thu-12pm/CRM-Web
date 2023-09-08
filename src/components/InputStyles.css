@@ -3,7 +3,6 @@
 
 }
 
-
 .input-form-group {
     display: flex;
     align-items: center;
@@ -12,5 +11,11 @@
 .input-box-size {
     min-width: 200px;
 }
+ /* reponsive to change input font-size */
+/* @media (max-width: 1200px) {
+    .input-font {
+        font-size: 0.8rem;
+    }
+} */
 
 

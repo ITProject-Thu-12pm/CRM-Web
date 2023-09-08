@@ -4,7 +4,7 @@ import './InputStyles.css';
 const InputForm = ({ inputTitle, inputType }) => {
     return (
         <form>
-            <div className="form-floating input-margin input-box-size">
+            <div className="form-floating input-margin input-box-size input-font">
                 <input
                     type={inputType}
                     className="form-control"

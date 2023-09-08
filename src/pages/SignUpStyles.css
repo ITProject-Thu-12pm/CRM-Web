@@ -1,3 +1,4 @@
+/* authentication */
 .authentication-container {
     position: relative;
     top: 50px;
@@ -19,9 +20,30 @@
     
 }
 
+/* authentication button */
+
+.form-check-input {
+    width: 15px; 
+    height: 15px; 
+}
+
 .butt-position {
     position: relative;
     top: 60px;
+}
+
+/* reponsive to change authentication font-size */
+@media (max-width: 1200px) {
+    .authentication-text{
+        /* position: relative;
+        left: 10px; */
+        font-size: 10px;
+        margin-left: 10px;
+    }
+    .form-check-input {
+        width: 10px; 
+        height: 10px; 
+    }
 }
 
 .already-acc {
@@ -29,7 +51,3 @@
     top: 100px;
 }
 
-.form-check-input {
-    width: 15px; 
-    height: 15px; 
-}

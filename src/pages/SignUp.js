@@ -9,9 +9,10 @@ import { useNavigate } from 'react-router-dom';
 
 function LoadSignPage() {
   return (
-    <div className="container m-0 fix">
+    /* 我去掉了 container*/
+    <div className="m-0 fix">
       <div className="row">
-        <div className="col-sm-8 gx-0">
+        <div className="col-sm-7 gx-0">
           <img
             src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/mountain.jpg?raw=true"
             alt="moutain"

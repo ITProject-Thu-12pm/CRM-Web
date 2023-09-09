@@ -15,6 +15,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
+import LoadCalendarPage from "./pages/MyCalendar";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Bar />} /> */}
        {/*  <Route path="/login" element={<Bar />} /> */}
-        <Route path="/" element={<LoadLogInPage />} />
+        <Route path="/" element={<LoadCalendarPage />} />
         <Route path="/login" element={<LoadLogInPage />} />
         <Route path="/signup" element={<LoadSignPage />} />
         <Route path="/forgot" element={<LoadForgotPage />} />

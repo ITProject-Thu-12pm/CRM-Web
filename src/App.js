@@ -30,10 +30,10 @@ function App() {
       {/* <SideBar /> */}
     <Router>
       <Routes>
+        {/* <Route path="/" element={<Bar />} /> */}
+       {/*  <Route path="/login" element={<Bar />} /> */}
         <Route path="/" element={<LoadLogInPage />} />
-        <Route path="/bar" element={<Bar />} />
         <Route path="/login" element={<LoadLogInPage />} />
-        <Route path="/signout" element={<LoadLogInPage />} />
         <Route path="/signup" element={<LoadSignPage />} />
         <Route path="/forgot" element={<LoadForgotPage />} />
       </Routes>

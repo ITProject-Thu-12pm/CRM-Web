@@ -8,7 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SideBar from "./components/SideBar";
 import LoadLogInPage from "./pages/LogIn";
 import LoadSignPage from "./pages/SignUp";
-import LoadForgotPage from "./pages/ResetPassword";
+import LoadForgotPage from "./pages/ForgotPassword";
+import Bar from "./components/Bar";
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,20 +25,19 @@ function App() {
       <CardExample /> 
       <CardExample />
       <CardExample />
-
-      
-
       <CardExample /> 
       <LoadSignPage />*/}
+      {/* <SideBar /> */}
     <Router>
       <Routes>
+        {/* <Route path="/" element={<Bar />} /> */}
+       {/*  <Route path="/login" element={<Bar />} /> */}
         <Route path="/" element={<LoadLogInPage />} />
         <Route path="/login" element={<LoadLogInPage />} />
         <Route path="/signup" element={<LoadSignPage />} />
         <Route path="/forgot" element={<LoadForgotPage />} />
       </Routes>
-    </Router>
-
+    </Router> 
 
     </div>
   );

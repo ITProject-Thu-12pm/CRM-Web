@@ -63,7 +63,7 @@ function Buttons() {
 
       <div className="new-acc">
         <span>Don't have an account?</span>
-        <button type="button" className="btn-outline-secondary rounded-5 sign-up" onClick={handleSignInClick}>Sign up</button>
+        <button type="button" className="btn-outline-secondary rounded-5 sign-up" onClick={handleSignUpClick}>Sign up</button>
 
       </div>
 

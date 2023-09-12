@@ -51,6 +51,10 @@ function Buttons() {
     navigate("/signup");
   };
 
+  const handleLoginClick = () => {
+    navigate("/profile");
+  };
+
   const handleForgotClick = () => {
     navigate("/forgot");
   };
@@ -58,7 +62,7 @@ function Buttons() {
   return (
     <div className="btns">
 
-      <button type="button" className="btn-lighter-secondary rounded-5 btn login">Log in</button>
+      <button type="button" className="btn-lighter-secondary rounded-5 btn login" onClick={handleLoginClick}>Log in</button>
       <button type="button" className="rounded-5 btn forgot-pass" onClick={handleForgotClick}>Forgot password?</button>
 
       <div className="new-acc">

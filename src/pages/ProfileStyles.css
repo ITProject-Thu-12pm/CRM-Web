@@ -1,0 +1,13 @@
+.parent {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-left: 1rem;
+}
+
+.div2 {
+    grid-area: 1 / 2 / 6 / 6;
+}

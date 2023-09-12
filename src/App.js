@@ -15,6 +15,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
+import LoadProfilePage from "./pages/Profile";
 
 function App() {
   return (
@@ -30,12 +31,11 @@ function App() {
       {/* <SideBar /> */}
     <Router>
       <Routes>
-        {/* <Route path="/" element={<Bar />} /> */}
-       {/*  <Route path="/login" element={<Bar />} /> */}
         <Route path="/" element={<LoadLogInPage />} />
         <Route path="/login" element={<LoadLogInPage />} />
         <Route path="/signup" element={<LoadSignPage />} />
         <Route path="/forgot" element={<LoadForgotPage />} />
+        <Route path="/profile" element={<LoadProfilePage />} /> 
       </Routes>
     </Router> 
 

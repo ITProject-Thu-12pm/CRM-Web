@@ -10,6 +10,7 @@ const InputForm = ({ inputTitle, inputType }) => {
                     className="form-control"
                     id="floatingInput"
                     placeholder="name@example.com"
+                    autocomplete="off"
                 />
                 <label for="floatingInput">{inputTitle}</label>
             </div>

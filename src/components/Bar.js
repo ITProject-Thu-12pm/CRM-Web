@@ -10,9 +10,9 @@ function SideBar() {
     navigate("/signout");
   };
     return (
-        <div className="container-fluid sidebar-container">
+        <div>
             {/* sidebar col */}
-            <div className="all">
+            
                 {/* image and mycircle */}
                 <div className="my-circles">
                     <a class="navbar-brand" href="/" aria-label="MyCircles">
@@ -26,15 +26,15 @@ function SideBar() {
                 </div>
 
                 {/* button */}
-                <div>
-                    <Button buttonTitle="Dashboard" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/dashboard.png?raw=true" />
-                    <Button buttonTitle="Contacts" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-square.png?raw=true" />
-                    <Button buttonTitle="Todo" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/Check.png?raw=true" />
-                    <Button buttonTitle="Calendar" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/Calendar.png?raw=true" />
+                <div className="btns">
+                <Button buttonTitle="Dashboard" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/dashboard.png?raw=true" />
+                <Button buttonTitle="Contacts" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-square.png?raw=true" />
+                <Button buttonTitle="Todo" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/Check.png?raw=true" />
+                <Button buttonTitle="Calendar" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/Calendar.png?raw=true" />
                 </div>
 
                 {/* profile dropdown menu */}
-                <div className="dropdown mt-3 profile">
+                <div className="dropdown profile">
                     <a
                         href="#"
                         className="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
@@ -58,25 +58,25 @@ function SideBar() {
                     </ul>
                 </div>
 
-            </div>
+            
+            
         </div>
     );
 }
 
 const Button = ({ buttonTitle, iconSrc }) => {
     return (
-        <form>
-            <div className="form-floating">
-                <button
-                    type="button"
-                    className="btn btn-outline-secondary rounded-5 d-flex align-items-center remove-default-btn-style button-style"
-                /* onClick={handleGetCodeClick} */
-                >
-                    <img src={iconSrc} alt="Icon" className="me-2 icon-img" />
-                    <span className="button-title">{buttonTitle}</span>
-                </button>
-            </div>
-        </form>
+
+        <button
+            type="button"
+            className="btn btn-outline-secondary align-items-center"
+        /* onClick={handleGetCodeClick} */
+        >
+            <img src={iconSrc} alt="Icon" className="me-2" />
+            <span>{buttonTitle}</span>
+        </button>
+
+
     );
 }
 

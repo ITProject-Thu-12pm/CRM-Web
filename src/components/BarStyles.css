@@ -1,71 +1,91 @@
 /* whole container */
-.all {
-    width: 200px;
-    height: 100vh;
-    max-height: 100vh; /* fix bug in * loginstyles */
+
+
+.div1 {
+    grid-area: 1 / 1 / 6 / 2;
     box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
-    
 }
-.sidebar-container {
-    width: 250px;
-    margin: 0;
-    display: flex; /* Use flexbox to manage layout */
-    /* overflow: hidden; */
+
+
+
+/* my circle */
+.my-circles {
+    display: flex;
+    align-items: center;
+    
+    margin-right: 0.5rem;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    padding: 0;
 }
 
 /* icon */
 .title-img {
     padding: 0;
     width: 50px;
-    
+
 }
+
 h5 {
     font-size: 30px;
     display: inline;
     margin: 0;
 }
 
-/* button menu */
-.my-circles {
+/* btns */
+.btns {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: -30px;
-    margin-top: 15px;
-    margin-bottom: 40px;
-    padding: 0;
+    flex-direction: column;
+    align-items: self-start;
+    gap: 2rem;
+   
+    
 }
 
-/* singl button */
-.remove-default-btn-style {
-    background-color: transparent !important; /* Important to override Bootstrap styles */
-    color: inherit !important; /* Use the same color as normal state */
-    border-color: transparent !important;
+.btn {
+    display: block;
+    outline: none;
+    border: none;
+    cursor: pointer;
+   
 }
 
-.icon-img {
+.btn img {
     height: 20px;
     width: auto;
+    vertical-align: middle;
 }
-.button-style {
-    margin-bottom: 20px;
-}
-.button-title{
+
+.btn span {
     font-size: 20px;
+    vertical-align: middle;
     color: #9197B3;
 }
 
+
+/* singl button */
+.remove-default-btn-style {
+    background-color: transparent !important;
+    /* Important to override Bootstrap styles */
+    color: inherit !important;
+    /* Use the same color as normal state */
+    border-color: transparent !important;
+}
+
+
 /* drop down menu */
+.profile {
+    margin-top: 5rem;
+    margin-left: 0.5rem;
+}
+
+
 .avatar {
     width: 35px;
     height: 35px;
 }
+
 .user-name {
     font-size: 20px;
 }
 
-.profile {
-    position: relative;
-    top: 50px;
-    left: 10px;
-}

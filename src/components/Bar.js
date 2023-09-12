@@ -12,7 +12,6 @@ function SideBar() {
     return (
         <div>
             {/* sidebar col */}
-            
                 {/* image and mycircle */}
                 <div className="my-circles">
                     <a class="navbar-brand" href="/" aria-label="MyCircles">

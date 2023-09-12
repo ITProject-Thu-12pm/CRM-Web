@@ -1,13 +1,30 @@
 .parent {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1fr 8fr;
+    grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     margin-left: 1rem;
 }
 
 .div2 {
-    grid-area: 1 / 2 / 6 / 6;
+    grid-area: 1 / 2 / 6 / 7;
 }
+
+.profile-btns {
+    gap: 2rem;;
+    justify-content: flex-end;
+}
+
+.profile-btns .btn {
+    width: 10rem;
+}
+
+.btn-edit {
+    background-color: #684ccd
+}
+.btn-edit:hover {
+    background-color: #5932EA
+}
+

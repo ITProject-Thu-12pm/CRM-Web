@@ -30,44 +30,67 @@ function LoadProfilePage() {
             </div>
 
 
-            <div className="div2">
+            <div className="div2 d-flex align-items-center justify-content-center">
                 <form className="content">
 
                     {/* avatar */}
                     <div className="text-center mb-4">
-                        <img src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true" alt="Avatar" className="rounded-circle" width="100" />
+                        <img src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true" alt="Avatar" className="rounded-circle" width="150" />
                     </div>
 
                     {/* name */}
-                    <InputFormProfile inputTitle="First Name" inputContent={firstName} inputType="text" setInputContent={setFirstName} isEditing={isEditing} />
-                    <InputFormProfile inputTitle="Last Name" inputContent={lastName} inputType="text" setInputContent={setLastName} isEditing={isEditing} />
+                    <div className='row'>
+                        <div className='col-md-6'>
+                            <InputFormProfile inputTitle="First Name" inputContent={firstName} inputType="text" setInputContent={setFirstName} isEditing={isEditing} />
+                        </div>
+                        <div className='col-md-6'>
+                            <InputFormProfile inputTitle="Last Name" inputContent={lastName} inputType="text" setInputContent={setLastName} isEditing={isEditing} />
+                        </div>
+                    </div>
 
                     {/* address */}
                     <InputFormProfile inputTitle="Address" inputContent={address} inputType="text" setInputContent={setAddress} isEditing={isEditing} />
                     <div className="row">
-                        <InputFormAddress inputTitle="City" inputContent={city} inputType="text" setInputContent={setCity} isEditing={isEditing} />
-                        <InputFormAddress inputTitle="State" inputContent={state} inputType="text" setInputContent={setState} isEditing={isEditing} />
-                        <InputFormAddress inputTitle="Zip Code" inputContent={zipCode} inputType="text" setInputContent={setZipCode} isEditing={isEditing} />
-
-                        {/* contacts */}
+                        <div className='col-md-4'>
+                            <InputFormProfile inputTitle="City" inputContent={city} inputType="text" setInputContent={setCity} isEditing={isEditing} />
+                        </div>
+                        <div className='col-md-4'>
+                            <InputFormProfile inputTitle="State" inputContent={state} inputType="text" setInputContent={setState} isEditing={isEditing} />
+                        </div>
+                        <div className='col-md-4'>
+                            <InputFormProfile inputTitle="Zip Code" inputContent={zipCode} inputType="text" setInputContent={setZipCode} isEditing={isEditing} />
+                        </div>
                     </div>
-                    <InputFormProfile inputTitle="Email" inputContent={email} inputType="email" setInputContent={setEmail} isEditing={isEditing} />
-                    <InputFormProfile inputTitle="Phone" inputContent={phone} inputType="tel" setInputContent={setPhone} isEditing={isEditing} />
 
-                    {/* DOB */}
-                    <DateInput
-                        inputTitle="Date of Birth"
-                        selectedDate={dob}
-                        setSelectedDate={setDob}
-                        isEditing={isEditing}
-                    />
-                    
-
-                    {/* password */}
-                    <div className="mb-3">
-                        <label className="form-label">Password:</label>
-                        <a href="/reset-password" className="btn btn-link">Click to reset password</a>
+                    {/* contacts */}
+                    <div className='row'>
+                        <div className='col-md-6'>
+                            <InputFormProfile inputTitle="Email" inputContent={email} inputType="email" setInputContent={setEmail} isEditing={isEditing} />
+                        </div>
+                        <div className='col-md-6'>
+                            <InputFormProfile inputTitle="Phone" inputContent={phone} inputType="tel" setInputContent={setPhone} isEditing={isEditing} />
+                        </div>
                     </div>
+
+                    {/* DOB & Password*/}
+                    <div className='row'>
+                        <div className='col-md-6'>
+                            <DateInput
+                                inputTitle="Date of Birth"
+                                selectedDate={dob}
+                                setSelectedDate={setDob}
+                                isEditing={isEditing}
+                            />
+                        </div>
+                        <div className='col-md-6'>
+                            {/* password */}
+                            <div className="mb-3">
+                                <label className="form-label">Password:</label>
+                                <a href="/reset-password" className="btn btn-link">Click to reset password</a>
+                            </div>
+                        </div>
+                    </div>
+
 
                     {/* edit and log-out */}
                     {/* <div className="d-flex justify-content-between">
@@ -75,15 +98,15 @@ function LoadProfilePage() {
                         <button className="btn btn-secondary">Log out</button>
                     </div> */}
 
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex profile-btns">
                         <button
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-primary rounded-5 btn-edit"
                             onClick={handleEditToggle}
                         >
                             {isEditing ? 'Save' : 'Edit'}
                         </button>
-                        <button className="btn btn-secondary">Log out</button>
+                        <button className="btn">Log out</button>
                     </div>
                 </form>
             </div>
@@ -102,28 +125,6 @@ function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent
 
     return (
         <div className="mb-3">
-            <label className="form-label">{inputTitle}</label>
-            <input
-                type={inputType}
-                className="form-control"
-                value={inputContent}
-                onChange={handleChange}
-                readOnly={!isEditing}
-            />
-        </div>
-    );
-}
-
-function InputFormAddress({ inputTitle, inputContent, inputType, setInputContent, isEditing }) {
-
-    const handleChange = (e) => {
-        if (setInputContent) {
-            setInputContent(e.target.value);
-        }
-    };
-
-    return (
-        <div className="col-md-4 mb-3">
             <label className="form-label">{inputTitle}</label>
             <input
                 type={inputType}

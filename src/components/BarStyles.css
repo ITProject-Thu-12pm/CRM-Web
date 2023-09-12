@@ -38,7 +38,6 @@ h5 {
     flex-direction: column;
     align-items: self-start;
     gap: 2rem;
-   
     
 }
 
@@ -51,15 +50,25 @@ h5 {
 }
 
 .btn img {
-    height: 20px;
+    height: 1.3rem;
     width: auto;
     vertical-align: middle;
 }
 
 .btn span {
-    font-size: 20px;
+    font-size: 1.3rem;
     vertical-align: middle;
     color: #9197B3;
+}
+
+@media (max-width: 700px) {
+    .btn span, h5, .user-name, .dropdown-toggle::after{
+        display: none !important;
+    }
+   
+    .btn img {
+        height: 1.5rem;
+    }
 }
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import './InputStyles.css';
 
-const InputForm = ({ inputTitle, inputType }) => {
+const InputForm = ({ inputTitle, inputType, value, onChange }) => {
     return (
         <form>
             <div className="form-floating input-margin input-box-size input-font">
@@ -9,10 +9,12 @@ const InputForm = ({ inputTitle, inputType }) => {
                     type={inputType}
                     className="form-control"
                     id="floatingInput"
-                    placeholder="name@example.com"
+                    /* placeholder="name@example.com" */
                     autocomplete="off"
+                    value={value}
+                    onChange={onChange}
                 />
-                <label for="floatingInput">{inputTitle}</label>
+                <label htmlFor="floatingInput">{inputTitle}</label>
             </div>
         </form>
     );

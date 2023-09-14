@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 import './ProfileStyles.css';
+import './ResetPasswordStyles.css'
 import SideBar from '../components/Bar.js'
-import DateInput from '../components/DateInput.js'
+import InputForm from '../components/Input.js'
 import { useNavigate } from 'react-router-dom';
 
 
 function LoadResetPage() {
-    const [firstName, setFirstName] = useState('Evano');
-    const [lastName, setLastName] = useState('Doe');
-    const [address, setAddress] = useState('1234 abc Rd');
-    const [city, setCity] = useState('Springfield');
-    const [state, setState] = useState('VIC');
-    const [zipCode, setZipCode] = useState('3000');
-    const [email, setEmail] = useState('hello@example.com');
-    const [phone, setPhone] = useState('0499966688');
-    const [dob, setDob] = useState(new Date('2001-10-10'));
 
-    const [isEditing, setIsEditing] = useState(false);
-
-    const handleEditToggle = () => {
-        setIsEditing(!isEditing);
-    };
-
+    /* navigation */
     const navigate = useNavigate();
 
     const handleResetClick = () => {
         navigate("/login");
     };
 
-    
+    /* check old password */
+    const [oldPassword, setOldPassword] = useState('');
+    const [reEnteredPassword, setReEnteredPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    /* helper func */
+    const handlePasswordCheck = () => {
+        console.log("Checking passwords...");
+
+        if (oldPassword !== reEnteredPassword) {
+            setErrorMessage('Passwords do not match!');
+        } else {
+            /* setErrorMessage(''); */
+            // Proceed with other logic, e.g., API call to update the password
+        }
+    };
 
 
     return (
@@ -38,33 +40,48 @@ function LoadResetPage() {
                 <SideBar />
             </div>
 
+            <div className="div2">
+                <div className="content">
+                    <div className="header">
+                        <h1 className="title loginTitle1">Reset Password</h1>
+                    </div>
+                    
+                    <div>
+                        <InputForm
+                            inputTitle="Enter Old Password"
+                            inputType="password"
+                            value={oldPassword}
+                            onChange={e => setOldPassword(e.target.value)}
+                            className = "input-box"
+                        />
+                        <span style={{ color: 'red', marginLeft: '1rem' }}>{errorMessage}</span>
+                    </div>
 
-            <div className="div2 d-flex align-items-center justify-content-center">
-                <h1>hello rest</h1>
+                    <div>
+                        <InputForm
+                            inputTitle="Re-enter Old Password"
+                            inputType="password"
+                            value={reEnteredPassword}
+                            onChange={e => setReEnteredPassword(e.target.value)}
+                        />
+                        <span style={{ color: 'red', marginLeft: '1rem' }}>{errorMessage}</span>
+                    </div>
+
+                    <InputForm
+                        inputTitle="enter New Password"
+                        inputType="password"
+
+                    />
+
+                    <button onClick={handlePasswordCheck}>Confirm</button>
+
+
                 </div>
 
-        </div>
-    );
-}
 
-function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent, isEditing }) {
 
-    const handleChange = (e) => {
-        if (setInputContent) {
-            setInputContent(e.target.value);
-        }
-    };
+            </div>
 
-    return (
-        <div className="mb-3">
-            <label className="form-label">{inputTitle}</label>
-            <input
-                type={inputType}
-                className="form-control input-profile"
-                value={inputContent}
-                onChange={handleChange}
-                readOnly={!isEditing}
-            />
         </div>
     );
 }

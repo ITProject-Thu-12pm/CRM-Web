@@ -3,9 +3,17 @@
 
 .div1 {
     grid-area: 1 / 1 / 6 / 2;
+    width: 250px;  /* adjust as per design needs */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;  /* if sidebar content is taller than viewport */
+    z-index: 10;  /* to ensure the sidebar is on top */
     margin-left: 1rem;
 }
+
 
 
 
@@ -39,7 +47,7 @@ h5 {
     flex-direction: column;
     align-items: self-start;
     gap: 2rem;
-    
+
 }
 
 .btn {
@@ -47,7 +55,7 @@ h5 {
     outline: none;
     border: none;
     cursor: pointer;
-   
+
 }
 
 .btn img {
@@ -63,18 +71,31 @@ h5 {
 }
 
 @media (max-width: 600px) {
+    .div1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 60px;  /* Adjust this value based on your design needs */
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 11;  /* Keeping it above other elements */
+    }
+
     .my-circles {
         margin-left: -0.2rem;
     }
 
-    .btn span, h5, .user-name, .dropdown-toggle::after{
+    .btn span,
+    h5,
+    .user-name,
+    .dropdown-toggle::after {
         display: none !important;
     }
-   
+
     .btn img {
         height: 1.5rem;
     }
-    
+
 }
 
 
@@ -111,20 +132,23 @@ h5 {
 
 /* This ensures that the user-name and the dropdown arrow are on the same line */
 .dropdown-toggle .user-name {
-    display: inline-block; 
-    vertical-align: middle; 
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* This will apply the desired background color to the dropdown arrow when on the profile page */
-.active-profile > a.dropdown-toggle::after {
-    content: '\25BC';  /* This is a downward pointing arrow symbol */
-    background-color: #5932EA; /* Desired background color */
-    padding: 0.25em 0.5em; /* Adjust padding as needed */
-    border-radius: 4px; /* Optional: to give rounded corners to the background */
-    color: white; /* Arrow color, adjust if needed */
-    margin-left: 5px; /* Spacing between the username and arrow, adjust if needed */
+.active-profile>a.dropdown-toggle::after {
+    content: '\25BC';
+    /* This is a downward pointing arrow symbol */
+    background-color: #5932EA;
+    /* Desired background color */
+    padding: 0.25em 0.5em;
+    /* Adjust padding as needed */
+    border-radius: 4px;
+    /* Optional: to give rounded corners to the background */
+    color: white;
+    /* Arrow color, adjust if needed */
+    margin-left: 5px;
+    /* Spacing between the username and arrow, adjust if needed */
     border: 0;
 }
-
-
-

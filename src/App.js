@@ -9,6 +9,7 @@ import SideBar from "./components/SideBar";
 import LoadLogInPage from "./pages/LogIn";
 import LoadSignPage from "./pages/SignUp";
 import LoadForgotPage from "./pages/ForgotPassword";
+import LoadResetPage from "./pages/ResetPassword";
 import Bar from "./components/Bar";
 import {
   BrowserRouter as Router,
@@ -36,6 +37,7 @@ function App() {
         <Route path="/signup" element={<LoadSignPage />} />
         <Route path="/forgot" element={<LoadForgotPage />} />
         <Route path="/profile" element={<LoadProfilePage />} /> 
+        <Route path="/reset" element={<LoadResetPage />} /> 
       </Routes>
     </Router> 
 

@@ -13,7 +13,7 @@ function DateInput({ inputTitle, selectedDate, setSelectedDate, isEditing }) {
                     onChange={date => setSelectedDate(date)}
                     disabled={!isEditing}
                     dateFormat="dd/MM/yyyy"
-                    className="form-control"
+                    className="form-control input-profile"
                 />
             </div>
         </div>

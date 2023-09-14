@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ProfileStyles.css';
 import SideBar from '../components/Bar.js'
 import DateInput from '../components/DateInput.js'
+import { useNavigate } from 'react-router-dom';
 
 
 function LoadProfilePage() {
@@ -19,6 +20,16 @@ function LoadProfilePage() {
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
+    };
+
+    const navigate = useNavigate();
+
+    const handleLogInClick = () => {
+        navigate("/login");
+    };
+
+    const handleResetClick = () => {
+        navigate("/reset");
     };
 
 
@@ -86,7 +97,7 @@ function LoadProfilePage() {
                             {/* password */}
                             <div className="mb-3">
                                 <label className="form-label">Password:</label>
-                                <a href="/reset-password" className="btn btn-link">Click to reset password</a>
+                                <button className="btn btn-link reset-pass" onClick={handleResetClick}>Click to reset password</button>
                             </div>
                         </div>
                     </div>
@@ -106,7 +117,7 @@ function LoadProfilePage() {
                         >
                             {isEditing ? 'Save' : 'Edit'}
                         </button>
-                        <button className="btn">Log out</button>
+                        <button className="btn" onClick={handleLogInClick}>Log out</button>
                     </div>
                 </form>
             </div>
@@ -128,7 +139,7 @@ function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent
             <label className="form-label">{inputTitle}</label>
             <input
                 type={inputType}
-                className="form-control"
+                className="form-control input-profile"
                 value={inputContent}
                 onChange={handleChange}
                 readOnly={!isEditing}

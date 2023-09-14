@@ -15,6 +15,10 @@ function LoadResetPage() {
         navigate("/login");
     };
 
+    const handleProfileClick = () => {
+        navigate("/profile");
+      };
+
     /* check old password */
     const [oldPassword, setOldPassword] = useState('');
     const [reEnteredPassword, setReEnteredPassword] = useState('');
@@ -30,6 +34,8 @@ function LoadResetPage() {
             /* setErrorMessage(''); */
             // Proceed with other logic, e.g., API call to update the password
         }
+
+       
     };
 
 
@@ -40,7 +46,7 @@ function LoadResetPage() {
                 <SideBar />
             </div>
 
-            <div className="div2">
+            <div className="div2 d-flex align-items-center justify-content-center">
                 <div className="content">
                     <div className="header">
                         <h1 className="title loginTitle1">Reset Password</h1>
@@ -52,7 +58,6 @@ function LoadResetPage() {
                             inputType="password"
                             value={oldPassword}
                             onChange={e => setOldPassword(e.target.value)}
-                            className = "input-box"
                         />
                         <span style={{ color: 'red', marginLeft: '1rem' }}>{errorMessage}</span>
                     </div>
@@ -73,7 +78,12 @@ function LoadResetPage() {
 
                     />
 
-                    <button onClick={handlePasswordCheck}>Confirm</button>
+                    <div className="d-flex profile-btns">
+                        <button className='btn' onClick={handleProfileClick}>Cancel</button>
+                        <button className='btn btn-primary rounded-5 btn-edit' onClick={handlePasswordCheck}>Confirm</button>
+                        
+                    </div>
+                   
 
 
                 </div>

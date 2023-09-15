@@ -1,6 +1,18 @@
 import React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+/* npm install @mui/x-data-grid */
 
 const ContactTable = ({ contacts }) => {
+    const columns = [
+        { field: 'name', headerName: 'Name', flex: 1 },
+        { field: 'like', headerName: 'Like', flex: 1, renderCell: (params) => <button>{params.value ? "❤️" : "🤍"}</button> },
+        { field: 'tags', headerName: 'Tags', flex: 1 },
+        { field: 'phone', headerName: 'Phone', flex: 1 },
+        { field: 'email', headerName: 'Email', flex: 1 },
+        { field: 'status', headerName: 'Status', flex: 1 }
+    ];
+
+
     return (
         <div>
             <div className="d-flex justify-content-between align-items-center mb-2">
@@ -10,30 +22,15 @@ const ContactTable = ({ contacts }) => {
                     <input type="text" placeholder="Search" />
                 </div>
             </div>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Like</th>
-                        <th>Tags</th>
-                        <th>Phone Number</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {contacts.map(contact => (
-                        <tr key={contact.id}>
-                            <td>{contact.name}</td>
-                            <td>{/* Add like button here */}</td>
-                            <td>{contact.tags}</td>
-                            <td>{contact.phone}</td>
-                            <td>{contact.email}</td>
-                            <td>{contact.status}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div style={{ height: 400, width: '100%' }}>
+                <DataGrid
+                    rows={contacts}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5,10]}
+                    checkboxSelection
+                />
+            </div>
         </div>
     );
 }

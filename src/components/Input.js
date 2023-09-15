@@ -1,4 +1,5 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './InputStyles.css';
 
 const InputForm = ({ inputTitle, inputType, value, onChange }) => {
@@ -9,7 +10,7 @@ const InputForm = ({ inputTitle, inputType, value, onChange }) => {
                     type={inputType}
                     className="form-control"
                     id="floatingInput"
-                    /* placeholder="name@example.com" */
+                    placeholder="name@example.com"
                     autocomplete="off"
                     value={value}
                     onChange={onChange}

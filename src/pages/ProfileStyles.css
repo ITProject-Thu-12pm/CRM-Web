@@ -59,7 +59,12 @@
     text-decoration: none; /* This removes the underline on focus for the link */
 }
 
-.input-profile[disabled], .input-profile[readonly]{
+.input-profile[disabled], 
+.input-profile[readonly]{
+    background-color: #F6FAFD;
+}
+
+input-profile[disabled] + label, .input-profile[readonly] + label {
     background-color: #F6FAFD;
 }
 

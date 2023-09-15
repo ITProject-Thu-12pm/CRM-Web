@@ -4,6 +4,7 @@ import './ResetPasswordStyles.css'
 import SideBar from '../components/Bar.js'
 import InputForm from '../components/Input.js'
 import { useNavigate } from 'react-router-dom';
+import PriorityHighRoundedIcon from '@mui/icons-material/PriorityHighRounded';
 
 
 function LoadResetPage() {
@@ -17,7 +18,7 @@ function LoadResetPage() {
 
     const handleProfileClick = () => {
         navigate("/profile");
-      };
+    };
 
     /* check old password */
     const [oldPassword, setOldPassword] = useState('');
@@ -29,13 +30,23 @@ function LoadResetPage() {
         console.log("Checking passwords...");
 
         if (oldPassword !== reEnteredPassword) {
-            setErrorMessage('Passwords do not match!');
+            setErrorMessage('Passwords do not match');
         } else {
             /* setErrorMessage(''); */
             // Proceed with other logic, e.g., API call to update the password
         }
+    };
 
-       
+    const checkOldPass = () => {
+        if (errorMessage) {
+            return (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <PriorityHighRoundedIcon fontSize="small" style={{ color: 'red' }} />
+                    <span style={{ color: 'red' }}>{errorMessage}</span>
+                </div>
+            );
+        }
+        return null;
     };
 
 
@@ -51,7 +62,7 @@ function LoadResetPage() {
                     <div className="header">
                         <h1 className="title loginTitle1">Reset Password</h1>
                     </div>
-                    
+
                     <div>
                         <InputForm
                             inputTitle="Enter Old Password"
@@ -59,7 +70,8 @@ function LoadResetPage() {
                             value={oldPassword}
                             onChange={e => setOldPassword(e.target.value)}
                         />
-                        <span style={{ color: 'red', marginLeft: '1rem' }}>{errorMessage}</span>
+                        {checkOldPass()}
+
                     </div>
 
                     <div>
@@ -69,7 +81,7 @@ function LoadResetPage() {
                             value={reEnteredPassword}
                             onChange={e => setReEnteredPassword(e.target.value)}
                         />
-                        <span style={{ color: 'red', marginLeft: '1rem' }}>{errorMessage}</span>
+                        {checkOldPass()}
                     </div>
 
                     <InputForm
@@ -81,19 +93,16 @@ function LoadResetPage() {
                     <div className="d-flex profile-btns">
                         <button className='btn' onClick={handleProfileClick}>Cancel</button>
                         <button className='btn btn-primary rounded-5 btn-edit' onClick={handlePasswordCheck}>Confirm</button>
-                        
+
                     </div>
-                   
-
-
                 </div>
-
-
-
             </div>
-
         </div>
     );
+}
+
+function checkOldPassword() {
+    
 }
 
 export default LoadResetPage;

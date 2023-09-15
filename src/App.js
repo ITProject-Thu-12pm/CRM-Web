@@ -10,6 +10,8 @@ import LoadLogInPage from "./pages/LogIn";
 import LoadSignPage from "./pages/SignUp";
 import LoadForgotPage from "./pages/ForgotPassword";
 import LoadResetPage from "./pages/ResetPassword";
+import Contacts from './pages/Contacts/Contact';
+
 import Bar from "./components/Bar";
 import {
   BrowserRouter as Router,
@@ -36,6 +38,7 @@ function App() {
         <Route path="/login" element={<LoadLogInPage />} />
         <Route path="/signup" element={<LoadSignPage />} />
         <Route path="/forgot" element={<LoadForgotPage />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="/profile" element={<LoadProfilePage />} /> 
         <Route path="/reset" element={<LoadResetPage />} /> 
       </Routes>

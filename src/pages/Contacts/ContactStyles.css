@@ -1,13 +1,16 @@
 .container-contact {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 3fr 8fr;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch; 
+    min-height: 100vh; 
     grid-column-gap: 2rem;
     grid-row-gap: 2rem;
-    margin: 2rem 5rem 0rem 5rem;
+    margin: 2rem 5rem 2rem 5rem;
 }
 
 .contacts-cards {
+    width: 100%;
     border-radius: 10px;
     background: #ffffff;
     box-shadow: 5px 5px 10px #bfbfbf,
@@ -15,32 +18,41 @@
 }
 
 .greeting {
-    grid-area: 1 / 1 / 2 / 2;
+    flex-grow:1;
 }
 
 .summary {
-    grid-area: 2 / 1 / 3 / 2;
+    flex-grow:5;
+    display: flex;
+    flex-direction: column;
 }
 
 .table {
-    grid-area: 3 / 1 / 6 / 2;
+    flex-grow:8;
 }
 
+
 /* contacts */
+
 .right--side-bg {
     background-color: #F2EFFF;
 }
 
+
 /* greeting */
+
 .greeting-icon {
     margin-left: 8px;
-    width: 3rem;
+    width: 2rem;
 }
 
+
 /* summary */
+
 .summary-container {
+    flex: 1;
     display: flex;
-    
+    flex-wrap: wrap;
     justify-content: center; /* Horizontally center the content */
     align-items: center;     /* Vertically center the content */
     height: 100%; 
@@ -66,4 +78,9 @@
 .summary-second-text {
     font-size: 2rem;
     font-weight: 500;
+}
+
+/* table */
+.MuiToolbar-root p {
+    margin-bottom: 0;
 }

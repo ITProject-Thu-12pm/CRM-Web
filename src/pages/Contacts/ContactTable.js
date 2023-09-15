@@ -21,6 +21,7 @@ const ContactTable = ({ contacts }) => {
                     <button className="btn btn-primary mr-2">+ Add New Contact</button>
                     <input type="text" placeholder="Search" />
                 </div>
+                
             </div>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
@@ -28,9 +29,9 @@ const ContactTable = ({ contacts }) => {
                     columns={columns}
                     initialState={{
                         pagination: {
-                          paginationModel: { page: 0, pageSize: 5 },
+                            paginationModel: { page: 0, pageSize: 5 },
                         },
-                      }}
+                    }}
                     pageSizeOptions={[5, 10, 20]}
                     checkboxSelection
                 />

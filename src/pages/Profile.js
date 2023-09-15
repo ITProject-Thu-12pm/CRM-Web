@@ -95,8 +95,8 @@ function LoadProfilePage() {
                         </div>
                         <div className='col-md-6'>
                             {/* password */}
-                            <div className="mb-3">
-                                <label className="form-label">Password:</label>
+                            <div className="mb-3 d-flex flex-column">
+                                <label className="form-label">Password</label>
                                 <button className="btn btn-link reset-pass" onClick={handleResetClick}>Click to reset password</button>
                             </div>
                         </div>

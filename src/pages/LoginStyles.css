@@ -50,11 +50,12 @@
 
 .content {
     width: 100%;
-    max-width: 550px;
+   /*  max-width: 550px; */
     padding: 1rem;
     display: grid;
     grid-template-columns: auto;
     gap: 1rem;
+    margin: 0 4rem 0 4rem;
 }
 
 .header {

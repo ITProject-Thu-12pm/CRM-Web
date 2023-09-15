@@ -10,14 +10,12 @@ function Contacts() {
         // Add your contacts data here
     ];
 
-
-
     return (
         <div className="parent">
             <div className='div1'>
                 <SideBar />
             </div>
-            <div className='div2'>
+            <div className='div2 right--side-bg'>
                 <div className="container-contact">
                     <div className='greeting'>
                         <Greetings username="Evano" />

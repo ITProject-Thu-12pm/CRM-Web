@@ -22,7 +22,7 @@
 .div2 {
     grid-column: 2;  /* Placing it in the second column */
     overflow-y: auto;  /* Making sure it's scrollable */
-    overflow-x: hidden;
+    overflow-x: scroll;
 }
 
 .profile-btns {
@@ -46,7 +46,9 @@
 }
 
 .reset-pass {
-    border: var(--bs-border-width) solid var(--bs-border-color);
+    border: var(--bs-border-width) solid var(--bs-border-color) !important;
+    border-radius: var(--bs-border-radius);
+    background-color: #F6FAFD;
     color: #7E92A2;
     text-decoration: none;
 }
@@ -54,8 +56,8 @@
 .reset-pass:active, .reset-pass:focus {
     border: var(--bs-border-width) solid var(--bs-border-color) !important;
     outline: none;  /* This will remove the default browser outline */
-    border: 2px solid red;
-    background-color: #e0e0e0;
+    border: 2px solid red !important;
+    background-color: #e0e0e0 !important;
     text-decoration: none; /* This removes the underline on focus for the link */
 }
 

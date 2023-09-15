@@ -9,7 +9,10 @@ function SideBar() {
     const navigate = useNavigate();
 
     const handleSignOutClick = () => {
-        navigate("/signout");
+        navigate("/login");
+    };
+    const handleProfileClick = () => {
+        navigate("/profile");
     };
 
     const location = useLocation();
@@ -56,7 +59,7 @@ function SideBar() {
                 </a>
                 <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
                     {/* Dropdown menu items */}
-                    <li><a className="dropdown-item" href="#">Profile</a></li>
+                    <li><a className="dropdown-item" href="#" onClick={handleProfileClick}>Profile</a></li>
                     <li><a className="dropdown-item" href="#">Settings</a></li>
                     <li><hr className="dropdown-divider" /></li>
                     <li><a className="dropdown-item" href="#" onClick={handleSignOutClick}>Sign Out</a></li>

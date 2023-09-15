@@ -57,12 +57,12 @@ function LoadResetPage() {
                 <SideBar />
             </div>
 
-            <div className="div2 d-flex align-items-center justify-content-center">
+            <div className="div2 d-flex">
                 <div className="content">
                     <div className="header">
                         <h1 className="title loginTitle1">Reset Password</h1>
                     </div>
-
+                    <div className='d-flex flex-column'>
                     <div>
                         <InputForm
                             inputTitle="Enter Old Password"
@@ -89,10 +89,11 @@ function LoadResetPage() {
                         inputType="password"
 
                     />
-
-                    <div className="d-flex profile-btns">
-                        <button className='btn' onClick={handleProfileClick}>Cancel</button>
-                        <button className='btn btn-primary rounded-5 btn-edit' onClick={handlePasswordCheck}>Confirm</button>
+                    </div>
+                   
+                    <div className="d-flex reset-btns align-items-end">
+                        <button className='btn reset-btn' onClick={handleProfileClick}>Cancel</button>
+                        <button className='btn reset-btn rounded-5 btn-edit' onClick={handlePasswordCheck}>Confirm</button>
 
                     </div>
                 </div>

@@ -88,3 +88,17 @@ export default [
     'end': new Date(2015, 3, 22, 2, 0, 0)
   }
 ]
+
+
+// [
+//   {
+//     "start": "2023-09-14T12:00:00Z",
+//     "end": "2023-09-14T14:00:00Z",
+//     "title": "IT Project Workshop"
+//   },
+//   {
+//     "start": "2023-09-18T14:00:00Z",
+//     "end": "2023-09-20T15:30:00Z",
+//     "title": "Lunch Time!"
+//   }
+// ]

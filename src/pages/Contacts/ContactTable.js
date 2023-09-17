@@ -1,29 +1,44 @@
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-/* npm install @mui/x-data-grid */
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
 
 const ContactTable = ({ contacts }) => {
     const columns = [
-        { field: 'name', headerName: 'Name', flex: 1 },
-        { field: 'like', headerName: 'Like', flex: 1, renderCell: (params) => <button>{params.value ? "❤️" : "🤍"}</button> },
+        {
+            field: 'name',
+            headerName: 'Name',
+            flex: 1,
+            renderCell: (params) => (
+                <Link to={`/contacts/${params.row.id}`}>
+                    {params.value}
+                </Link>
+            ),
+        },
         { field: 'tags', headerName: 'Tags', flex: 1 },
         { field: 'phone', headerName: 'Phone', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
+        {
+            field: 'address',
+            headerName: 'Address',
+            flex: 2,
+            valueGetter: (params) => {
+                const addr = params.row.address;
+                return `${addr.streetAddress}, ${addr.city}, ${addr.state} ${addr.postcode}`;
+            }
+        },
+        { field: 'dob', headerName: 'DOB', flex: 1 },
+        { field: 'gender', headerName: 'Gender', flex: 1 },
         { field: 'status', headerName: 'Status', flex: 1 }
     ];
-
 
     return (
         <div>
             <div className="d-flex justify-content-between align-items-center mb-2">
                 <h3>All Contacts</h3>
-                <div>
-                    <button className="btn btn-primary mr-2">+ Add New Contact</button>
-                    <input type="text" placeholder="Search" />
-                </div>
-                
+                <button className="btn add-contact-btn btn-primary mr-2">+ Add New Contact</button>
             </div>
-            <div style={{ height: 400, width: '100%' }}>
+            <Box sx={{ height: '100%', width: '100%' }}>
                 <DataGrid
                     rows={contacts}
                     columns={columns}
@@ -34,8 +49,16 @@ const ContactTable = ({ contacts }) => {
                     }}
                     pageSizeOptions={[5, 10, 20]}
                     checkboxSelection
+                    disableColumnSelector
+                    disableColumnMenu={true}
+                    slots={{ toolbar: GridToolbar }}
+                    slotProps={{
+                        toolbar: {
+                            showQuickFilter: true,
+                        },
+                    }}
                 />
-            </div>
+            </Box>
         </div>
     );
 }

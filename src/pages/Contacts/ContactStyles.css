@@ -11,7 +11,7 @@
 
 .contacts-cards {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 15px;
     background: #ffffff;
     box-shadow: 5px 5px 10px #bfbfbf,
         -5px -5px 10px #ffffff;
@@ -56,6 +56,8 @@
     justify-content: center; /* Horizontally center the content */
     align-items: center;     /* Vertically center the content */
     height: 100%; 
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 
 }
 
@@ -81,6 +83,12 @@
 }
 
 /* table */
+.add-contact-btn {
+    display: inline;
+    margin-right: 1rem;
+}
+
 .MuiToolbar-root p {
     margin-bottom: 0;
 }
+

@@ -1,0 +1,114 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "tags": "Friend",
+        "phone": "123-456-7890",
+        "email": "john.doe@example.com",
+        "address": {
+            "streetAddress": "123 Elm St",
+            "city": "Springfield",
+            "state": "VIC",
+            "postcode": "12345"
+        },
+        "dob": "01/01/1980",
+        "status": "Active",
+        "gender": "M"
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "tags": "Colleague",
+        "phone": "987-654-3210",
+        "email": "jane.smith@example.com",
+        "address": {
+            "streetAddress": "123 Elm St",
+            "city": "Springfield",
+            "state": "VIC",
+            "postcode": "12345"
+        },
+        "dob": "01/01/1980",
+        "status": "Inactive",
+        "gender": "M"
+    },
+    {
+        "id": 3,
+        "name": "Alice Johnson",
+        "tags": "Family",
+        "phone": "456-789-0123",
+        "email": "alice.johnson@example.com",
+        "address": {
+            "streetAddress": "123 Elm St",
+            "city": "Springfield",
+            "state": "VIC",
+            "postcode": "12345"
+        },
+        "dob": "01/01/1980",
+        "status": "Active",
+        "gender": "M"
+    },
+    {
+        "id": 4,
+        "name": "Bob Williams",
+        "tags": "Friend",
+        "phone": "789-012-3456",
+        "email": "bob.williams@example.com",
+        "address": {
+            "streetAddress": "123 Elm St",
+            "city": "Springfield",
+            "state": "VIC",
+            "postcode": "12345"
+        },
+        "dob": "01/01/1980",
+        "status": "Active",
+        "gender": "F"
+    },
+    {
+        "id": 5,
+        "name": "Charlie Brown",
+        "tags": "Neighbor",
+        "phone": "012-345-6789",
+        "email": "charlie.brown@example.com",
+        "address": {
+            "streetAddress": "789 Elm St",
+            "city": "Springfield",
+            "state": "VIC",
+            "postcode": "12345"
+        },
+        "dob": "01/01/1980",
+        "status": "Inactive",
+        "gender": "Others"
+    },
+    {
+        "id": 6,
+        "name": "Charlie Brown",
+        "tags": "Neighbor",
+        "phone": "012-345-6789",
+        "email": "charlie.brown@example.com",
+        "address": {
+            "streetAddress": "126 Elm St",
+            "city": "Springfield",
+            "state": "VIC",
+            "postcode": "12345"
+        },
+        "dob": "01/01/1980",
+        "status": "Inactive",
+        "gender": "M"
+    },
+    {
+        "id": 7,
+        "name": "Charlie Brown",
+        "tags": "Neighbor",
+        "phone": "012-345-6789",
+        "email": "charlie.brown@example.com",
+        "address": {
+            "streetAddress": "456 Elm St",
+            "city": "Springfield",
+            "state": "VIC",
+            "postcode": "12345"
+        },
+        "dob": "01/01/1980",
+        "status": "Inactive",
+        "gender": "F"
+    }
+]

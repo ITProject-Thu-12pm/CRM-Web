@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Avatar from '@mui/material/Avatar';
 import './ProfileStyles.css';
 import SideBar from '../components/Bar.js'
 import DateInput from '../components/DateInput.js'
@@ -6,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 function LoadProfilePage() {
+    const [avatar, setAvatar] = useState("https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true");
+    const [tempAvatar, setTempAvatar] = useState(null);
     const [firstName, setFirstName] = useState('Evano');
     const [lastName, setLastName] = useState('Doe');
     const [address, setAddress] = useState('1234 abc Rd');
@@ -20,6 +23,25 @@ function LoadProfilePage() {
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
+    };
+
+    const handleAvatarChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setTempAvatar(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const saveChanges = () => {
+        if (tempAvatar) {
+            setAvatar(tempAvatar);
+            setTempAvatar(null);
+        }
+        handleEditToggle();
     };
 
     const navigate = useNavigate();
@@ -46,7 +68,12 @@ function LoadProfilePage() {
 
                     {/* avatar */}
                     <div className="text-center mb-4">
-                        <img src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true" alt="Avatar" className="rounded-circle" width="150" />
+                        <img src={isEditing && tempAvatar ? tempAvatar : avatar} alt="Avatar" className="rounded-circle profile-avatar"/>
+                        {isEditing && (
+                            <div>
+                                <input type="file" onChange={handleAvatarChange} />
+                            </div>
+                        )}
                     </div>
 
                     {/* name */}
@@ -112,8 +139,8 @@ function LoadProfilePage() {
                     <div className="d-flex profile-btns">
                         <button
                             type="button"
-                            className="btn btn-primary rounded-5 btn-edit"
-                            onClick={handleEditToggle}
+                            className="btn btn-primary rounded-5 change-color-btn"
+                            onClick={isEditing ? saveChanges : handleEditToggle}
                         >
                             {isEditing ? 'Save' : 'Edit'}
                         </button>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import '../components/ButtonStyle.css'
 import './ButtonStyles.css';
 import './LoginStyles.css';
 import InputForm from '../components/Input.js'
@@ -67,7 +67,7 @@ function Buttons() {
 
       <div className="new-acc">
         <span>Don't have an account?</span>
-        <button type="button" className="btn-outline-secondary rounded-5 sign-up" onClick={handleSignUpClick}>Sign up</button>
+        <button type="button" className="btn-outline-secondary sign-up water-button" onClick={handleSignUpClick}>Sign up</button>
 
       </div>
 

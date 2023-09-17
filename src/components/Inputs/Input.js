@@ -1,5 +1,4 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './InputStyles.css';
 
 const InputForm = ({ inputTitle, inputType, value, onChange }) => {

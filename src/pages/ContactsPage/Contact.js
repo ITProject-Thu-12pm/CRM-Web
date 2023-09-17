@@ -1,7 +1,7 @@
 import React from 'react';
-import Greetings from './Greeting';
-import Summary from './ContactSummary';
-import ContactTable from './ContactTable';
+import Greetings from '../../components/Contacts/Greeting';
+import Summary from '../../components/Contacts/ContactSummary';
+import ContactTable from '../../components/Contacts/ContactTable';
 import SideBar from '../../components/Bar.js'
 import contactsData from './ContactsInfo.json';
 import "./ContactStyles.css"

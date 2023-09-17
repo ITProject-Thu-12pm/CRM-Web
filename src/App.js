@@ -10,16 +10,16 @@ import LoadLogInPage from "./pages/LogIn";
 import LoadSignPage from "./pages/SignUp";
 import LoadForgotPage from "./pages/ForgotPassword";
 import LoadResetPage from "./pages/ResetPassword";
-import Contacts from './pages/Contacts/Contact';
-import ContactDetail from  './components/Contacts/ContactsDetails'
-
+import Contacts from './pages/ContactsPage/Contact';
+import ContactDetail from  './pages/ContactsPage/ContactsDetails'
+import LoadProfilePage from "./pages/ProfilePage/Profile";
 import Bar from "./components/Bar";
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from 'react-router-dom';
-import LoadProfilePage from "./pages/Profile";
+
 
 function App() {
   return (

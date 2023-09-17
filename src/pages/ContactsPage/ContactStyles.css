@@ -92,3 +92,6 @@
     margin-bottom: 0;
 }
 
+.fix-input-len {
+    width: 100%;
+}

@@ -54,6 +54,6 @@ right: -80%;
     background-color: #5932EA;
     
 }
-.change-color-btn:hover {
+.change-color-btn:hover, .change-color-btn:active, .change-color-btn:focus {
     background-color: #4924d0;
 }

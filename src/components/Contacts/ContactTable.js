@@ -2,13 +2,16 @@ import React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
+import { Dropdown, ButtonGroup } from 'react-bootstrap';  // Import Dropdown from react-bootstrap
+import '../ButtonStyle.css'
 
 const ContactTable = ({ contacts }) => {
     const columns = [
         {
-            field: 'name',
+            field: 'fullName',  // Use a custom field name here, which doesn't directly map to your data
             headerName: 'Name',
             flex: 1,
+            valueGetter: (params) => `${params.row.firstName} ${params.row.lastName}`, // Compute the full name here
             renderCell: (params) => (
                 <Link to={`/contacts/${params.row.id}`}>
                     {params.value}
@@ -27,18 +30,31 @@ const ContactTable = ({ contacts }) => {
                 return `${addr.streetAddress}, ${addr.city}, ${addr.state} ${addr.postcode}`;
             }
         },
-        { field: 'dob', headerName: 'DOB', flex: 1 },
-        { field: 'gender', headerName: 'Gender', flex: 1 },
+        /* { field: 'dob', headerName: 'DOB', flex: 1 }, */
         { field: 'status', headerName: 'Status', flex: 1 }
     ];
 
     return (
         <div>
+            {/* "all contacts" and drop down */}
             <div className="d-flex justify-content-between align-items-center mb-2">
                 <h3>All Contacts</h3>
-                <button className="btn add-contact-btn btn-primary mr-2">+ Add New Contact</button>
+                <ButtonGroup>
+                    <Dropdown>
+                        <Dropdown.Toggle className='change-color-btn' variant="secondary" id="dropdown-basic">
+                            Add a Contact
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#">Add by Email</Dropdown.Item>
+                            <Dropdown.Item href="#">Add manually</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </ButtonGroup>
             </div>
-            <Box sx={{ height: '100%', width: '100%' }}>
+
+            {/* table content */}
+            <Box sx={{ height: 430, width: '100%' }}>
                 <DataGrid
                     rows={contacts}
                     columns={columns}

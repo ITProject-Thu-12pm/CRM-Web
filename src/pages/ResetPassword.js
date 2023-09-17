@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './ProfileStyles.css';
+import './ProfilePage/ProfileStyles.css';
 import './ResetPasswordStyles.css'
 import SideBar from '../components/Bar.js'
-import InputForm from '../components/Input.js'
+import InputForm from '../components/Inputs/Input.js'
 import { useNavigate } from 'react-router-dom';
 import PriorityHighRoundedIcon from '@mui/icons-material/PriorityHighRounded';
 

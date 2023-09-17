@@ -1,5 +1,5 @@
 import React from 'react';
-import "./ContactStyles.css"
+
 
 const ContactSummary = ({ total, active, inactive }) => {
     return (

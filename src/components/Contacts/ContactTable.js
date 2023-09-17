@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
-import { Dropdown, ButtonGroup } from 'react-bootstrap';  // Import Dropdown from react-bootstrap
+import { Dropdown, ButtonGroup, Badge, Modal } from 'react-bootstrap'; // Import Modal from react-bootstrap
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 import '../ButtonStyle.css'
+import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const ContactTable = ({ contacts }) => {
+    /* add a tag */
+    /* unique tag */
+    const allTags = contacts.flatMap(contact => contact.tags);
+    const uniqueTags = [...new Set(allTags)];
+    const [showModal, setShowModal] = useState(false);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [currentContactTags, setCurrentContactTags] = useState([]);
+
+
+    const handleTagClick = (tags) => {
+        setSelectedTags(tags);
+        setShowModal(true);
+    };
+    const navigate = useNavigate();
+
+    const handleLogInClick = () => {
+        navigate("/login");
+    };
+    const handleSaveTags = () => {
+        navigate("/login");
+    };
+    
+
     const columns = [
         {
             field: 'fullName',  // Use a custom field name here, which doesn't directly map to your data
@@ -18,7 +46,25 @@ const ContactTable = ({ contacts }) => {
                 </Link>
             ),
         },
-        { field: 'tags', headerName: 'Tags', flex: 1 },
+        {
+            field: 'tags',
+            headerName: 'Tags',
+            flex: 1,
+            valueGetter: (params) => params.row.tags.join(', '),
+            renderCell: (params) => (
+                params.value.split(',').map(tag => (
+                    <Badge
+                        key={tag}
+                        pill
+                        className="contact-table-badge"
+                        variant="secondary"
+                        onClick={() => handleTagClick(params.row.tags)}
+                    >
+                        {tag.trim()}
+                    </Badge>
+                ))
+            ),
+        },
         { field: 'phone', headerName: 'Phone', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
         {
@@ -33,6 +79,10 @@ const ContactTable = ({ contacts }) => {
         /* { field: 'dob', headerName: 'DOB', flex: 1 }, */
         { field: 'status', headerName: 'Status', flex: 1 }
     ];
+
+    /* const allTags = contacts.reduce((acc, contact) => {
+        return acc.concat(contact.tags);
+    }, []); */
 
     return (
         <div>
@@ -75,6 +125,38 @@ const ContactTable = ({ contacts }) => {
                     }}
                 />
             </Box>
+
+           {/* Modal containing the Autocomplete for tags */}
+           <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Tags</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Autocomplete
+                        multiple
+                        id="tags-filled"
+                        options={uniqueTags}
+                        defaultValue={currentContactTags}
+                        freeSolo
+                        renderTags={(value, getTagProps) =>
+                            value.map((option, index) => (
+                                <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+                            ))
+                        }
+                        renderInput={(params) => (
+                            <TextField {...params} variant="filled" label="Tags" placeholder="Add Tag" />
+                        )}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSaveTags}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

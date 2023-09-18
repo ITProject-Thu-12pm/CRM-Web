@@ -15,24 +15,51 @@ const ContactTable = ({ contacts }) => {
     /* unique tag */
     const allTags = contacts.flatMap(contact => contact.tags);
     const uniqueTags = [...new Set(allTags)];
+    /* store tag */
+    const [currentContactId, setCurrentContactId] = useState(null);
+    const [newTags, setNewTags] = useState([]);
+
     const [showModal, setShowModal] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
     const [currentContactTags, setCurrentContactTags] = useState([]);
 
 
-    const handleTagClick = (tags) => {
+    const handleTagClick = (tags, contactId) => {
         setSelectedTags(tags);
+        setCurrentContactId(contactId);
+        setNewTags(tags); // set the initial tags when editing
         setShowModal(true);
     };
+    
     const navigate = useNavigate();
 
     const handleLogInClick = () => {
         navigate("/login");
     };
     const handleSaveTags = () => {
-        navigate("/login");
+        // Step 1: Update the local state
+        setCurrentContactTags(newTags);  // assuming `newTags` holds the updated tags
+
+        // Step 2: Update the local JSON data
+        // Find the contact in the contacts array and update its tags
+        const updatedContacts = contacts.map(contact => {
+            if (contact.id === currentContactId) {  // assuming `currentContactId` holds the ID of the contact being edited
+                return {
+                    ...contact,
+                    tags: newTags
+                };
+            }
+            return contact;
+        });
+        setContacts(updatedContacts);  // assuming you have a `setContacts` function to update state
+
+        // Step 3: Save to localStorage (optional)
+        // localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+
+        // Close the dialog after saving (if you have one open)
+        // setTagDialogOpen(false);
     };
-    
+
 
     const columns = [
         {
@@ -58,7 +85,7 @@ const ContactTable = ({ contacts }) => {
                         pill
                         className="contact-table-badge"
                         variant="secondary"
-                        onClick={() => handleTagClick(params.row.tags)}
+                        onClick={() => handleTagClick(params.row.tags, params.row.id)}
                     >
                         {tag.trim()}
                     </Badge>
@@ -126,8 +153,8 @@ const ContactTable = ({ contacts }) => {
                 />
             </Box>
 
-           {/* Modal containing the Autocomplete for tags */}
-           <Modal show={showModal} onHide={() => setShowModal(false)}>
+            {/* Modal containing the Autocomplete for tags */}
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Tags</Modal.Title>
                 </Modal.Header>
@@ -138,6 +165,7 @@ const ContactTable = ({ contacts }) => {
                         options={uniqueTags}
                         defaultValue={currentContactTags}
                         freeSolo
+                        onChange={(event, newValue) => setNewTags(newValue)}
                         renderTags={(value, getTagProps) =>
                             value.map((option, index) => (
                                 <Chip variant="outlined" label={option} {...getTagProps({ index })} />
@@ -146,6 +174,8 @@ const ContactTable = ({ contacts }) => {
                         renderInput={(params) => (
                             <TextField {...params} variant="filled" label="Tags" placeholder="Add Tag" />
                         )}
+                        
+
                     />
                 </Modal.Body>
                 <Modal.Footer>

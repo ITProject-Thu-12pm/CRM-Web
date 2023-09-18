@@ -51,9 +51,11 @@ right: -80%;
 
 /* change color */
 .change-color-btn {
-    background-color: #5932EA;
+    background-color: #5932EA !important;
+    color: white;
     
 }
 .change-color-btn:hover, .change-color-btn:active, .change-color-btn:focus {
-    background-color: #4924d0;
+    background-color: #4924d0 !important;
+    color: white;
 }

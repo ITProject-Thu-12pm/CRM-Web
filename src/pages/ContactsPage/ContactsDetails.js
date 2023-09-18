@@ -145,7 +145,7 @@ function ContactDetails() {
                             <InputFormProfile inputTitle="State" inputContent={state} inputType="text" setInputContent={setState} isEditing={isEditing} />
                         </div>
                         <div className='col-md-4'>
-                            <InputFormProfile inputTitle="Zip Code" inputContent={zipCode} inputType="text" setInputContent={setZipCode} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="Post Code" inputContent={zipCode} inputType="text" setInputContent={setZipCode} isEditing={isEditing} />
                         </div>
                     </div>
 

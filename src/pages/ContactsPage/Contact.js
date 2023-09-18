@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import Greetings from '../../components/Contacts/Greeting';
 import Summary from '../../components/Contacts/ContactSummary';
 import ContactTable from '../../components/Contacts/ContactTable';
@@ -7,7 +7,14 @@ import contactsData from './ContactsInfo.json';
 import "./ContactStyles.css"
 
 function Contacts() {
-    const contacts = contactsData; 
+    
+    let storedContacts = JSON.parse(localStorage.getItem('contactsData'));
+    if (!storedContacts) {
+        localStorage.setItem('contactsData', JSON.stringify(contactsData));
+        storedContacts = contactsData;
+    }
+    const [contacts, setContacts] = useState(storedContacts)
+    /* const contacts = contactsData;  */
 
     return (
         <div className="parent">
@@ -23,7 +30,7 @@ function Contacts() {
                         <Summary total={10} active={7} inactive={3} />
                     </div>
                     <div className='table contacts-cards'>
-                        <ContactTable contacts={contacts} />
+                    <ContactTable contacts={contacts} setContacts={setContacts} />
                     </div>
                 </div>
             </div>

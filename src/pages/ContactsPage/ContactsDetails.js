@@ -7,7 +7,7 @@ import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import { useNavigate } from 'react-router-dom';
 
-function ContactDetails({ contacts }) {
+function ContactDetails() {
     let { id } = useParams();
     const contact = contactsData.find(contact => contact.id === parseInt(id));
 
@@ -40,6 +40,8 @@ function ContactDetails({ contacts }) {
             reader.readAsDataURL(file);
         }
     };
+    const initialContacts = contactsData;
+    const [contactsList, setContactsList] = useState(initialContacts); 
 
     const saveChanges = () => {
         if (tempAvatar) {
@@ -47,6 +49,12 @@ function ContactDetails({ contacts }) {
             setTempAvatar(null);
         }
         handleEditToggle();
+        const updatedContacts = contactsList.map(c => 
+            c.id === contact.id ? {...contact, firstName, lastName} : c
+        );
+    
+        setContactsList(updatedContacts); // Update the contacts state (if you maintain it here)
+        localStorage.setItem('contactsData', JSON.stringify(updatedContacts));
     };
 
     const navigate = useNavigate();
@@ -54,6 +62,8 @@ function ContactDetails({ contacts }) {
     const handleContactClick = () => {
         navigate("/contacts");
     };
+
+ 
 
     return (
         <div className="parent">

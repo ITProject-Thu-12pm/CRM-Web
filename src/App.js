@@ -12,6 +12,7 @@ import LoadForgotPage from "./pages/ForgotPassword";
 import LoadResetPage from "./pages/ResetPassword";
 import Contacts from './pages/ContactsPage/Contact';
 import ContactDetail from  './pages/ContactsPage/ContactsDetails'
+import LoadAddContactPage from  './pages/ContactsPage/AddContactManually'
 import LoadProfilePage from "./pages/ProfilePage/Profile";
 import Bar from "./components/Bar";
 import {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/signup" element={<LoadSignPage />} />
         <Route path="/forgot" element={<LoadForgotPage />} />
         <Route path="/contacts" element={<Contacts />} />
+        <Route path="/addContact" element={<LoadAddContactPage />} />
         <Route path="/contacts/:id" element={<ContactDetail />} />
         <Route path="/profile" element={<LoadProfilePage />} /> 
         <Route path="/reset" element={<LoadResetPage />} /> 

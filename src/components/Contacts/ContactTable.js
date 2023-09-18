@@ -10,55 +10,55 @@ import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
-const ContactTable = ({ contacts }) => {
+const ContactTable = ({ contacts, setContacts }) => {
     /* add a tag */
     /* unique tag */
     const allTags = contacts.flatMap(contact => contact.tags);
     const uniqueTags = [...new Set(allTags)];
-    /* store tag */
-    const [currentContactId, setCurrentContactId] = useState(null);
-    const [newTags, setNewTags] = useState([]);
-
     const [showModal, setShowModal] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
     const [currentContactTags, setCurrentContactTags] = useState([]);
+    const [editingContactId, setEditingContactId] = useState(null);
 
+    const handleTagClick = (id, tags) => {
+        setEditingContactId(id);
 
-    const handleTagClick = (tags, contactId) => {
-        setSelectedTags(tags);
-        setCurrentContactId(contactId);
-        setNewTags(tags); // set the initial tags when editing
+        setCurrentContactTags(tags);
         setShowModal(true);
     };
-    
+    /* add a contact */
     const navigate = useNavigate();
+    const [showEmailModal, setShowEmailModal] = useState(false);
 
-    const handleLogInClick = () => {
-        navigate("/login");
+    const handleAddManullyClick = () => {
+        navigate("/addContact");
     };
-    const handleSaveTags = () => {
-        // Step 1: Update the local state
-        setCurrentContactTags(newTags);  // assuming `newTags` holds the updated tags
 
-        // Step 2: Update the local JSON data
-        // Find the contact in the contacts array and update its tags
+    const handleAddByEmailClick = () => {
+        setShowEmailModal(true);
+    };
+
+    const handleSaveTags = () => {
         const updatedContacts = contacts.map(contact => {
-            if (contact.id === currentContactId) {  // assuming `currentContactId` holds the ID of the contact being edited
-                return {
-                    ...contact,
-                    tags: newTags
-                };
+            if (contact.id === editingContactId) {
+                return { ...contact, tags: selectedTags };
             }
             return contact;
         });
-        setContacts(updatedContacts);  // assuming you have a `setContacts` function to update state
 
-        // Step 3: Save to localStorage (optional)
-        // localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+        // Log the updatedContacts here
+        console.log("Updated Contacts:", updatedContacts);
 
-        // Close the dialog after saving (if you have one open)
-        // setTagDialogOpen(false);
+        setContacts(updatedContacts); // Update the local state
+        localStorage.setItem('contactsData', JSON.stringify(updatedContacts)); // Update local storage
+
+        // Close the modal and reset the states
+        setShowModal(false);
+        setEditingContactId(null);
+        setSelectedTags([]);
+        setCurrentContactTags([]);
     };
+
 
 
     const columns = [
@@ -79,19 +79,33 @@ const ContactTable = ({ contacts }) => {
             flex: 1,
             valueGetter: (params) => params.row.tags.join(', '),
             renderCell: (params) => (
-                params.value.split(',').map(tag => (
-                    <Badge
-                        key={tag}
-                        pill
-                        className="contact-table-badge"
-                        variant="secondary"
-                        onClick={() => handleTagClick(params.row.tags, params.row.id)}
-                    >
-                        {tag.trim()}
-                    </Badge>
-                ))
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {params.value.split(',').map(tag => (
+                        tag.trim() && <Badge
+                            key={tag}
+                            pill
+                            className="contact-table-badge"
+                            variant="secondary"
+                            onClick={() => handleTagClick(params.row.id, params.row.tags)}
+                        >
+                            {tag.trim()}
+                        </Badge>
+                    ))}
+                    {params.row.tags.length === 0 && (
+                        <Badge
+                            pill
+                            className="contact-table-badge"
+                            variant="light"
+                            onClick={() => handleTagClick(params.row.id, params.row.tags)}
+                        >
+                            + Add Tag
+                        </Badge>
+                    )}
+                </div>
             ),
         },
+
+
         { field: 'phone', headerName: 'Phone', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
         {
@@ -123,12 +137,30 @@ const ContactTable = ({ contacts }) => {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#">Add by Email</Dropdown.Item>
-                            <Dropdown.Item href="#">Add manually</Dropdown.Item>
+                            <Dropdown.Item onClick={handleAddByEmailClick}>Add by Email</Dropdown.Item>
+                            <Dropdown.Item onClick={handleAddManullyClick}>Add Manually</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </ButtonGroup>
             </div>
+
+            {/* Add by Email Modal */}
+            <Modal show={showEmailModal} onHide={() => setShowEmailModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add by Email</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {/* Your content for adding by email goes here */}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowEmailModal(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary">
+                        Add
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
             {/* table content */}
             <Box sx={{ height: 430, width: '100%' }}>
@@ -165,7 +197,6 @@ const ContactTable = ({ contacts }) => {
                         options={uniqueTags}
                         defaultValue={currentContactTags}
                         freeSolo
-                        onChange={(event, newValue) => setNewTags(newValue)}
                         renderTags={(value, getTagProps) =>
                             value.map((option, index) => (
                                 <Chip variant="outlined" label={option} {...getTagProps({ index })} />
@@ -174,7 +205,10 @@ const ContactTable = ({ contacts }) => {
                         renderInput={(params) => (
                             <TextField {...params} variant="filled" label="Tags" placeholder="Add Tag" />
                         )}
-                        
+                        onChange={(event, newValue) => {
+                            console.log("Autocomplete newValue:", newValue);
+                            setSelectedTags(newValue);
+                        }}
 
                     />
                 </Modal.Body>

@@ -42,7 +42,7 @@ function App() {
         <Route path="/forgot" element={<LoadForgotPage />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/addContact" element={<LoadAddContactPage />} />
-        <Route path="/contacts/:id" element={<ContactDetail />} />
+        <Route path="/contacts/:email" element={<ContactDetail />} />
         <Route path="/profile" element={<LoadProfilePage />} /> 
         <Route path="/reset" element={<LoadResetPage />} /> 
       </Routes>

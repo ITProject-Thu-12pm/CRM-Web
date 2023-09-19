@@ -8,8 +8,8 @@ import InputFormProfile from '../../components/Inputs/InputProfile';
 import { useNavigate } from 'react-router-dom';
 
 function ContactDetails() {
-    let { id } = useParams();
-    const contact = contactsData.find(contact => contact.id === parseInt(id));
+    let { email: emailParam } = useParams();
+    const contact = contactsData.find(contact => contact.email === emailParam);
 
     const [avatar, setAvatar] = useState(contact.avatar);
     const [tempAvatar, setTempAvatar] = useState(null);
@@ -41,7 +41,7 @@ function ContactDetails() {
         }
     };
     const initialContacts = contactsData;
-    const [contactsList, setContactsList] = useState(initialContacts); 
+    const [contactsList, setContactsList] = useState(initialContacts);
 
     const saveChanges = () => {
         if (tempAvatar) {
@@ -49,10 +49,10 @@ function ContactDetails() {
             setTempAvatar(null);
         }
         handleEditToggle();
-        const updatedContacts = contactsList.map(c => 
-            c.id === contact.id ? {...contact, firstName, lastName} : c
+        const updatedContacts = contactsList.map(c =>
+            c.email === contact.email ? { ...contact, firstName, lastName } : c
         );
-    
+
         setContactsList(updatedContacts); // Update the contacts state (if you maintain it here)
         localStorage.setItem('contactsData', JSON.stringify(updatedContacts));
     };
@@ -63,7 +63,6 @@ function ContactDetails() {
         navigate("/contacts");
     };
 
- 
 
     return (
         <div className="parent">

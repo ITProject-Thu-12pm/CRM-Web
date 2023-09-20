@@ -535,6 +535,7 @@ function MyCalendar() {
     startTime: "",
     endDate: "",
     endTime: "",
+    id: ""
   });
 
   const [allEvents, setAllEvents] = useState(events);
@@ -602,113 +603,143 @@ function MyCalendar() {
   };
 
   // const [showModal, setShowModal] = useState(false);
-  // function myModal() {
+
+  function handleDeleteEvent(e) {
+    const updatedEvents = allEvents.filter(
+      (event) => event.id !== e.id
+    );
+    setAllEvents(updatedEvents);
+  }
+
+  // function handleSelectEvent(e) {
+  //   // myModal(title="Edit Event");
+  // }
+
+
+  
+
+  // function myModal(props) {
   //   return (
-  //   <div
-  //   className="modal fade"
-  //   id="staticBackdrop"
-  //   data-bs-backdrop="static"
-  //   data-bs-keyboard="false"
-  //   tabIndex="-1"
-  //   aria-labelledby="staticBackdropLabel"
-  //   aria-hidden="true"
-  // >
-  //   <div className="modal-dialog">
-  //     <div className="modal-content">
-  //       <div className="modal-header">
-  //         <h1 className="modal-title fs-5" id="staticBackdropLabel">
-  //           Add Event
-  //         </h1>
-  //         <button
-  //           type="button"
-  //           className="btn-close"
-  //           data-bs-dismiss="modal"
-  //           aria-label="Close"
-  //         ></button>
-  //       </div>
-  //       <div className="modal-body">
-  //         <div>
-  //           <div className="form-floating mb-3">
-  //             <input
-  //               type="text"
-  //               placeholder="Event Title"
-  //               id="floatingTitle"
-  //               className="form-control"
-  //               value={newEvent.title}
-  //               onChange={handleAddTitle}
-  //             />
-  //             <label htmlFor="floatingTitle">Event Title</label>
-  //           </div>
+  //     <>
+  //       <div
+  //         className="modal fade"
+  //         id="staticBackdrop"
+  //         data-bs-backdrop="static"
+  //         data-bs-keyboard="false"
+  //         tabIndex="-1"
+  //         aria-labelledby="staticBackdropLabel"
+  //         aria-hidden="true"
+  //       >
+  //         <div className="modal-dialog">
+  //           <div className="modal-content">
+  //             <div className="modal-header">
+  //               <h1 className="modal-title fs-5" id="staticBackdropLabel">
+  //                 {props.title}
+  //               </h1>
+  //               <button
+  //                 type="button"
+  //                 className="btn-close"
+  //                 data-bs-dismiss="modal"
+  //                 aria-label="Close"
+  //               ></button>
+  //             </div>
+  //             <div className="modal-body">
+  //               <div>
+  //                 <div className="form-floating mb-3">
+  //                   <input
+  //                     type="text"
+  //                     placeholder="Event Title"
+  //                     id="floatingTitle"
+  //                     className="form-control"
+  //                     value={newEvent.title}
+  //                     onChange={handleAddTitle}
+  //                   />
+  //                   <label htmlFor="floatingTitle">Event Title</label>
+  //                 </div>
 
-  //           <div className="form-floating mb-3">
-  //             <input
-  //               type="date"
-  //               placeholder="dd/mm/yyyy"
-  //               id="startDatePicker"
-  //               className="form-control"
-  //               value={newEvent.startDate}
-  //               onChange={handleAddStartDate}
-  //             />
-  //             <label htmlFor="startDatePicker">Start Date</label>
-  //           </div>
+  //                 <div className="form-floating mb-3">
+  //                   <input
+  //                     type="date"
+  //                     placeholder="dd/mm/yyyy"
+  //                     id="startDatePicker"
+  //                     className="form-control"
+  //                     value={newEvent.startDate}
+  //                     onChange={handleAddStartDate}
+  //                   />
+  //                   <label htmlFor="startDatePicker">Start Date</label>
+  //                 </div>
 
-  //           <div className="form-floating mb-3">
-  //             <input
-  //               type="time"
-  //               id="startTimePicker"
-  //               className="form-control"
-  //               value={newEvent.startTime}
-  //               onChange={handleAddStartTime}
-  //             />
-  //             <label htmlFor="startTimePicker">Start Time</label>
-  //           </div>
+  //                 <div className="form-floating mb-3">
+  //                   <input
+  //                     type="time"
+  //                     id="startTimePicker"
+  //                     className="form-control"
+  //                     value={newEvent.startTime}
+  //                     onChange={handleAddStartTime}
+  //                   />
+  //                   <label htmlFor="startTimePicker">Start Time</label>
+  //                 </div>
 
-  //           <div className="form-floating mb-3">
-  //             <input
-  //               type="date"
-  //               className="form-control"
-  //               placeholder="dd/mm/yyyy"
-  //               id="endDatePicker"
-  //               value={newEvent.endDate}
-  //               onChange={handleAddEndDate}
-  //             />
-  //             <label htmlFor="endDatePicker">End Date</label>
-  //           </div>
+  //                 <div className="form-floating mb-3">
+  //                   <input
+  //                     type="date"
+  //                     className="form-control"
+  //                     placeholder="dd/mm/yyyy"
+  //                     id="endDatePicker"
+  //                     value={newEvent.endDate}
+  //                     onChange={handleAddEndDate}
+  //                   />
+  //                   <label htmlFor="endDatePicker">End Date</label>
+  //                 </div>
 
-  //           <div className="form-floating mb-3">
-  //             <input
-  //               type="time"
-  //               id="endTimePicker"
-  //               className="form-control"
-  //               value={newEvent.endTime}
-  //               onChange={handleAddEndTime}
-  //             />
-  //             <label htmlFor="endTimePicker">End Time</label>
+  //                 <div className="form-floating mb-3">
+  //                   <input
+  //                     type="time"
+  //                     id="endTimePicker"
+  //                     className="form-control"
+  //                     value={newEvent.endTime}
+  //                     onChange={handleAddEndTime}
+  //                   />
+  //                   <label htmlFor="endTimePicker">End Time</label>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //             <div className="modal-footer">
+  //               <button
+  //                 type="button"
+  //                 className="btn btn-secondary"
+  //                 data-bs-dismiss="modal"
+  //               >
+  //                 Close
+  //               </button>
+  //               {/* {props.OnCreate && (
+  //                 <button
+  //                   type="button"
+  //                   className="btn btn-primary"
+  //                   data-bs-dismiss="modal"
+  //                   onClick={handleAddEvent}
+  //                 >
+  //                   Save
+  //                 </button>
+  //               )} */}
+
+  //               {/* {props.OnDelete && ( */}
+  //                 <button
+  //                   type="button"
+  //                   className="btn btn-primary"
+  //                   data-bs-dismiss="modal"
+  //                   onClick={handleDeleteEvent}
+  //                 >
+  //                   Delete
+  //                 </button>
+  //               {/* )} */}
+  //             </div>
   //           </div>
   //         </div>
   //       </div>
-  //       <div className="modal-footer">
-  //         <button
-  //           type="button"
-  //           className="btn btn-secondary"
-  //           data-bs-dismiss="modal"
-  //         >
-  //           Close
-  //         </button>
-  //         <button
-  //           type="button"
-  //           className="btn btn-primary"
-  //           data-bs-dismiss="modal"
-  //           onClick={handleAddEvent}
-  //         >
-  //           Save
-  //         </button>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>);
+  //     </>
+  //   );
   // }
-    
 
   return (
     <div className="container mt-5">
@@ -723,7 +754,7 @@ function MyCalendar() {
             defaultView="month"
             style={{ height: 500, margin: "50px" }}
             selectable={true}
-            // onSelectEvent={(slotInfo) => alert(JSON.stringify(slotInfo))}
+            onSelectEvent={handleDeleteEvent}
           />
         </div>
         <div className="col-md-4">

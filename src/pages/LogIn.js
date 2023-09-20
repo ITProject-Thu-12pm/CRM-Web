@@ -1,10 +1,9 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom'; 
+import InputForm from '../components/Inputs/Input.js'
 import '../components/ButtonStyle.css'
 import './ButtonStyles.css';
 import './LoginStyles.css';
-import InputForm from '../components/Inputs/Input.js'
-import { useNavigate } from 'react-router-dom'; //Login.js
-
 
 function LoadLogInPage() {
 

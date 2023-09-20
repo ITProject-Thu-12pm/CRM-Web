@@ -1,15 +1,14 @@
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import contactsData from './ContactsInfo.json';
 import SideBar from '../../components/Bar'
-import React, { useState } from 'react';
-import '../ProfilePage/ProfileStyles.css';
 import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
-import { useNavigate } from 'react-router-dom';
+import '../ProfilePage/ProfileStyles.css';
 
 function ContactDetails() {
-    let { email: emailParam } = useParams();
-    const contact = contactsData.find(contact => contact.email === emailParam);
+    let { id } = useParams();
+    const contact = contactsData.find(contact => contact.id === parseInt(id));
 
     const [avatar, setAvatar] = useState(contact.avatar);
     const [tempAvatar, setTempAvatar] = useState(null);
@@ -50,7 +49,7 @@ function ContactDetails() {
         }
         handleEditToggle();
         const updatedContacts = contactsList.map(c =>
-            c.email === contact.email ? { ...contact, firstName, lastName } : c
+            c.id === contact.id ? { ...contact, firstName, lastName } : c
         );
 
         setContactsList(updatedContacts); // Update the contacts state (if you maintain it here)

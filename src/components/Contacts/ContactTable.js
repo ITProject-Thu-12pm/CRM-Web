@@ -19,13 +19,13 @@ const ContactTable = ({ contacts, setContacts }) => {
     const [selectedTags, setSelectedTags] = useState([]);
     const [currentContactTags, setCurrentContactTags] = useState([]);
     const [editingContactId, setEditingContactId] = useState(null);
-    const [editingContactEmail, setEditingContactEmail] = useState(null); 
 
-    const handleTagClick = (email, tags) => {
-        setEditingContactEmail(email);
+    const handleTagClick = (id, tags) => {
+        setEditingContactId(id);
         setCurrentContactTags(tags);
         setShowModal(true);
     };
+
     /* add a contact */
     const navigate = useNavigate();
     const [showEmailModal, setShowEmailModal] = useState(false);
@@ -40,7 +40,7 @@ const ContactTable = ({ contacts, setContacts }) => {
 
     const handleSaveTags = () => {
         const updatedContacts = contacts.map(contact => {
-            if (contact.email === editingContactEmail) {  // This was previously contact.id === editingContactId
+            if (contact.id === editingContactId) {
                 return { ...contact, tags: selectedTags };
             }
             return contact;
@@ -52,13 +52,11 @@ const ContactTable = ({ contacts, setContacts }) => {
     
         // Close the modal and reset the states
         setShowModal(false);
-        setEditingContactEmail(null);  // This was previously setEditingContactId(null)
+        setEditingContactId(null); 
         setSelectedTags([]);
         setCurrentContactTags([]);
     };
     
-
-
 
     const columns = [
         {
@@ -67,7 +65,7 @@ const ContactTable = ({ contacts, setContacts }) => {
             flex: 1,
             valueGetter: (params) => `${params.row.firstName} ${params.row.lastName}`, // Compute the full name here
             renderCell: (params) => (
-                <Link to={`/contacts/${params.row.email}`}>
+                <Link to={`/contacts/${params.row.id}`}>
                     {params.value}
                 </Link>
             ),
@@ -85,7 +83,7 @@ const ContactTable = ({ contacts, setContacts }) => {
                             pill
                             className="contact-table-badge"
                             variant="secondary"
-                            onClick={() => handleTagClick(params.row.email, params.row.tags)}  // Using email here instead of ID
+                            onClick={() => handleTagClick(params.row.id, params.row.tags)}
                         >
                             {tag.trim()}
                         </Badge>
@@ -95,7 +93,7 @@ const ContactTable = ({ contacts, setContacts }) => {
                             pill
                             className="contact-table-badge"
                             variant="light"
-                            onClick={() => handleTagClick(params.row.email, params.row.tags)}  // Using email here instead of ID
+                            onClick={() => handleTagClick(params.row.id, params.row.tags)} 
                         >
                             + Add Tag
                         </Badge>

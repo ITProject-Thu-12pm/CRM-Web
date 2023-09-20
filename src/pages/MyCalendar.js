@@ -514,7 +514,6 @@
 
 // export default MyCalendar;
 
-
 // good
 import React, { useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -532,39 +531,184 @@ const localizer = momentLocalizer(moment);
 function MyCalendar() {
   const [newEvent, setNewEvent] = useState({
     title: "",
-    start: "",
-    end: "",
+    startDate: "",
+    startTime: "",
+    endDate: "",
+    endTime: "",
   });
+
   const [allEvents, setAllEvents] = useState(events);
 
   // Event date and time input states
-  const [startDate, setStartDate] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [endTime, setEndTime] = useState("");
+  // const [startDate, setStartDate] = useState("");
+  // const [startTime, setStartTime] = useState("");
+  // const [endDate, setEndDate] = useState("");
+  // const [endTime, setEndTime] = useState("");
+
+  function handleAddTitle(e) {
+    setNewEvent({ ...newEvent, title: e.target.value });
+  }
+
+  function handleAddStartDate(e) {
+    setNewEvent({ ...newEvent, startDate: e.target.value });
+  }
+
+  function handleAddStartTime(e) {
+    setNewEvent({ ...newEvent, startTime: e.target.value });
+  }
+
+  function handleAddEndDate(e) {
+    setNewEvent({ ...newEvent, endDate: e.target.value });
+  }
+
+  function handleAddEndTime(e) {
+    setNewEvent({ ...newEvent, endTime: e.target.value });
+  }
 
   const handleAddEvent = () => {
     // Ensure the start and end date/time fields are not empty
-    if (!startDate || !startTime || !endDate || !endTime) {
+    if (
+      !newEvent.startDate ||
+      !newEvent.startTime ||
+      !newEvent.endDate ||
+      !newEvent.endTime
+    ) {
       alert("Please fill in all date and time fields.");
       return;
     }
 
     const newEventObject = {
       title: newEvent.title,
-      start: moment(`${startDate} ${startTime}`, "YYYY-MM-DD HH:mm").toDate(),
-      end: moment(`${endDate} ${endTime}`, "YYYY-MM-DD HH:mm").toDate(),
+      start: moment(
+        `${newEvent.startDate} ${newEvent.startTime}`,
+        "YYYY-MM-DD HH:mm"
+      ).toDate(),
+      end: moment(
+        `${newEvent.endDate} ${newEvent.endTime}`,
+        "YYYY-MM-DD HH:mm"
+      ).toDate(),
     };
 
     setAllEvents([...allEvents, newEventObject]);
 
     // Clear input fields after adding the event
-    setNewEvent({ title: "", start: "", end: "" });
-    setStartDate("");
-    setStartTime("");
-    setEndDate("");
-    setEndTime("");
+    setNewEvent({
+      title: "",
+      startDate: "",
+      startTime: "",
+      endDate: "",
+      endTime: "",
+    });
   };
+
+  // const [showModal, setShowModal] = useState(false);
+  // function myModal() {
+  //   return (
+  //   <div
+  //   className="modal fade"
+  //   id="staticBackdrop"
+  //   data-bs-backdrop="static"
+  //   data-bs-keyboard="false"
+  //   tabIndex="-1"
+  //   aria-labelledby="staticBackdropLabel"
+  //   aria-hidden="true"
+  // >
+  //   <div className="modal-dialog">
+  //     <div className="modal-content">
+  //       <div className="modal-header">
+  //         <h1 className="modal-title fs-5" id="staticBackdropLabel">
+  //           Add Event
+  //         </h1>
+  //         <button
+  //           type="button"
+  //           className="btn-close"
+  //           data-bs-dismiss="modal"
+  //           aria-label="Close"
+  //         ></button>
+  //       </div>
+  //       <div className="modal-body">
+  //         <div>
+  //           <div className="form-floating mb-3">
+  //             <input
+  //               type="text"
+  //               placeholder="Event Title"
+  //               id="floatingTitle"
+  //               className="form-control"
+  //               value={newEvent.title}
+  //               onChange={handleAddTitle}
+  //             />
+  //             <label htmlFor="floatingTitle">Event Title</label>
+  //           </div>
+
+  //           <div className="form-floating mb-3">
+  //             <input
+  //               type="date"
+  //               placeholder="dd/mm/yyyy"
+  //               id="startDatePicker"
+  //               className="form-control"
+  //               value={newEvent.startDate}
+  //               onChange={handleAddStartDate}
+  //             />
+  //             <label htmlFor="startDatePicker">Start Date</label>
+  //           </div>
+
+  //           <div className="form-floating mb-3">
+  //             <input
+  //               type="time"
+  //               id="startTimePicker"
+  //               className="form-control"
+  //               value={newEvent.startTime}
+  //               onChange={handleAddStartTime}
+  //             />
+  //             <label htmlFor="startTimePicker">Start Time</label>
+  //           </div>
+
+  //           <div className="form-floating mb-3">
+  //             <input
+  //               type="date"
+  //               className="form-control"
+  //               placeholder="dd/mm/yyyy"
+  //               id="endDatePicker"
+  //               value={newEvent.endDate}
+  //               onChange={handleAddEndDate}
+  //             />
+  //             <label htmlFor="endDatePicker">End Date</label>
+  //           </div>
+
+  //           <div className="form-floating mb-3">
+  //             <input
+  //               type="time"
+  //               id="endTimePicker"
+  //               className="form-control"
+  //               value={newEvent.endTime}
+  //               onChange={handleAddEndTime}
+  //             />
+  //             <label htmlFor="endTimePicker">End Time</label>
+  //           </div>
+  //         </div>
+  //       </div>
+  //       <div className="modal-footer">
+  //         <button
+  //           type="button"
+  //           className="btn btn-secondary"
+  //           data-bs-dismiss="modal"
+  //         >
+  //           Close
+  //         </button>
+  //         <button
+  //           type="button"
+  //           className="btn btn-primary"
+  //           data-bs-dismiss="modal"
+  //           onClick={handleAddEvent}
+  //         >
+  //           Save
+  //         </button>
+  //       </div>
+  //     </div>
+  //   </div>
+  // </div>);
+  // }
+    
 
   return (
     <div className="container mt-5">
@@ -578,6 +722,8 @@ function MyCalendar() {
             endAccessor="end"
             defaultView="month"
             style={{ height: 500, margin: "50px" }}
+            selectable={true}
+            // onSelectEvent={(slotInfo) => alert(JSON.stringify(slotInfo))}
           />
         </div>
         <div className="col-md-4">
@@ -589,7 +735,6 @@ function MyCalendar() {
           >
             Add Event
           </button>
-
           <div
             className="modal fade"
             id="staticBackdrop"
@@ -621,9 +766,7 @@ function MyCalendar() {
                         id="floatingTitle"
                         className="form-control"
                         value={newEvent.title}
-                        onChange={(e) =>
-                          setNewEvent({ ...newEvent, title: e.target.value })
-                        }
+                        onChange={handleAddTitle}
                       />
                       <label htmlFor="floatingTitle">Event Title</label>
                     </div>
@@ -634,8 +777,8 @@ function MyCalendar() {
                         placeholder="dd/mm/yyyy"
                         id="startDatePicker"
                         className="form-control"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
+                        value={newEvent.startDate}
+                        onChange={handleAddStartDate}
                       />
                       <label htmlFor="startDatePicker">Start Date</label>
                     </div>
@@ -645,8 +788,8 @@ function MyCalendar() {
                         type="time"
                         id="startTimePicker"
                         className="form-control"
-                        value={startTime}
-                        onChange={(e) => setStartTime(e.target.value)}
+                        value={newEvent.startTime}
+                        onChange={handleAddStartTime}
                       />
                       <label htmlFor="startTimePicker">Start Time</label>
                     </div>
@@ -657,8 +800,8 @@ function MyCalendar() {
                         className="form-control"
                         placeholder="dd/mm/yyyy"
                         id="endDatePicker"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
+                        value={newEvent.endDate}
+                        onChange={handleAddEndDate}
                       />
                       <label htmlFor="endDatePicker">End Date</label>
                     </div>
@@ -668,8 +811,8 @@ function MyCalendar() {
                         type="time"
                         id="endTimePicker"
                         className="form-control"
-                        value={endTime}
-                        onChange={(e) => setEndTime(e.target.value)}
+                        value={newEvent.endTime}
+                        onChange={handleAddEndTime}
                       />
                       <label htmlFor="endTimePicker">End Time</label>
                     </div>

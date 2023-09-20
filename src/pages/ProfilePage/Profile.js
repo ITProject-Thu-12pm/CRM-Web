@@ -9,17 +9,20 @@ import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
 function LoadProfilePage() {
-    const [avatar, setAvatar] = useState(profileInfo.avatar);
-    const [tempAvatar, setTempAvatar] = useState(null);
-    const [firstName, setFirstName] = useState(profileInfo.firstName);
-    const [lastName, setLastName] = useState(profileInfo.lastName);
-    const [address, setAddress] = useState(profileInfo.address);
-    const [city, setCity] = useState(profileInfo.city);
-    const [state, setState] = useState(profileInfo.state);
-    const [zipCode, setZipCode] = useState(profileInfo.zipCode);
-    const [email, setEmail] = useState(profileInfo.email);
-    const [phone, setPhone] = useState(profileInfo.phone);
-    const [dob, setDob] = useState(new Date(profileInfo.dob));
+
+    const [profile, setProfile] = useState({
+        avatar: profileInfo.profile_picture,
+        tempAvatar: null,
+        firstName: profileInfo.first_name,
+        lastName: profileInfo.last_name,
+        address: profileInfo.street_address,
+        city: profileInfo.city,
+        state: profileInfo.state,
+        postCode: profileInfo.postcode,
+        email: profileInfo.email,
+        phone: profileInfo.phone,
+        dob: new Date(profileInfo.dob)
+    });
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -32,16 +35,15 @@ function LoadProfilePage() {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setTempAvatar(reader.result);
+                setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
             };
             reader.readAsDataURL(file);
         }
     };
 
     const saveChanges = () => {
-        if (tempAvatar) {
-            setAvatar(tempAvatar);
-            setTempAvatar(null);
+        if (profile.tempAvatar) {
+            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
         }
         handleEditToggle();
     };
@@ -56,88 +58,65 @@ function LoadProfilePage() {
         navigate("/reset");
     };
 
-
     return (
-
         <div className="parent">
             <div className='div1'>
                 <SideBar />
             </div>
-
-
             <div className="div2 d-flex align-items-center justify-content-center">
                 <form className="content">
-
-                    {/* avatar */}
                     <div className="text-center mb-4">
-                        <img src={isEditing && tempAvatar ? tempAvatar : avatar} alt="Avatar" className="rounded-circle profile-avatar"/>
+                        <img src={isEditing && profile.tempAvatar ? profile.tempAvatar : profile.avatar} alt="Avatar" className="rounded-circle profile-avatar" />
                         {isEditing && (
                             <div>
                                 <input type="file" onChange={handleAvatarChange} />
                             </div>
                         )}
                     </div>
-
-                    {/* name */}
                     <div className='row'>
                         <div className='col-md-6'>
-                            <InputFormProfile inputTitle="First Name" inputContent={firstName} inputType="text" setInputContent={setFirstName} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="First Name" inputContent={profile.firstName} inputType="text" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, firstName: value }))} isEditing={isEditing} />
                         </div>
                         <div className='col-md-6'>
-                            <InputFormProfile inputTitle="Last Name" inputContent={lastName} inputType="text" setInputContent={setLastName} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="Last Name" inputContent={profile.lastName} inputType="text" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, lastName: value }))} isEditing={isEditing} />
                         </div>
                     </div>
-
-                    {/* address */}
-                    <InputFormProfile inputTitle="Address" inputContent={address} inputType="text" setInputContent={setAddress} isEditing={isEditing} />
+                    <InputFormProfile inputTitle="Address" inputContent={profile.address} inputType="text" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, address: value }))} isEditing={isEditing} />
                     <div className="row">
                         <div className='col-md-4'>
-                            <InputFormProfile inputTitle="City" inputContent={city} inputType="text" setInputContent={setCity} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="City" inputContent={profile.city} inputType="text" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, city: value }))} isEditing={isEditing} />
                         </div>
                         <div className='col-md-4'>
-                            <InputFormProfile inputTitle="State" inputContent={state} inputType="text" setInputContent={setState} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="State" inputContent={profile.state} inputType="text" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, state: value }))} isEditing={isEditing} />
                         </div>
                         <div className='col-md-4'>
-                            <InputFormProfile inputTitle="Zip Code" inputContent={zipCode} inputType="text" setInputContent={setZipCode} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="Post Code" inputContent={profile.postCode} inputType="text" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, postCode: value }))} isEditing={isEditing} />
                         </div>
                     </div>
-
-                    {/* contacts */}
                     <div className='row'>
                         <div className='col-md-6'>
-                            <InputFormProfile inputTitle="Email" inputContent={email} inputType="email" setInputContent={setEmail} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="Email" inputContent={profile.email} inputType="email" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, email: value }))} isEditing={isEditing} />
                         </div>
                         <div className='col-md-6'>
-                            <InputFormProfile inputTitle="Phone" inputContent={phone} inputType="tel" setInputContent={setPhone} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="Phone" inputContent={profile.phone} inputType="tel" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, phone: value }))} isEditing={isEditing} />
                         </div>
                     </div>
-
-                    {/* DOB & Password*/}
                     <div className='row'>
                         <div className='col-md-6'>
                             <DateInput
                                 inputTitle="Date of Birth"
-                                selectedDate={dob}
-                                setSelectedDate={setDob}
+                                selectedDate={profile.dob}
+                                setSelectedDate={date => setProfile(prevProfile => ({ ...prevProfile, dob: date }))}
                                 isEditing={isEditing}
                             />
                         </div>
                         <div className='col-md-6'>
-                            {/* password */}
                             <div className="mb-3 d-flex flex-column">
                                 <label className="form-label">Password</label>
                                 <button className="btn btn-link reset-pass" onClick={handleResetClick}>Click to reset password</button>
                             </div>
                         </div>
                     </div>
-
-
-                    {/* edit and log-out */}
-                    {/* <div className="d-flex justify-content-between">
-                        <button className="btn btn-primary">Edit</button>
-                        <button className="btn btn-secondary">Log out</button>
-                    </div> */}
-
                     <div className="d-flex profile-btns">
                         <button
                             type="button"
@@ -150,7 +129,6 @@ function LoadProfilePage() {
                     </div>
                 </form>
             </div>
-
         </div>
     );
 }

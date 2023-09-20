@@ -1,12 +1,13 @@
 {
-    "firstName": "Evano",
-    "lastName": "Doe",
-    "address": "1234 abc Rd",
+    "id": "1",
+    "first_name": "Evano",
+    "last_name": "Doe",
+    "street_address": "1234 abc Rd",
     "city": "Springfield",
     "state": "VIC",
-    "zipCode": "3000",
+    "postcode": "3000",
     "email": "hello@example.com",
     "phone": "0499966688",
     "dob": "2001-10-10",
-    "avatar": "https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true"
+    "profile_picture": "https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true"
 }

@@ -9,6 +9,8 @@ function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent
         }
     };
 
+    const isReadOnly = inputTitle === "Email" ? true : !isEditing;
+
     return (
         <div className="mb-3">
             <label className="form-label">{inputTitle}</label>
@@ -17,7 +19,7 @@ function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent
                 className="form-control input-profile"
                 value={inputContent}
                 onChange={handleChange}
-                readOnly={!isEditing}
+                readOnly={isReadOnly}
             />
         </div>
     );

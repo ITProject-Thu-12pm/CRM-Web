@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import InputForm from '../components/Inputs/Input.js'
 import '../components/ButtonStyle.css'
 import './ButtonStyles.css';
 import './LoginStyles.css';
+import { Login } from './Interface.js';
+
 
 function LoadLogInPage() {
-
+  const [user_email, setUserEmail] = useState('');
+  const [user_password, setUserPassword] = useState('');
   return (
+    
     <div className="container-all">
 
       <div className="container-left">
@@ -21,8 +25,17 @@ function LoadLogInPage() {
             <h1 className="loginTitle2">What Matters Most</h1>
           </div>
 
-          <LogInForm />
-          <Buttons />
+          <LogInForm 
+            user_email = {user_email}
+            setUserEmail = {setUserEmail}
+            user_password = {user_password}
+            setUserPassword = {setUserPassword}
+          />
+          <Buttons 
+            user_email = {user_email}
+            user_password = {user_password}
+          />
+          
 
         </form>
       </div>
@@ -30,16 +43,26 @@ function LoadLogInPage() {
   );
 }
 
-function LogInForm() {
+function LogInForm({user_email, setUserEmail, user_password, setUserPassword}) {
+  
   return (
     <div className="input">
-      <InputForm inputTitle="Email Address" inputType="email" />
-      <InputForm inputTitle="Password" inputType="password" />
+      <InputForm 
+      inputTitle="Email Address" 
+      inputType="email" 
+      value = {user_email}
+      onChange={e => setUserEmail(e.target.value)}
+      />
+      <InputForm inputTitle="Password" 
+      inputType="password" 
+      value = {user_password}
+      onChange={e => setUserPassword(e.target.value)}
+      />
     </div>
   );
 }
 
-function Buttons() {
+function Buttons({user_email, user_password}) {
   const navigate = useNavigate();
 
   const handleNavBarClick = () => {
@@ -51,7 +74,12 @@ function Buttons() {
   };
 
   const handleLoginClick = () => {
-    navigate("/profile");
+    Login(user_email, user_password).then(data => {
+      if (data == true) {
+        navigate('/profile');
+      }
+    })
+    
   };
 
   const handleForgotClick = () => {
@@ -73,5 +101,6 @@ function Buttons() {
     </div>
   );
 }
+
 
 export default LoadLogInPage;

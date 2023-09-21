@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap";
 import './BarStyles.css';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 
@@ -34,15 +35,23 @@ function SideBar() {
 
             {/* button */}
             <div className="btns">
-                <Button to="/dashboard" buttonTitle="Dashboard" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/dashboard.png?raw=true" />
-                <Button to="/contacts" buttonTitle="Contacts" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-square.png?raw=true" />
-                <Button to="/todo" buttonTitle="Todo" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/Check.png?raw=true" />
-                <Button to="/calendar" buttonTitle="Calendar" iconSrc="https://github.com/ITProject-Thu-12pm/Assets/blob/main/Calendar.png?raw=true" />
+                <Button to="/dashboard" buttonTitle="Dashboard" >
+                    <i class="bi bi-window btn-icon"></i>
+                </Button>
+                <Button to="/contacts" buttonTitle="Contacts">
+                    <i className="bi bi-people-fill btn-icon"></i>
+                </Button>
+                <Button to="/trello-board" buttonTitle="Todo">
+                    <i class="bi bi-card-checklist btn-icon"></i>
+                </Button>
+                <Button to="/calendar" buttonTitle="Calendar" >
+                    <i class="bi bi-calendar3-range btn-icon"></i>
+                </Button>
 
             </div>
 
             {/* profile dropdown menu */}
-            <div className={`dropdown profile ${location.pathname === "/profile" ? "active-profile" : ""}`}>
+            <div className={`dropdown small-bar-profile profile ${location.pathname === "/profile" ? "active-profile" : ""}`}>
                 <a
                     href="#"
                     className="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
@@ -72,18 +81,19 @@ function SideBar() {
     );
 }
 
-const Button = ({ buttonTitle, iconSrc, to }) => {
+const Button = ({ buttonTitle, to, children }) => {
     return (
         <NavLink
             to={to}
             activeClassName="active"
             className="btn btn-outline-secondary align-items-center bar-btn"
         >
-            <img src={iconSrc} alt="Icon" className="me-2" />
+            {children}
             <span>{buttonTitle}</span>
         </NavLink>
     );
 }
+
 
 
 export default SideBar;

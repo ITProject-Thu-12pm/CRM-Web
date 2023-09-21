@@ -1,20 +1,18 @@
-/* whole container */
-
-
+/* whole container of sideBar*/
 .div1 {
     grid-area: 1 / 1 / 6 / 2;
-    width: 250px;  /* adjust as per design needs */
+    width: 250px;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;  /* if sidebar content is taller than viewport */
-    z-index: 10;  /* to ensure the sidebar is on top */
+    overflow-y: auto;
+    /* if sidebar content is taller than viewport */
+    z-index: 10;
+    /* to ensure the sidebar is on top */
     margin-left: 1rem;
 }
-
-
 
 
 /* my circle */
@@ -55,16 +53,27 @@ h5 {
     outline: none;
     border: none;
     cursor: pointer;
-
 }
 
-.btn img {
-    height: 1.3rem;
-    width: auto;
+.bar-btn {
+    width: 10rem;
+    text-align: start !important;
+}
+
+/* hover */
+.bar-btn:hover,
+.bar-btn:active {
+    background: #F2EFFF !important;
+}
+
+.btn .btn-icon {
     vertical-align: middle;
+    margin-right: 0.5rem !important;
+    font-size: 1.3rem;
 }
 
-.btn span {
+.btn span,
+.btn-icon {
     font-size: 1.3rem;
     vertical-align: middle;
     color: #9197B3;
@@ -75,16 +84,27 @@ h5 {
         position: fixed;
         top: 0;
         left: 0;
-        width: 60px;  /* Adjust this value based on your design needs */
+        width: 70px;
         height: 100vh;
         overflow-y: auto;
-        z-index: 11;  /* Keeping it above other elements */
+        z-index: 11;
+        margin-left: 0rem;
     }
 
+    /* let be center */
     .my-circles {
-        margin-left: -0.2rem;
+        margin-left: 0.5rem;
     }
 
+    .btns {
+        align-items: center;
+    }
+
+    .small-bar-profile {
+        margin-left: 1rem !important;
+    }
+
+    /* display none content */
     .btn span,
     h5,
     .user-name,
@@ -92,8 +112,15 @@ h5 {
         display: none !important;
     }
 
-    .btn img {
-        height: 1.5rem;
+    /* bigger the bar-icon size */
+    .btn .btn-icon {
+        font-size: 1.5rem;
+        position: relative;
+
+    }
+
+    .bar-btn {
+        width: 3rem;
     }
 
 }
@@ -103,11 +130,14 @@ h5 {
 .remove-default-btn-style {
     background-color: transparent !important;
     /* Important to override Bootstrap styles */
-    color: inherit !important;
+    color: #9197B3 !important;
     /* Use the same color as normal state */
     border-color: transparent !important;
 }
 
+.bar-icon {
+    size: 1rem;
+}
 
 /* drop down menu */
 .profile {
@@ -125,16 +155,17 @@ h5 {
     font-size: 20px;
 }
 
-
 .btn.active {
-    background-color: #5932EA;
+    background-color: #5932EA !important;
+
+    .btn-icon {
+        color: white !important;
+    }
 }
 
-.btn.active span, .btn.active img{
+.btn.active span {
     color: white;
 }
-
-
 
 /* This ensures that the user-name and the dropdown arrow are on the same line */
 .dropdown-toggle .user-name {

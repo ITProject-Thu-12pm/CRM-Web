@@ -130,6 +130,12 @@ h5 {
     background-color: #5932EA;
 }
 
+.btn.active span, .btn.active img{
+    color: white;
+}
+
+
+
 /* This ensures that the user-name and the dropdown arrow are on the same line */
 .dropdown-toggle .user-name {
     display: inline-block;

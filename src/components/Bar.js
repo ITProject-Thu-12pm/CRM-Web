@@ -77,7 +77,7 @@ const Button = ({ buttonTitle, iconSrc, to }) => {
         <NavLink
             to={to}
             activeClassName="active"
-            className="btn btn-outline-secondary align-items-center"
+            className="btn btn-outline-secondary align-items-center bar-btn"
         >
             <img src={iconSrc} alt="Icon" className="me-2" />
             <span>{buttonTitle}</span>

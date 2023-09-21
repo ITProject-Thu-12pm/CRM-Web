@@ -14,6 +14,7 @@ import Contacts from './pages/ContactsPage/Contact';
 import ContactDetail from  './pages/ContactsPage/ContactsDetails'
 import LoadAddContactPage from  './pages/ContactsPage/AddContactManually'
 import LoadProfilePage from "./pages/ProfilePage/Profile";
+import MyCalendar from "./pages/CalendarPage/myCalendar";
 import Bar from "./components/Bar";
 import {
   BrowserRouter as Router,
@@ -45,6 +46,7 @@ function App() {
         <Route path="/contacts/:id" element={<ContactDetail />} />
         <Route path="/profile" element={<LoadProfilePage />} /> 
         <Route path="/reset" element={<LoadResetPage />} /> 
+        <Route path="/calendar" element={<MyCalendar />} /> 
       </Routes>
     </Router> 
 

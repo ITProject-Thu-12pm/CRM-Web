@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# Personal CRM - MyCircle
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple and intuitive Personal CRM built using Django and Javascript with React. Manage your contacts and calendar, keep track of interactions, and never miss a follow-up.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Contact Management**: Add, edit, and delete contacts with ease.
+- **Interaction Tracking**: Log interactions with your contacts, be it meetings, calls, or emails.
+- **Calendar**: Set remindar for follow-ups or important dates on your own calendar。
+- **Trello Board**: Manage notes for important things according to their priorities (low, medium, high).
+- **Responsive UI**: A modern and responsive interface built with React.js.
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
+- Python (3.8 or newer)
+- Node.js (14.0 or newer)
+- npm or yarn
+
+## Setup & Installation
+
+### Frond-end (Javascript)
+
+1. Clone this repository to your local machine.
+
+   ```bash
+   git clone https://github.com/ITProject-Thu-12pm/CRM-Web.git
+   ```
+
+2. Navigate to the project directory in your terminal.
+
+3. Install the project dependencies.
+
+```bash
+npm install
+```
+
+4. Run the application on local machine
+
+```bash
+npm start
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend (Django)
 
-### `npm test`
+1. Navigate to the backend directory:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   cd backend
+   ```
 
-### `npm run build`
+2. Create a virtual environment:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   python -m venv venv
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Activate the virtual environment:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   - On Windows: `venv\Scripts\activate`
+   - On macOS and Linux: `source venv/bin/activate`
 
-### `npm run eject`
+4. Install the required packages:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Run migrations:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   python manage.py migrate
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+6. Start the Django server:
 
-## Learn More
+   ```bash
+   python manage.py runserver
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Frontend (React.js)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Navigate to the frontend directory:
 
-### Code Splitting
+   ```bash
+   cd frontend
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Install the required packages:
 
-### Analyzing the Bundle Size
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. Start the React development server:
 
-### Making a Progressive Web App
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Usage
 
-### Advanced Configuration
+1. Open your browser and navigate to `http://localhost:3000` to access the frontend.
+2. The backend API can be accessed at `http://localhost:8000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contributing
 
-### Deployment
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License

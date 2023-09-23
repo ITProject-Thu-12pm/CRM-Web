@@ -1,10 +1,9 @@
 import React from "react";
-
+import { useNavigate } from 'react-router-dom'; 
+import InputForm from '../components/Inputs/Input.js'
+import '../components/ButtonStyle.css'
 import './ButtonStyles.css';
 import './LoginStyles.css';
-import InputForm from '../components/Input.js'
-import { useNavigate } from 'react-router-dom'; //Login.js
-
 
 function LoadLogInPage() {
 
@@ -51,6 +50,10 @@ function Buttons() {
     navigate("/signup");
   };
 
+  const handleLoginClick = () => {
+    navigate("/profile");
+  };
+
   const handleForgotClick = () => {
     navigate("/forgot");
   };
@@ -58,12 +61,12 @@ function Buttons() {
   return (
     <div className="btns">
 
-      <button type="button" className="btn-lighter-secondary rounded-5 btn login">Log in</button>
+      <button type="button" className="btn-lighter-secondary rounded-5 btn login" onClick={handleLoginClick}>Log in</button>
       <button type="button" className="rounded-5 btn forgot-pass" onClick={handleForgotClick}>Forgot password?</button>
 
       <div className="new-acc">
         <span>Don't have an account?</span>
-        <button type="button" className="btn-outline-secondary rounded-5 sign-up" onClick={handleSignUpClick}>Sign up</button>
+        <button type="button" className="btn-outline-secondary sign-up water-button" onClick={handleSignUpClick}>Sign up</button>
 
       </div>
 

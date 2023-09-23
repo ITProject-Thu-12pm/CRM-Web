@@ -1,0 +1,16 @@
+
+.calendar-content {
+    background-color: #fff;
+}
+
+.container-calender {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin: 2rem 5rem 0rem 5rem
+}
+
+.add-event-btn {
+    width: 10rem;
+}

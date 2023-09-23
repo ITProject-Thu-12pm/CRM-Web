@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import InputForm from '../components/Input.js'
-import './ForgotPasswordStyles.css';
 import { useNavigate } from 'react-router-dom';
+import InputForm from '../components/Inputs/Input.js'
+import './ForgotPasswordStyles.css';
 
 function LoadForgotPage() {
     return (

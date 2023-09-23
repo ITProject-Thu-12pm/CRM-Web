@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import InputForm from '../components/Input.js'
+import { useNavigate } from 'react-router-dom';
+import InputForm from '../components/Inputs/Input.js'
 import './LoginStyles.css';
 import './SignUpStyles.css';
-import { useNavigate } from 'react-router-dom';
 
 
 function LoadSignPage() {
@@ -76,7 +76,7 @@ function LogInButtons() {
       <button type="button" className="btn btn-lighter-secondary rounded-5 login">Create an account</button>
       <div className="already-acc">
         <span>Already have an account?</span>
-        <button type="button" className="btn-outline-secondary rounded-5 sign-up" onClick={handleLogInClick}>Log in</button>
+        <button type="button" className="btn-outline-secondary sign-up water-button" onClick={handleLogInClick}>Log in</button>
 
       </div>
 

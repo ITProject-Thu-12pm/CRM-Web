@@ -1,0 +1,97 @@
+.container-contact {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch; 
+    min-height: 100vh; 
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+    margin: 2rem 5rem 2rem 5rem;
+}
+
+.contacts-cards {
+    width: 100%;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 5px 5px 10px #bfbfbf,
+        -5px -5px 10px #ffffff;
+}
+
+.greeting {
+    flex-grow:1;
+}
+
+.summary {
+    flex-grow:5;
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    flex-grow:8;
+}
+
+
+/* contacts */
+
+.right--side-bg {
+    background-color: #F2EFFF;
+}
+
+
+/* greeting */
+
+.greeting-icon {
+    margin-left: 8px;
+    width: 2rem;
+}
+
+
+/* summary */
+
+.summary-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center;     /* Vertically center the content */
+    height: 100%; 
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+.icon-and-content {
+    flex: 1; 
+    justify-content: center; /* Horizontally center the content */
+    align-items: center;
+    gap: 1rem;
+}
+
+.summary-first-text {
+    font-size: 1rem;
+    color: #ACACAC;
+}
+
+.summary-second-text {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+/* table */
+.add-contact-btn {
+    display: inline;
+    margin-right: 1rem;
+}
+
+.MuiToolbar-root p {
+    margin-bottom: 0;
+}
+
+.fix-input-len {
+    width: 100%;
+}
+
+.contact-table-badge {
+    font-size: 0.8rem;
+}

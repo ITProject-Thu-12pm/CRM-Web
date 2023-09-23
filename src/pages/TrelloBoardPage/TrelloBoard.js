@@ -1,30 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Board from 'react-trello';
-import data from './BoardInfo.json';  // If your JSON is static, import it like this
+import data from './BoardInfo.json';  // Assuming JSON is static, import it like this
 
 const TrelloBoard = () => {
   const [boardData, setBoardData] = useState({ lanes: [] });
-  const [eventBus, setEventBus] = useState(null);
 
   useEffect(() => {
     // Simulate fetch data
+    console.log('Loaded JSON data: ', data);
     setBoardData(data);
-    console.log("Board Data: ", boardData);
   }, []);
 
   const handleDragStart = (cardId, laneId) => {
-    console.log('drag started');
-    console.log(`cardId: ${cardId}`);
-    console.log(`laneId: ${laneId}`);
+    console.log('drag started', cardId, laneId);
   };
 
   const handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    console.log('drag ended');
-    console.log(`cardId: ${cardId}`);
-    console.log(`sourceLaneId: ${sourceLaneId}`);
-    console.log(`targetLaneId: ${targetLaneId}`);
+    console.log('drag ended', cardId, sourceLaneId, targetLaneId);
   };
-
 
   return (
     <div>
@@ -36,7 +29,6 @@ const TrelloBoard = () => {
         canAddLanes
         handleDragStart={handleDragStart}
         handleDragEnd={handleDragEnd}
-        eventBusHandle={setEventBus}
       />
     </div>
   );

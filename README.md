@@ -2,8 +2,6 @@
 
 Welcome to MyCircle, a user-friendly Personal CRM built with Django and React.js. With MyCircle, you can manage your contacts, track interactions, and never miss a follow-up.
 
-[TOC]
-
 ## Features
 
 - **Contact Management**: Seamlessly add, edit, and delete contacts.

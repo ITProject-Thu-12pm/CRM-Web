@@ -8,6 +8,9 @@
 
 .column-container {
     flex: 0 0 260px; /* gives each column a fixed width */
+    /* display: flex;
+    flex-direction: column;
+    flex-grow: 1; */
     background-color: #e2e4e6;
     border-radius: 5px;
     padding: 10px;
@@ -21,7 +24,8 @@
 }
 
 .task-column {
-    column-style: none;
+     /* ensure empty col can be dropped*/
+    min-height: 15rem;
     padding: 0;
 }
 

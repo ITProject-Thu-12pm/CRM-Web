@@ -18,7 +18,7 @@ function Task({ task, index }) {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    onClick={handletaskClick} // added onClick event here
+                    onClick={handletaskClick}
                 >
                     {task.content} - {task.priority}
                 </div>

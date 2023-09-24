@@ -33,7 +33,7 @@ function LoadResetPage() {
             setErrorMessage('Passwords do not match');
         } else {
             /* setErrorMessage(''); */
-            // Proceed with other logic, e.g., API call to update the password
+            /* Proceed with other logic, e.g., API call to update the password */
         }
     };
 

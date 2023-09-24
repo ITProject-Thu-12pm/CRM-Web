@@ -32,7 +32,7 @@ function ResetForm() {
     const [verificationCodeSent, setVerificationCodeSent] = useState(false);
 
     const handleGetCodeClick = () => {
-        // Add code here to send verification code
+        //todo: Add code here to send verification code
         setVerificationCodeSent(true);
     };
     return (

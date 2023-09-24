@@ -52,7 +52,7 @@ function ContactDetails() {
             c.id === contact.id ? { ...contact, firstName, lastName } : c
         );
 
-        setContactsList(updatedContacts); // Update the contacts state (if you maintain it here)
+        setContactsList(updatedContacts); // Update the contacts state
         localStorage.setItem('contactsData', JSON.stringify(updatedContacts));
     };
 

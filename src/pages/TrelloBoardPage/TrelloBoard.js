@@ -2,57 +2,13 @@ import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import SideBar from "../../components/Bar";
 import { boardData } from "./BoardData";
+import Column from "./Column";
 import "./TrelloBoardStyles.css";
-
-/* only finished the drag-and-drop for cards */
-function Task({ task, index }) {
-  const handletaskClick = () => {
-    console.log(`task clicked: ${task.id}, Content: ${task.content}`);
-  };
-
-  return (
-    <Draggable draggableId={task.id} index={index}>
-      {(provided, snapshot) => (
-        <div
-          className="task-item"
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          onClick={handletaskClick}
-        >
-          {task.content} - {task.priority}
-        </div>
-      )}
-    </Draggable>
-  );
-}
-
-function Column({ column, tasks }) {
-    return (
-        <div className="column-container">
-            <h2 className="column-title">{column.title}</h2>
-            <Droppable droppableId={column.id} type="task">
-                {(provided, snapshot) => (
-                    <div
-                        className="task-column"
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                    >
-                        {tasks.map((task, index) => (
-                            <Task key={task.id} task={task} index={index} />
-                        ))}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
-        </div>
-    );
-}
-
 
 const TrelloBoard = () => {
   const [state, setState] = useState(boardData);
 
+  /* drag and drop */
   const onDragEnd = (result) => {
     const { destination, source, type } = result;
 
@@ -67,6 +23,7 @@ const TrelloBoard = () => {
       return;
     }
 
+    /* drag and drop column */
     if (type === 'column') {
         const newColumnsOrder = Array.from(state.columnsOrder);
         newColumnsOrder.splice(source.index, 1);
@@ -81,10 +38,11 @@ const TrelloBoard = () => {
         return;
     }
 
-    /* move cards */
+    /* drag and drop cards */
     const startColumn = state.columns[source.droppableId];
     const finishColumn = state.columns[destination.droppableId];
 
+    /*  Moving tasks in one column */
     if (startColumn === finishColumn) {
       const updatedTaskIds = Array.from(startColumn.tasks);
       updatedTaskIds.splice(source.index, 1);
@@ -107,7 +65,7 @@ const TrelloBoard = () => {
       return;
     }
 
-    // Moving tasks from one column to another
+    /*  Moving tasks from one column to another */
     const startTaskIds = Array.from(startColumn.tasks);
     startTaskIds.splice(source.index, 1);
     const updatedStartColumn = {

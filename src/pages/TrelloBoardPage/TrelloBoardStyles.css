@@ -1,13 +1,14 @@
 .board-container {
     display: flex;
-    gap: 10px; 
+    gap: 10px;
     padding: 10px;
     flex-wrap: wrap;
-    
+
 }
 
 .column-container {
-    flex: 0 0 260px; /* gives each column a fixed width */
+    flex: 0 0 260px;
+    /* gives each column a fixed width */
     width: 15rem;
     /* display: flex;
     flex-direction: column;
@@ -25,17 +26,45 @@
 }
 
 .task-column {
-     /* ensure empty col can be dropped*/
+    /* ensure empty col can be dropped*/
     min-height: 15rem;
     padding: 0;
 }
 
 .task-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
     min-height: 5rem;
     padding: 5px 10px;
     margin-bottom: 10px;
     background-color: #fff;
     border: 1px solid #cfd8dc;
     border-radius: 3px;
-    box-shadow: 0 1px 0 rgba(9,45,66,.25);
+    box-shadow: 0 1px 0 rgba(9, 45, 66, .25);
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-priority {
+    font-weight: 600;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 10px;
+    align-self: flex-end;
+}
+
+.priority-high {
+    background: rgba(255, 0, 0, 0.684);
+}
+
+.priority-medium {
+    background-color: rgba(255, 166, 0, 0.684);
+}
+
+.priority-low {
+    background-color: rgba(0, 128, 0, 0.684);
 }

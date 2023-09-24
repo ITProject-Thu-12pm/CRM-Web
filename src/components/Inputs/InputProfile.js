@@ -17,7 +17,8 @@ function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent
                 className="form-control input-profile"
                 value={inputContent}
                 onChange={handleChange}
-                readOnly={!isEditing || isProfileEmail}
+                /* if input is ProfileEamil then cannit be edited */
+                readOnly={!isEditing || isProfileEmail} 
             />
         </div>
     );

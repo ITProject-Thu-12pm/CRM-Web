@@ -6,11 +6,11 @@ import './ForgotPasswordStyles.css';
 function LoadForgotPage() {
     return (
         <div className="container-all">
-
+            {/* bg-img */}
             <div className="container-left">
-
             </div>
 
+            {/* content */}
             <div className="container-right">
                 <form className="content">
                     <div className="header">

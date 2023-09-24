@@ -4,6 +4,7 @@ import SideBar from '../../components/Bar';
 import { boardData } from './BoardData';
 import './TrelloBoardStyles.css';
 
+/* only finished the drag-and-drop for cards */
 function Task({ task, index }) {
     const handletaskClick = () => {
         console.log(`task clicked: ${task.id}, Content: ${task.content}`);

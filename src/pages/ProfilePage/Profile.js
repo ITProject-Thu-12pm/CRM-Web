@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'

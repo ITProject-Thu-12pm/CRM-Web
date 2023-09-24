@@ -42,10 +42,6 @@ function LogInForm() {
 function Buttons() {
   const navigate = useNavigate();
 
-  const handleNavBarClick = () => {
-    navigate("/bar");
-  };
-
   const handleSignUpClick = () => {
     navigate("/signup");
   };

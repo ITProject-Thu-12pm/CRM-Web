@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
-import { Dropdown, ButtonGroup, Badge, Modal } from 'react-bootstrap'; // Import Modal from react-bootstrap
+import { Dropdown, ButtonGroup, Badge, Modal } from 'react-bootstrap';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import '../ButtonStyle.css'
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import '../ButtonStyle.css'
 
 const ContactTable = ({ contacts, setContacts }) => {
     /* add a tag */
-    /* unique tag */
     const allTags = contacts.flatMap(contact => contact.tags);
     const uniqueTags = [...new Set(allTags)];
     const [showModal, setShowModal] = useState(false);
@@ -38,6 +37,7 @@ const ContactTable = ({ contacts, setContacts }) => {
         setShowEmailModal(true);
     };
 
+    /* save tags */
     const handleSaveTags = () => {
         const updatedContacts = contacts.map(contact => {
             if (contact.id === editingContactId) {
@@ -50,20 +50,20 @@ const ContactTable = ({ contacts, setContacts }) => {
         setContacts(updatedContacts); 
         localStorage.setItem('contactsData', JSON.stringify(updatedContacts)); 
     
-        // Close the modal and reset the states
+        /* Close the modal and reset the states */
         setShowModal(false);
         setEditingContactId(null); 
         setSelectedTags([]);
         setCurrentContactTags([]);
     };
     
-
+    /* link to contactDetail and contactTag by id */
     const columns = [
         {
-            field: 'fullName',  // Use a custom field name here, which doesn't directly map to your data
+            field: 'fullName',
             headerName: 'Name',
             flex: 1,
-            valueGetter: (params) => `${params.row.firstName} ${params.row.lastName}`, // Compute the full name here
+            valueGetter: (params) => `${params.row.firstName} ${params.row.lastName}`, 
             renderCell: (params) => (
                 <Link to={`/contacts/${params.row.id}`}>
                     {params.value}
@@ -101,8 +101,6 @@ const ContactTable = ({ contacts, setContacts }) => {
                 </div>
             ),
         },
-
-
         { field: 'phone', headerName: 'Phone', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
         {
@@ -147,7 +145,7 @@ const ContactTable = ({ contacts, setContacts }) => {
                     <Modal.Title>Add by Email</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* Your content for adding by email goes here */}
+                   {/* todo: adding by email goes here */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowEmailModal(false)}>

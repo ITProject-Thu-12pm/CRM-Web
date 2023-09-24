@@ -27,7 +27,8 @@ function Contacts() {
                         <Greetings username="Evano" />
                     </div>
                     <div className='summary contacts-cards'>
-                        <Summary total={10} active={7} inactive={3} />
+                        {/* todo: back-end link here */}
+                        <Summary total={7} active={4} inactive={3} />
                     </div>
                     <div className='table contacts-cards'>
                     <ContactTable contacts={contacts} setContacts={setContacts} />

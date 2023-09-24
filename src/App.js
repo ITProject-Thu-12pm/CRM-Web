@@ -16,6 +16,7 @@ import LoadAddContactPage from  './pages/ContactsPage/AddContactManually'
 import LoadProfilePage from "./pages/ProfilePage/Profile";
 import MyCalendar from "./pages/CalendarPage/myCalendar";
 import TrelloBoard from "./pages/TrelloBoardPage/TrelloBoard";
+
 import Bar from "./components/Bar";
 import {
   BrowserRouter as Router,
@@ -49,6 +50,7 @@ function App() {
         <Route path="/reset" element={<LoadResetPage />} /> 
         <Route path="/calendar" element={<MyCalendar />} /> 
         <Route path="/trello-board" element={<TrelloBoard />} />
+       
       </Routes>
     </Router> 
 

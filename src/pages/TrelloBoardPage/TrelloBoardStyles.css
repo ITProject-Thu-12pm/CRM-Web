@@ -1,0 +1,36 @@
+.board-container {
+    display: flex;
+    gap: 10px; /* space between columns */
+    overflow-x: auto; /* allow horizontal scrolling if there are many columns */
+    padding: 10px;
+    background-color: #ecf0f1; 
+}
+
+.column-container {
+    flex: 0 0 260px; /* gives each column a fixed width */
+    background-color: #e2e4e6;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.column-title {
+    font-size: 20px;
+    border-bottom: 2px solid #cfd8dc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.task-column {
+    column-style: none;
+    padding: 0;
+}
+
+.task-item {
+    min-height: 5rem;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #cfd8dc;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,45,66,.25);
+}

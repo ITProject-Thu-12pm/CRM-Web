@@ -28,32 +28,33 @@ function Task({ task, index }) {
 }
 
 function Column({ column, tasks }) {
-  return (
-    <div className="column-container">
-      <h2 className="column-title">{column.title}</h2>
-      <Droppable droppableId={column.id}>
-        {(provided, snapshot) => (
-          <div
-            className="task-column"
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            {tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </div>
-  );
+    return (
+        <div className="column-container">
+            <h2 className="column-title">{column.title}</h2>
+            <Droppable droppableId={column.id} type="task">
+                {(provided, snapshot) => (
+                    <div
+                        className="task-column"
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                    >
+                        {tasks.map((task, index) => (
+                            <Task key={task.id} task={task} index={index} />
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </div>
+    );
 }
+
 
 const TrelloBoard = () => {
   const [state, setState] = useState(boardData);
 
   const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, type } = result;
 
     if (!destination) {
       return;
@@ -66,13 +67,28 @@ const TrelloBoard = () => {
       return;
     }
 
+    if (type === 'column') {
+        const newColumnsOrder = Array.from(state.columnsOrder);
+        newColumnsOrder.splice(source.index, 1);
+        newColumnsOrder.splice(destination.index, 0, result.draggableId);
+
+        const newState = {
+            ...state,
+            columnsOrder: newColumnsOrder
+        };
+        
+        setState(newState);
+        return;
+    }
+
+    /* move cards */
     const startColumn = state.columns[source.droppableId];
     const finishColumn = state.columns[destination.droppableId];
 
     if (startColumn === finishColumn) {
       const updatedTaskIds = Array.from(startColumn.tasks);
       updatedTaskIds.splice(source.index, 1);
-      updatedTaskIds.splice(destination.index, 0, draggableId);
+      updatedTaskIds.splice(destination.index, 0, result.draggableId);
 
       const updatedColumn = {
         ...startColumn,
@@ -100,7 +116,7 @@ const TrelloBoard = () => {
     };
 
     const finishTaskIds = Array.from(finishColumn.tasks);
-    finishTaskIds.splice(destination.index, 0, draggableId);
+    finishTaskIds.splice(destination.index, 0, result.draggableId);
     const updatedFinishColumn = {
       ...finishColumn,
       tasks: finishTaskIds,
@@ -118,6 +134,7 @@ const TrelloBoard = () => {
     setState(newState);
   };
 
+
   return (
     <div className="parent">
       <div className="div1">
@@ -125,13 +142,44 @@ const TrelloBoard = () => {
       </div>
       <div className="div2 right--side-bg">
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="board-container">
-            {state.columnsOrder.map((columnId) => {
-              const column = state.columns[columnId];
-              const tasks = column.tasks.map((taskId) => state.tasks[taskId]);
-              return <Column key={column.id} column={column} tasks={tasks} />;
-            })}
-          </div>
+          <Droppable
+            droppableId="all-columns"
+            direction="horizontal"
+            type="column"
+          >
+            {(provided) => (
+              <div
+                className="board-container"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {state.columnsOrder.map((columnId, index) => {
+                  const column = state.columns[columnId];
+                  const tasks = column.tasks.map(
+                    (taskId) => state.tasks[taskId]
+                  );
+                  return (
+                    <Draggable
+                      key={column.id}
+                      draggableId={column.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Column column={column} tasks={tasks} />
+                        </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
     </div>

@@ -93,7 +93,7 @@ function LoadResetPage() {
                    
                     <div className="d-flex reset-btns align-items-end">
                         <button className='btn reset-btn' onClick={handleProfileClick}>Cancel</button>
-                        <button className='btn reset-btn rounded-5 btn-edit' onClick={handlePasswordCheck}>Confirm</button>
+                        <button className='btn reset-btn rounded-5 btn-edit change-color-btn' onClick={handlePasswordCheck}>Confirm</button>
 
                     </div>
                 </div>

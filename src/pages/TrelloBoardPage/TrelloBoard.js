@@ -22,7 +22,7 @@ const TrelloBoard = () => {
   return (
     <div>
       <Board
-        data={boardData}
+        data={data}
         editable
         editLaneTitle
         draggable

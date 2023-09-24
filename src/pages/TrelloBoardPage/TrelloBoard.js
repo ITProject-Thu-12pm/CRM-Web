@@ -124,6 +124,7 @@ const TrelloBoard = () => {
                     >
                       {(provided) => (
                         <div
+                          className="test-1"
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}

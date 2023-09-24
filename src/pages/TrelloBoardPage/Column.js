@@ -3,6 +3,7 @@ import { Droppable } from "@hello-pangea/dnd";
 import Button from 'react-bootstrap/Button';
 import Task from "./Task";
 import AddTaskModal from "./AddTaskModal";
+import '../../components/ButtonStyle.css'
 
 function Column({ column, tasks }) {
   /* add task modal */
@@ -40,7 +41,7 @@ function Column({ column, tasks }) {
         )}
       </Droppable>
 
-      <Button className="btn btn-primary mt-2" onClick={handleAddCardClick}>
+      <Button className="btn change-color-btn" onClick={handleAddCardClick}>
         Add a card
       </Button>
       <AddTaskModal 

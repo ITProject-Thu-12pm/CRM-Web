@@ -89,6 +89,7 @@ Ensure you have the following installed on your local machine:
 
 1. Open your browser and navigate to `http://localhost:3000` to access the frontend.
 2. The backend API can be accessed at `http://localhost:8000`.
+3. To login, use 1@gmail.com and password: 187415157a#
 
 ## Contributing
 

@@ -61,11 +61,16 @@
     background-color: transparent !important;
     padding: 0 !important;
     align-self: flex-end !important;
+    /* position */
+    position: absolute !important;
+    top: 0.3rem;
+    /* transport */
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
-.task-delete-icon {
-    color: #000;
-    background-color: aquamarine;
+.task-delete-icon-container:hover {
+    opacity: 1;
 }
 
 .task-content {

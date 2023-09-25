@@ -31,6 +31,8 @@ function Task({ task, index, onDelete, columnId }) {
           {...provided.dragHandleProps}
           onClick={handletaskClick}
         >
+          <div className="task-content">{task.content}</div>
+          
           {/* delete btn */}
           <IconButton 
             aria-label="delete" 
@@ -41,12 +43,12 @@ function Task({ task, index, onDelete, columnId }) {
               onDelete(task.id, columnId);
             }}
           >
-            <DeleteIcon fontSize="inherit" className="task-delete-icon"/>
+            <DeleteIcon className="task-delete-icon"/>
           </IconButton>
-          <div className="task-content">{task.content}</div>
           <div className={`task-priority ${getPriorityClass()}`}>
             {task.priority}
           </div>
+          
         </div>
       )}
     </Draggable>

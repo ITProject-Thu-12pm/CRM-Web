@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import Button from "react-bootstrap/Button";
 import SideBar from "../../components/Bar";
 import { boardData } from "./BoardData";
 import Column from "./Column";
 import "./TrelloBoardStyles.css";
+import EditTaskModal from "./EditTaskModal";
 
 const TrelloBoard = () => {
   const [state, setState] = useState(boardData);
 
-  /* drag and drop */
+  /* drag and drop logic*/
   const onDragEnd = (result) => {
     const { destination, source, type } = result;
 
@@ -118,6 +120,27 @@ const TrelloBoard = () => {
     });
   };
 
+  /* edit task logic */
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentTask, setCurrentTask] = useState(null);
+  const handleEditTaskClick = (task) => {
+    setCurrentTask(task);
+    setIsEditModalOpen(true);
+  };
+  const handleSaveEditedTask = (taskId, newContent, newPriority) => {
+    const updatedTasks = {
+      ...state.tasks,
+      [taskId]: {
+        ...state.tasks[taskId],
+        content: newContent,
+        priority: newPriority,
+      },
+    };
+
+    setState({ ...state, tasks: updatedTasks });
+    setIsEditModalOpen(false);
+  };
+
   return (
     <div className="parent">
       <div className="div1">
@@ -160,6 +183,7 @@ const TrelloBoard = () => {
                             column={column}
                             tasks={tasks}
                             onDeleteTask={deleteTask}
+                            onEditTaskClick={handleEditTaskClick}
                           />
                         </div>
                       )}
@@ -167,11 +191,18 @@ const TrelloBoard = () => {
                   );
                 })}
                 {provided.placeholder}
+                <Button className="btn change-color-btn">Add a List</Button>
               </div>
             )}
           </Droppable>
         </DragDropContext>
       </div>
+      <EditTaskModal
+        open={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        onSave={handleSaveEditedTask}
+        task={currentTask}
+      />
     </div>
   );
 };

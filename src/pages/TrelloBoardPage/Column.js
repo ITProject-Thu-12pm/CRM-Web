@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Droppable } from "@hello-pangea/dnd";
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 import Task from "./Task";
 import AddTaskModal from "./AddTaskModal";
-import '../../components/ButtonStyle.css'
+import "../../components/ButtonStyle.css";
 
-function Column({ column, tasks, onDeleteTask }) {
+function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
   /* add task modal */
   const [openModal, setOpenModal] = useState(false);
 
@@ -39,8 +39,14 @@ function Column({ column, tasks, onDeleteTask }) {
             {...provided.droppableProps}
           >
             {tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} columnId={column.id} onDelete={onDeleteTask} />
-
+              <Task
+                key={task.id}
+                task={task}
+                index={index}
+                columnId={column.id}
+                onDelete={onDeleteTask}
+                onEditClick={onEditTaskClick}
+              />
             ))}
             {provided.placeholder}
           </div>
@@ -50,10 +56,10 @@ function Column({ column, tasks, onDeleteTask }) {
       <Button className="btn change-color-btn" onClick={handleAddCardClick}>
         Add a card
       </Button>
-      <AddTaskModal 
-        open={openModal} 
-        onClose={handleCloseModal} 
-        onSave={handleSaveNewCard} 
+      <AddTaskModal
+        open={openModal}
+        onClose={handleCloseModal}
+        onSave={handleSaveNewCard}
       />
     </div>
   );

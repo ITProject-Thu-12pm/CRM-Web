@@ -3,10 +3,10 @@ import { Draggable } from "@hello-pangea/dnd";
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 
-function Task({ task, index, onDelete, columnId }) {
+function Task({ task, index, onDelete, columnId, onEditClick }) {
   const handletaskClick = () => {
-    console.log(`task clicked: ${task.id}, Content: ${task.content}`);
-  };
+    onEditClick(task);  // Use the handler passed down as a prop
+  };  
 
   const getPriorityClass = () => {
     switch (task.priority) {

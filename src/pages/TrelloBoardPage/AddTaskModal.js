@@ -21,8 +21,8 @@ function AddTaskModal({ open, onClose, onSave }) {
         <Modal.Title>Add Task</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {/* priority */}
       <Autocomplete
-          
           value={selectedPriority}
           onChange={(event, newValue) => setSelectedPriority(newValue)}
           id="priority-box-demo"
@@ -33,11 +33,12 @@ function AddTaskModal({ open, onClose, onSave }) {
             <TextField {...params} label="Priority" />
           )}
         />
+        {/* description */}
         <TextField
           fullWidth
           label="Description"
-          
-          multiline
+          /* width of input */
+          multiline 
           rows={4}
           value={taskContent}
           onChange={(e) => setTaskContent(e.target.value)}

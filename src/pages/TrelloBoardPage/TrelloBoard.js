@@ -24,18 +24,18 @@ const TrelloBoard = () => {
     }
 
     /* drag and drop column */
-    if (type === 'column') {
-        const newColumnsOrder = Array.from(state.columnsOrder);
-        newColumnsOrder.splice(source.index, 1);
-        newColumnsOrder.splice(destination.index, 0, result.draggableId);
+    if (type === "column") {
+      const newColumnsOrder = Array.from(state.columnsOrder);
+      newColumnsOrder.splice(source.index, 1);
+      newColumnsOrder.splice(destination.index, 0, result.draggableId);
 
-        const newState = {
-            ...state,
-            columnsOrder: newColumnsOrder
-        };
-        
-        setState(newState);
-        return;
+      const newState = {
+        ...state,
+        columnsOrder: newColumnsOrder,
+      };
+
+      setState(newState);
+      return;
     }
 
     /* drag and drop cards */
@@ -92,6 +92,31 @@ const TrelloBoard = () => {
     setState(newState);
   };
 
+  /* delete task logic */
+  const deleteTask = (taskId, columnId) => {
+    // Create a new tasks object without the task to be deleted
+    const updatedTasks = { ...state.tasks };
+    delete updatedTasks[taskId];
+
+    // Remove the taskId from the tasks list
+    const updatedColumnTasks = state.columns[columnId].tasks.filter(
+      (id) => id !== taskId
+    );
+    const updatedColumns = {
+      ...state.columns,
+      [columnId]: {
+        ...state.columns[columnId],
+        tasks: updatedColumnTasks,
+      },
+    };
+
+    // Update the state
+    setState({
+      ...state,
+      tasks: updatedTasks,
+      columns: updatedColumns,
+    });
+  };
 
   return (
     <div className="parent">
@@ -129,7 +154,13 @@ const TrelloBoard = () => {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <Column column={column} tasks={tasks} />
+                          {/* run column */}
+                          <Column
+                            key={column.id}
+                            column={column}
+                            tasks={tasks}
+                            onDeleteTask={deleteTask}
+                          />
                         </div>
                       )}
                     </Draggable>

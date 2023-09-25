@@ -5,7 +5,7 @@ import Task from "./Task";
 import AddTaskModal from "./AddTaskModal";
 import '../../components/ButtonStyle.css'
 
-function Column({ column, tasks }) {
+function Column({ column, tasks, onDeleteTask }) {
   /* add task modal */
   const [openModal, setOpenModal] = useState(false);
 
@@ -23,6 +23,11 @@ function Column({ column, tasks }) {
     setOpenModal(false);
   };
 
+  const handleDeleteTask = (taskId) => {
+    // TODO: Logic to delete the task from your state/board
+    console.log(`Task to be deleted: ${taskId}`);
+  };
+
   return (
     <div className="column-container">
       <h2 className="column-title">{column.title}</h2>
@@ -34,7 +39,8 @@ function Column({ column, tasks }) {
             {...provided.droppableProps}
           >
             {tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
+              <Task key={task.id} task={task} index={index} columnId={column.id} onDelete={onDeleteTask} />
+
             ))}
             {provided.placeholder}
           </div>

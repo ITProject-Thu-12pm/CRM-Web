@@ -53,7 +53,7 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
         )}
       </Droppable>
 
-      <Button className="btn change-color-btn" onClick={handleAddCardClick}>
+      <Button className="btn change-color-btn column-add-card" onClick={handleAddCardClick}>
         Add a card
       </Button>
       <AddTaskModal

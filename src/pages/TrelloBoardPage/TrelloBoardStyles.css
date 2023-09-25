@@ -16,6 +16,13 @@
     }
 }
 
+.board-add-list {
+    height: 3rem;
+    width: 15rem;
+    border-radius: 20px;
+    margin: 3rem;
+}
+
 .column-container {
     display: flex;
     min-width: 15rem;
@@ -23,6 +30,8 @@
     background-color: #e2e4e6;
     border-radius: 10px;
     padding: 1rem;
+
+    
 }
 
 .test-1 {
@@ -36,10 +45,17 @@
     margin-bottom: 0.8rem;
 }
 
+.column-add-card {
+    border-radius: 10px;
+}
+
 .task-column {
     /* ensure empty col can be dropped*/
     min-height: 15rem;
     padding: 0;
+
+    max-height: 30rem;
+    overflow-y: auto;
 }
 
 .task-item {

@@ -147,6 +147,7 @@ const TrelloBoard = () => {
         <SideBar />
       </div>
       <div className="div2 right--side-bg">
+        <Button className="btn change-color-btn board-add-list">Add a List</Button>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             droppableId="all-columns"
@@ -191,7 +192,6 @@ const TrelloBoard = () => {
                   );
                 })}
                 {provided.placeholder}
-                <Button className="btn change-color-btn">Add a List</Button>
               </div>
             )}
           </Droppable>

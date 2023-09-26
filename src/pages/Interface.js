@@ -12,6 +12,9 @@ export async function Login(user_email, user_password) {
 
         if (response.status === 201) {
             console.log("Login Success!");
+            const token = response.data.token;
+            localStorage.setItem('token', token);
+            axios.defaults.headers.common['Authorization'] = 'Token ' + token;
             authentication_status = true; 
         } else {
             console.log("User Login Fail!");
@@ -25,19 +28,44 @@ export async function Login(user_email, user_password) {
 
 }
 
+export async function Logout() {
+    try {
+        // Send a request to the backend to delete the token
+        const response = await axios.post('http://127.0.0.1:8000/logout/');
+
+        // If logout was successful on the backend
+        if (response.status === 200) {
+            console.log("Logout Success!");
+
+            // Remove the token from local storage
+            localStorage.removeItem('token');
+
+            // Remove the token from axios headers
+            delete axios.defaults.headers.common['Authorization'];
+
+            return true;
+        } else {
+            console.log("User Logout Fail!");
+            return false;
+        }
+    } catch (error) {
+        console.error("Logout Request Failed: ", error);
+        return false;
+    }
+}
+
+
 export async function Reset_Passowrd(old_password, new_password) {
     let success = false;
+
     
     try {
-        // connect to the backend and post the
-        const response1 = await axios.post('http://127.0.0.1:8000/user/1@gmail.com/', {
-            old_password: old_password
-            
+
+        const response2 = await axios.put('http://127.0.0.1:8000/user/resetpassword/', {
+            old_password: old_password,
+            new_password: new_password
         });
-        if (response1.status === 201) {
-             const response2 = await axios.put('http://127.0.0.1:8000/user/1@gmail.com/', {
-             new_password: new_password
-         });
+
              if (response2.status === 201) {
                  console.log("Reset Password Success!");
                  success = true
@@ -45,7 +73,7 @@ export async function Reset_Passowrd(old_password, new_password) {
                  console.log("User reset password Fail!");
              } 
          }
-    } catch (error) {
+     catch (error) {
         //console.error("Request Fail: ", error);
         
     }

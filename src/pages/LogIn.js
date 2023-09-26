@@ -75,7 +75,7 @@ function Buttons({user_email, user_password}) {
 
   const handleLoginClick = () => {
     Login(user_email, user_password).then(data => {
-      if (data == true) {
+      if (data === true) {
         navigate('/profile');
       }
     })

@@ -1,3 +1,22 @@
+.calendar-header-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.calendar-header-title {
+    flex: 0;
+    min-width: 20rem;
+    font-size: 2.5rem;
+}
+
+.calendar-header-create-event {
+    height: 3rem;
+    width: 12rem;
+    border-radius: 15px;
+}
 
 .calendar-content {
     background-color: #fff;
@@ -11,6 +30,3 @@
     margin: 2rem 5rem 0rem 5rem
 }
 
-.add-event-btn {
-    width: 10rem;
-}

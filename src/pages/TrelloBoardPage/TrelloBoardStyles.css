@@ -1,12 +1,9 @@
-.header-container-blur {
-    background-color: rgb(255 255 255 / 0.1);
-    backdrop-filter: blur(1px);
-    padding: 1.5rem;
-    margin: 2rem 2rem 2rem 3rem;
-    
+.trello-container{
+    margin: 2rem 5rem 2rem 5rem;
 }
+
 /* header */
-.row {
+.trello-header-row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -31,7 +28,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 2rem;
-    margin: 1rem 1rem 1rem 3rem;
+    
 }
 
 @media (max-width: 700px) {
@@ -40,7 +37,7 @@
         justify-content: center;
     }
 
-    .div2 {
+    .trello-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -55,7 +52,6 @@
 
     .trello-header-title {
         min-width: 12rem;
-        font-size: 2rem;
         margin-left: 1rem;
      }
 

@@ -124,7 +124,7 @@ const ContactTable = ({ contacts, setContacts }) => {
         <div>
             {/* "all contacts" and drop down */}
             <div className="d-flex justify-content-between align-items-center mb-2">
-                <h3>All Contacts</h3>
+                <h3 className='contact-table-header-title'>All Contacts</h3>
                 <ButtonGroup>
                     <Dropdown>
                         <Dropdown.Toggle className='change-color-btn' variant="secondary" id="dropdown-basic">

@@ -147,61 +147,62 @@ const TrelloBoard = () => {
         <SideBar />
       </div>
       <div className="div2 right--side-bg">
-        <div className="header-container-blur row">
-          
-          <h1 className="trello-header-title">To Do List</h1>
-          <Button className="btn change-color-btn board-add-list">
-            Add a List
-          </Button>
+        <div className="trello-container">
+          <div className="header-container-blur trello-header-row">
+            <h1 className="trello-header-title">To Do List</h1>
+            <Button className="btn change-color-btn board-add-list">
+              Add a List
+            </Button>
+          </div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable
+              droppableId="all-columns"
+              direction="horizontal"
+              type="column"
+            >
+              {(provided) => (
+                <div
+                  className="board-container"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {state.columnsOrder.map((columnId, index) => {
+                    const column = state.columns[columnId];
+                    const tasks = column.tasks.map(
+                      (taskId) => state.tasks[taskId]
+                    );
+                    return (
+                      <Draggable
+                        key={column.id}
+                        draggableId={column.id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            className="test-1"
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            {/* run column */}
+                            <Column
+                              key={column.id}
+                              column={column}
+                              tasks={tasks}
+                              onDeleteTask={deleteTask}
+                              onEditTaskClick={handleEditTaskClick}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable
-            droppableId="all-columns"
-            direction="horizontal"
-            type="column"
-          >
-            {(provided) => (
-              <div
-                className="board-container"
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {state.columnsOrder.map((columnId, index) => {
-                  const column = state.columns[columnId];
-                  const tasks = column.tasks.map(
-                    (taskId) => state.tasks[taskId]
-                  );
-                  return (
-                    <Draggable
-                      key={column.id}
-                      draggableId={column.id}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          className="test-1"
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          {/* run column */}
-                          <Column
-                            key={column.id}
-                            column={column}
-                            tasks={tasks}
-                            onDeleteTask={deleteTask}
-                            onEditTaskClick={handleEditTaskClick}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  );
-                })}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
       </div>
       <EditTaskModal
         open={isEditModalOpen}

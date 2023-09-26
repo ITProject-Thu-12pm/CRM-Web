@@ -89,3 +89,9 @@
 .contact-table-badge {
     font-size: 0.8rem;
 }
+
+/* table */
+.contact-table-header-title {
+    margin-left: 1rem;
+    margin-bottom: 0;
+}

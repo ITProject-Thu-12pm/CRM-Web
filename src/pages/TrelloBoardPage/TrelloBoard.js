@@ -147,7 +147,13 @@ const TrelloBoard = () => {
         <SideBar />
       </div>
       <div className="div2 right--side-bg">
-        <Button className="btn change-color-btn board-add-list">Add a List</Button>
+        <div className="header-container-blur row">
+          
+          <h1 className="trello-header-title">To Do List</h1>
+          <Button className="btn change-color-btn board-add-list">
+            Add a List
+          </Button>
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             droppableId="all-columns"

@@ -4,6 +4,7 @@ import Summary from '../../components/Contacts/ContactSummary';
 import ContactTable from '../../components/Contacts/ContactTable';
 import SideBar from '../../components/Bar.js'
 import contactsData from './ContactsInfo.json';
+import "../../components/RightSideStyles.css"
 import "./ContactStyles.css"
 
 function Contacts() {

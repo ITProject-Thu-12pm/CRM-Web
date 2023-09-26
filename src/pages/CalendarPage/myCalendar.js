@@ -66,9 +66,6 @@ function MyCalendar() {
           setNewEvent={setNewEvent}
           handleAddEvent={handleAddEvent}
         />
-
-
-
       </div>
 
     </div>

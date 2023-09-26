@@ -23,14 +23,42 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
     setOpenModal(false);
   };
 
-  const handleDeleteTask = (taskId) => {
-    // TODO: Logic to delete the task from your state/board
-    console.log(`Task to be deleted: ${taskId}`);
+  /* edit column title */
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(column.title);
+
+  const handleTitleClick = () => {
+    setIsEditingTitle(true);
+  };
+
+  const handleTitleChange = (e) => {
+    setEditedTitle(e.target.value);
+  };
+
+  const handleTitleSave = () => {
+    // TODO: Save the edited title
+    // For now, just updating the local state
+    column.title = editedTitle;
+    setIsEditingTitle(false);
   };
 
   return (
     <div className="column-container">
-      <h2 className="column-title">{column.title}</h2>
+      {isEditingTitle ? (
+        <div>
+          <input
+            className="column-edit-title"
+            value={editedTitle}
+            onChange={handleTitleChange}
+            onBlur={handleTitleSave}
+            autoFocus
+          />
+        </div>
+      ) : (
+        <h2 className="column-title" onClick={handleTitleClick}>
+          {column.title}
+        </h2>
+      )}
       <Droppable droppableId={column.id} type="task">
         {(provided, snapshot) => (
           <div
@@ -53,7 +81,10 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
         )}
       </Droppable>
 
-      <Button className="btn change-color-btn column-add-card" onClick={handleAddCardClick}>
+      <Button
+        className="btn change-color-btn column-add-card"
+        onClick={handleAddCardClick}
+      >
         Add a card
       </Button>
       <AddTaskModal

@@ -23,7 +23,7 @@
 .board-add-list {
     height: 3rem;
     width: 12rem;
-    border-radius: 20px;
+    border-radius: 15px;
 }
 
 .board-container {
@@ -88,6 +88,18 @@
     border-bottom: 2px solid #cfd8dc;
     padding-bottom: 0.8rem;
     margin-bottom: 0.8rem;
+}
+
+.column-edit-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-bottom: 2px solid #cfd8dc;
+    padding-bottom: 0.8rem;
+    margin-bottom: 0.8rem;
+    border: none;
+    background: none;
+    width: 100%;
+    outline: none;
 }
 
 .column-add-card {

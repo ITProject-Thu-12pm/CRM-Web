@@ -3,7 +3,7 @@ export const boardData = {
     "task-1": { id: "task-1", content: "task 1", priority: "high" },
     "task-2": { id: "task-2", content: "short example", priority: "medium" },
     "task-3": { id: "task-3", content: "normal example normal example normal example", priority: "low" },
-    "task-4": { id: "task-4", content: "long example long example long example long example long example long example long example long example ", priority: "low" },
+    "task-4": { id: "task-4", content: "long example long example long example long example long example long example long example long example long example long example long example long example long example long example long example long example long example long example ", priority: "low" },
   },
   columns: {
     "column-1": {

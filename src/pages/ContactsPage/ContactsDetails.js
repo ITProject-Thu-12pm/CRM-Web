@@ -10,17 +10,17 @@ function ContactDetails() {
     let { id } = useParams();
     const contact = contactsData.find(contact => contact.id === parseInt(id));
 
-    const [avatar, setAvatar] = useState(contact.avatar);
+    const [avatar, setAvatar] = useState(contact.profile_picture);
     const [tempAvatar, setTempAvatar] = useState(null);
-    const [firstName, setFirstName] = useState(contact.firstName);
-    const [lastName, setLastName] = useState(contact.lastName);
-    const [address, setAddress] = useState(contact.address.streetAddress);
+    const [firstName, setFirstName] = useState(contact.first_name);
+    const [lastName, setLastName] = useState(contact.last_name);
+    const [address, setAddress] = useState(contact.address.street_address);
     const [city, setCity] = useState(contact.address.city);
     const [state, setState] = useState(contact.address.state);
     const [zipCode, setZipCode] = useState(contact.address.postcode);
     const [email, setEmail] = useState(contact.email);
     const [phone, setPhone] = useState(contact.phone);
-    const [dob, setDob] = useState(new Date(contact.dob));
+    const [dob, setDob] = useState(new Date(contact.date_of_birth));
     const [gender, setGender] = useState(contact.gender);
 
     const [isEditing, setIsEditing] = useState(false);

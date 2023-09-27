@@ -99,7 +99,7 @@ const ContactTable = ({ contacts, setContacts }) => {
       field: "fullName",
       headerName: "Name",
       flex: 1,
-      valueGetter: (params) => `${params.row.firstName} ${params.row.lastName}`,
+      valueGetter: (params) => `${params.row.first_name} ${params.row.last_name}`,
       renderCell: (params) => (
         <Link to={`/contacts/${params.row.id}`}>{params.value}</Link>
       ),
@@ -146,7 +146,7 @@ const ContactTable = ({ contacts, setContacts }) => {
       flex: 2,
       valueGetter: (params) => {
         const addr = params.row.address;
-        return `${addr.streetAddress}, ${addr.city}, ${addr.state} ${addr.postcode}`;
+        return `${addr.street_address}, ${addr.city}, ${addr.state} ${addr.postcode}`;
       },
     },
     /* { field: 'dob', headerName: 'DOB', flex: 1 }, */

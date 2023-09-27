@@ -7,78 +7,82 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
 
 const ContactTable = ({ contacts, setContacts }) => {
-    /* add a tag */
-    const allTags = contacts.flatMap((contact) => contact.tags);
-    const uniqueTags = [...new Set(allTags)];
-    const [showModal, setShowModal] = useState(false);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [currentContactTags, setCurrentContactTags] = useState([]);
-    const [editingContactId, setEditingContactId] = useState(null);
-  
-    const handleTagClick = (id, tags) => {
-      setEditingContactId(id);
-      setCurrentContactTags(tags);
-      setShowModal(true);
-    };
-  
-    const navigate = useNavigate();
-    const [showEmailModal, setShowEmailModal] = useState(false);
-  
-    /* add contacts */
-    const handleAddManullyClick = () => {
-      navigate("/addContact");
-    };
-  
-    const handleAddByEmailClick = () => {
-      setShowEmailModal(true);
-    };
-    
-    /* delete contacts */
-    const [selectedRows, setSelectedRows] = useState([]);
-    /* toolbar */
-    function ContactToolbar() {
-      return (
-        <div style={{ display: 'flex'}}>
-          {/* filter, density, export */}
-          <GridToolbar />
-          {/* delete */}
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              if(window.confirm("Are you sure you want to delete the selected contacts?")) {
-                const updatedContacts = contacts.filter(contact => !selectedRows.includes(contact.id.toString()));
-                setContacts(updatedContacts);
-                setSelectedRows([]); // Clear the selection after deletion
-              }
-            }}
-          >
-            Delete
-          </Button>
-        </div>
-      );
-    }
-  
-    const handleSaveTags = () => {
-      const updatedContacts = contacts.map((contact) => {
-        if (contact.id === editingContactId) {
-          return { ...contact, tags: selectedTags };
-        }
-        return contact;
-      });
-  
-      setContacts(updatedContacts);
-  
-      setShowModal(false);
-      setEditingContactId(null);
-      setSelectedTags([]);
-      setCurrentContactTags([]);
-    };
-  
+  /* add a tag */
+  const allTags = contacts.flatMap((contact) => contact.tags);
+  const uniqueTags = [...new Set(allTags)];
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [currentContactTags, setCurrentContactTags] = useState([]);
+  const [editingContactId, setEditingContactId] = useState(null);
+
+  const handleTagClick = (id, tags) => {
+    setEditingContactId(id);
+    setCurrentContactTags(tags);
+    setShowModal(true);
+  };
+
+  const navigate = useNavigate();
+  const [showEmailModal, setShowEmailModal] = useState(false);
+
+  /* add contacts */
+  const handleAddManullyClick = () => {
+    navigate("/addContact");
+  };
+
+  const handleAddByEmailClick = () => {
+    setShowEmailModal(true);
+  };
+
+  /* delete contacts */
+  const [selectedRows, setSelectedRows] = useState([]);
+  /* toolbar */
+  function ContactToolbar() {
+    return (
+      <div style={{ display: "flex" }}>
+        {/* filter, density, export */}
+        <GridToolbar />
+        {/* delete */}
+        <Button
+          variant="text"
+          startIcon={<DeleteIcon />}
+          onClick={() => {
+            console.log("Selected rows to delete:", selectedRows);
+            const updatedContacts = contacts.filter(
+              (contact) => !selectedRows.includes(contact.id)
+            );
+            console.log("Updated contacts:", updatedContacts);
+
+            setContacts(updatedContacts);
+            setSelectedRows([]); // Clear the selection after deletion
+          }}
+        >
+          Delete
+        </Button>
+      </div>
+    );
+  }
+
+  const handleSaveTags = () => {
+    const updatedContacts = contacts.map((contact) => {
+      if (contact.id === editingContactId) {
+        return { ...contact, tags: selectedTags };
+      }
+      return contact;
+    });
+
+    setContacts(updatedContacts);
+
+    setShowModal(false);
+    setEditingContactId(null);
+    setSelectedTags([]);
+    setCurrentContactTags([]);
+  };
 
   /* link to contactDetail and contactTag by id */
   const columns = [
@@ -139,10 +143,6 @@ const ContactTable = ({ contacts, setContacts }) => {
     /* { field: 'dob', headerName: 'DOB', flex: 1 }, */
     { field: "status", headerName: "Status", flex: 1 },
   ];
-
-  /* const allTags = contacts.reduce((acc, contact) => {
-        return acc.concat(contact.tags);
-    }, []); */
 
   return (
     <div>
@@ -205,10 +205,17 @@ const ContactTable = ({ contacts, setContacts }) => {
               showQuickFilter: true,
             },
           }}
-          
-          /* check box */
-          onSelectionModelChange={(newSelectionModel) => {
-            setSelectedRows(newSelectionModel.selectionModel);
+          onRowSelectionModelChange={(newSelectionModel) => {
+            console.log("Row selection model changed!");
+            const ids = newSelectionModel;
+            const selectedIDs = new Set(ids.map((id) => id.toString()));
+            const selectedContacts = contacts.filter((contact) =>
+              selectedIDs.has(contact.id.toString())
+            );
+            console.log("Selected contacts:", selectedContacts);
+
+            // Update the state with the IDs of the selected rows
+            setSelectedRows(ids);
           }}
           selectionModel={selectedRows}
         />
@@ -261,8 +268,5 @@ const ContactTable = ({ contacts, setContacts }) => {
     </div>
   );
 };
-
-
-
 
 export default ContactTable;

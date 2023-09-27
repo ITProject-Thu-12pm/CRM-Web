@@ -9,13 +9,7 @@ import "./ContactStyles.css"
 
 function Contacts() {
     
-    let storedContacts = JSON.parse(localStorage.getItem('contactsData'));
-    if (!storedContacts) {
-        localStorage.setItem('contactsData', JSON.stringify(contactsData));
-        storedContacts = contactsData;
-    }
-    const [contacts, setContacts] = useState(storedContacts)
-    /* const contacts = contactsData;  */
+    const [contacts, setContacts] = useState(contactsData);
 
     return (
         <div className="parent">
@@ -32,14 +26,13 @@ function Contacts() {
                         <Summary total={7} active={4} inactive={3} />
                     </div>
                     <div className='table contacts-cards'>
-                    <ContactTable contacts={contacts} setContacts={setContacts} />
+                        <ContactTable contacts={contacts} setContacts={setContacts} />
                     </div>
                 </div>
             </div>
         </div>
-
-
     );
 }
+
 
 export default Contacts;

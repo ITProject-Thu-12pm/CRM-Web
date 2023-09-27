@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbar,
+  GridToolbarQuickFilter,
+} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import { Dropdown, ButtonGroup, Badge, Modal } from "react-bootstrap";
@@ -44,26 +48,31 @@ const ContactTable = ({ contacts, setContacts }) => {
   /* toolbar */
   function ContactToolbar() {
     return (
-      <div style={{ display: "flex" }}>
-        {/* filter, density, export */}
-        <GridToolbar />
-        {/* delete */}
-        <Button
-          variant="text"
-          startIcon={<DeleteIcon />}
-          onClick={() => {
-            console.log("Selected rows to delete:", selectedRows);
-            const updatedContacts = contacts.filter(
-              (contact) => !selectedRows.includes(contact.id)
-            );
-            console.log("Updated contacts:", updatedContacts);
+      <div className="d-flex justify-content-between align-items-center w-100">
+        <div className="d-flex align-items-center">
+          {/* filter, density, export */}
+          <GridToolbar />
 
-            setContacts(updatedContacts);
-            setSelectedRows([]); // Clear the selection after deletion
-          }}
-        >
-          Delete
-        </Button>
+          {/* delete */}
+          <Button
+            variant="text"
+            startIcon={<DeleteIcon />}
+            onClick={() => {
+              console.log("Selected rows to delete:", selectedRows);
+              const updatedContacts = contacts.filter(
+                (contact) => !selectedRows.includes(contact.id)
+              );
+              console.log("Updated contacts:", updatedContacts);
+
+              setContacts(updatedContacts);
+              setSelectedRows([]); // Clear the selection after deletion
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+        {/* search bar */}
+        <GridToolbarQuickFilter />
       </div>
     );
   }
@@ -197,14 +206,9 @@ const ContactTable = ({ contacts, setContacts }) => {
           }}
           pageSizeOptions={[5, 10, 20]}
           checkboxSelection
-          disableColumnSelector
+          disableDensitySelector
           disableColumnMenu={true}
           slots={{ toolbar: ContactToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
           onRowSelectionModelChange={(newSelectionModel) => {
             console.log("Row selection model changed!");
             const ids = newSelectionModel;

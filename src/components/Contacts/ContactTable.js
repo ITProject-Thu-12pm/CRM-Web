@@ -95,15 +95,31 @@ const ContactTable = ({ contacts, setContacts }) => {
 
   /* link to contactDetail and contactTag by id */
   const columns = [
+    /* avatar */
+    {
+      field: "profile_picture",
+      headerName: "Avatar",
+      flex: 0.5,
+      renderCell: (params) => (
+        <img
+          src={params.value}
+          alt="Profile"
+          style={{ width: "30px", height: "30px", borderRadius: "50%" }}
+        />
+      ),
+    },
+    /* name */
     {
       field: "fullName",
       headerName: "Name",
       flex: 1,
-      valueGetter: (params) => `${params.row.first_name} ${params.row.last_name}`,
+      valueGetter: (params) =>
+        `${params.row.first_name} ${params.row.last_name}`,
       renderCell: (params) => (
         <Link to={`/contacts/${params.row.id}`}>{params.value}</Link>
       ),
     },
+    /* tags */
     {
       field: "tags",
       headerName: "Tags",
@@ -138,6 +154,17 @@ const ContactTable = ({ contacts, setContacts }) => {
         </div>
       ),
     },
+    {
+      field: "date_of_birth",
+      headerName: "DOB",
+      flex: 1,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      flex: 0.7,
+    },
+    
     { field: "phone", headerName: "Phone", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
     {
@@ -149,7 +176,7 @@ const ContactTable = ({ contacts, setContacts }) => {
         return `${addr.street_address}, ${addr.city}, ${addr.state} ${addr.postcode}`;
       },
     },
-    /* { field: 'dob', headerName: 'DOB', flex: 1 }, */
+   
     { field: "status", headerName: "Status", flex: 1 },
   ];
 

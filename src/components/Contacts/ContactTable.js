@@ -45,34 +45,68 @@ const ContactTable = ({ contacts, setContacts }) => {
 
   /* delete contacts */
   const [selectedRows, setSelectedRows] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDeleteConfirmation = () => {
+    console.log("Selected rows to delete:", selectedRows);
+    const updatedContacts = contacts.filter(
+      (contact) => !selectedRows.includes(contact.id)
+    );
+    console.log("Updated contacts:", updatedContacts);
+
+    setContacts(updatedContacts);
+    setSelectedRows([]); // Clear the selection after deletion
+    setShowDeleteModal(false); // Close the modal
+  };
+
   /* toolbar */
   function ContactToolbar() {
     return (
-      <div className="d-flex justify-content-between align-items-center w-100">
-        <div className="d-flex align-items-center">
-          {/* filter, density, export */}
-          <GridToolbar />
-
-          {/* delete */}
-          <Button
-            variant="text"
-            startIcon={<DeleteIcon />}
-            onClick={() => {
-              console.log("Selected rows to delete:", selectedRows);
-              const updatedContacts = contacts.filter(
-                (contact) => !selectedRows.includes(contact.id)
-              );
-              console.log("Updated contacts:", updatedContacts);
-
-              setContacts(updatedContacts);
-              setSelectedRows([]); // Clear the selection after deletion
-            }}
-          >
-            Delete
-          </Button>
+      <div>
+        <div className="conatct-table-toolbar-container">
+          <div className="conatct-table-btn-container">
+            {/* filter, density, export */}
+            <GridToolbar />
+            {/* delete */}
+            <Button
+              variant="text"
+              startIcon={<DeleteIcon />}
+              onClick={() => {
+                console.log("Selected rows to delete:", selectedRows);
+                setShowDeleteModal(true);
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+          {/* search bar */}
+          <GridToolbarQuickFilter />
         </div>
-        {/* search bar */}
-        <GridToolbarQuickFilter />
+
+        {/* Delete confirmation modal */}
+        <Modal
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+          style={{ marginTop: "10%" }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete the selected contacts?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowDeleteModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={handleDeleteConfirmation}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
@@ -164,7 +198,7 @@ const ContactTable = ({ contacts, setContacts }) => {
       headerName: "Gender",
       flex: 0.7,
     },
-    
+
     { field: "phone", headerName: "Phone", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
     {
@@ -176,14 +210,14 @@ const ContactTable = ({ contacts, setContacts }) => {
         return `${addr.street_address}, ${addr.city}, ${addr.state} ${addr.postcode}`;
       },
     },
-   
+
     { field: "status", headerName: "Status", flex: 1 },
   ];
 
   return (
     <div>
       {/* "all contacts" and drop down */}
-      <div className="d-flex justify-content-between align-items-center mb-2">
+      <div className="d-flex mb-2 conatct-table-header-container">
         <h3 className="contact-table-header-title">All Contacts</h3>
         <ButtonGroup>
           <Dropdown>

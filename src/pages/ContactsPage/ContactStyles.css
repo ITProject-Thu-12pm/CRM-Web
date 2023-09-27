@@ -73,9 +73,23 @@
 }
 
 /* table */
-.add-contact-btn {
-    display: inline;
-    margin-right: 1rem;
+
+.conatct-table-header-container {
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.conatct-table-toolbar-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.conatct-table-btn-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  
 }
 
 .MuiToolbar-root p {
@@ -90,11 +104,11 @@
     font-size: 0.8rem;
 }
 
-/* table */
 .contact-table-header-title {
     margin-left: 1rem;
     margin-bottom: 0;
 }
+
 .contact-table-header-add-contact-btn {
     overflow: hidden;
 }

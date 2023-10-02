@@ -10,6 +10,8 @@ import { Login } from './Interface.js';
 function LoadLogInPage() {
   const [user_email, setUserEmail] = useState('');
   const [user_password, setUserPassword] = useState('');
+  const [loginStatus, setLoginStatus] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   return (
     
     <div className="container-all">
@@ -23,17 +25,22 @@ function LoadLogInPage() {
           <div className="header">
             <h1 className="title loginTitle1">Connecting You to</h1>
             <h1 className="loginTitle2">What Matters Most</h1>
+            
           </div>
-
+          {errorMessage && <div className="error-message" style={{color: 'red'}}>{errorMessage}</div>}
           <LogInForm 
             user_email = {user_email}
             setUserEmail = {setUserEmail}
             user_password = {user_password}
             setUserPassword = {setUserPassword}
+            loginStatus = {loginStatus}
           />
           <Buttons 
             user_email = {user_email}
             user_password = {user_password}
+            loginStatus = {loginStatus}
+            setLoginStatus = {setLoginStatus}
+            setErrorMessage = {setErrorMessage}
           />
           
 
@@ -43,7 +50,7 @@ function LoadLogInPage() {
   );
 }
 
-function LogInForm({user_email, setUserEmail, user_password, setUserPassword}) {
+function LogInForm({user_email, setUserEmail, user_password, setUserPassword, loginStatus}) {
   
   return (
     <div className="input">
@@ -62,7 +69,7 @@ function LogInForm({user_email, setUserEmail, user_password, setUserPassword}) {
   );
 }
 
-function Buttons({user_email, user_password}) {
+function Buttons({user_email, user_password, loginStatus, setLoginStatus, setErrorMessage}) {
   const navigate = useNavigate();
 
   const handleNavBarClick = () => {
@@ -77,6 +84,9 @@ function Buttons({user_email, user_password}) {
     Login(user_email, user_password).then(data => {
       if (data === true) {
         navigate('/profile');
+      } else {
+        setLoginStatus(false);
+        setErrorMessage('Please ensure your Email or Password is correct and retry again!');
       }
     })
     

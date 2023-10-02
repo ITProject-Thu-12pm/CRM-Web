@@ -109,4 +109,3 @@ export async function SignUp(firstName, lastName, email, user_password) {
         return false;
     }
 }
-

@@ -7,6 +7,7 @@ import profileInfo from './ProfileInfo.json';
 import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
+
 function LoadProfilePage() {
 
     const [profile, setProfile] = useState({

@@ -22,8 +22,8 @@ function LoadLogInPage() {
 
       <div className="container-right">
         <form className="content">
-          <div className="header">
-            <h1 className="title loginTitle1">Connecting You to</h1>
+          <div className="title-header">
+            <h1 className="loginTitle1">Connecting You to</h1>
             <h1 className="loginTitle2">What Matters Most</h1>
             
           </div>
@@ -95,7 +95,7 @@ function Buttons({user_email, user_password, loginStatus, setLoginStatus, setErr
   return (
     <div className="btns">
 
-      <button type="button" className="btn-lighter-secondary rounded-5 btn login" onClick={handleLoginClick}>Log in</button>
+      <button type="button" className="rounded-5 btn login" onClick={handleLoginClick}>Log in</button>
       <button type="button" className="rounded-5 btn forgot-pass" onClick={handleForgotClick}>Forgot password?</button>
 
       <div className="new-acc">

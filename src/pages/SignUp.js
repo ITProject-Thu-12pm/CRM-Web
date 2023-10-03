@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import InputForm from '../components/Inputs/Input.js'
 import './LoginStyles.css';
@@ -11,6 +13,7 @@ function LoadSignPage() {
   const [userLastName, setUserLastName] = useState('');
   const [user_email, setUserEmail] = useState('');
   const [user_password, setUserPassword] = useState('');
+  const [show, setShow] = useState(false);
   return (
     <div className="container-all">
 
@@ -39,7 +42,11 @@ function LoadSignPage() {
           userFirstName = {userFirstName}
           userLastName = {userLastName}
           user_email={user_email}
-          user_password={user_password}/>
+          user_password={user_password}
+          setShow = {setShow}/>
+          <LogDialog 
+          show = {show}
+          setShow = {setShow}/>
         </form>
       </div>
     </div>
@@ -99,7 +106,9 @@ function Authentication() {
   );
 }
 
-function LogInButtons({userFirstName, userLastName, user_email, user_password}) {
+function LogInButtons({userFirstName, userLastName, user_email, user_password, setShow}) {
+
+  const handleShow = () => setShow(true);
   const navigate = useNavigate();
 
   const handleLogInClick = () => {
@@ -110,7 +119,9 @@ function LogInButtons({userFirstName, userLastName, user_email, user_password}) 
     SignUp(userFirstName, userLastName, user_email, user_password).then(data => {
       if (data) {
         console.log("SignUp success!");
+        navigate("/login");
       } else {
+        handleShow();
         console.log("SignUp Fail!");
       }
     })  
@@ -128,5 +139,33 @@ function LogInButtons({userFirstName, userLastName, user_email, user_password}) 
     </form>
   );
 }
+
+function LogDialog({show, setShow}) {
+  const handleClose = () => setShow(false);
+  return (
+    <>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Sign Up Warning</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        That email is taken. Try another. 
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>Understood</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
 
 export default LoadSignPage;

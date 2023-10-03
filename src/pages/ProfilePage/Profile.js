@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
 import profileInfo from './ProfileInfo.json';
 import InputFormProfile from '../../components/Inputs/InputProfile';
+
 
 
 function LoadProfilePage() {
@@ -95,7 +95,7 @@ function LoadProfilePage() {
                     </div>
                     <div className='row'>
                         <div className='col-md-6'>
-                            <InputFormProfile inputTitle="Email" inputContent={profile.email} inputType="email" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, email: value }))} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="Email" inputContent={profile.email} inputType="email" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, email: value }))} isEditing={isEditing} isProfileEmail={true}/>
                         </div>
                         <div className='col-md-6'>
                             <InputFormProfile inputTitle="Phone" inputContent={profile.phone} inputType="tel" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, phone: value }))} isEditing={isEditing} />

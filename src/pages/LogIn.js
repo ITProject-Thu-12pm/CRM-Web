@@ -72,10 +72,6 @@ function LogInForm({user_email, setUserEmail, user_password, setUserPassword, lo
 function Buttons({user_email, user_password, loginStatus, setLoginStatus, setErrorMessage}) {
   const navigate = useNavigate();
 
-  const handleNavBarClick = () => {
-    navigate("/bar");
-  };
-
   const handleSignUpClick = () => {
     navigate("/signup");
   };

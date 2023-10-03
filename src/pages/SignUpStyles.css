@@ -1,5 +1,4 @@
 /* authentication */
-
 .authentication-container {
     display: flex;
     align-items: flex-start;
@@ -8,7 +7,6 @@
 }
 
 /* make the position of checkbox and text align */
-
 .align-text-center {
     display: flex;
     align-items: flex-start;

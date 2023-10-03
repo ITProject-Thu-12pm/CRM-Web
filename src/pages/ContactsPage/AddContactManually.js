@@ -6,7 +6,7 @@ import InputFormProfile from '../../components/Inputs/InputProfile';
 import DateInput from '../../components/DateInput.js'
 
 function AddContactManually() {
-    const [id, setId] = useState(null);  // This will likely be generated or fetched from somewhere else, so initializing to null
+    const [id, setId] = useState(null);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [tags, setTags] = useState([]);
@@ -40,7 +40,7 @@ function AddContactManually() {
             return;
         }
 
-        // Logic to save the contact goes here...
+        // todo: Logic to save the contact goes here
 
         navigate('/contacts');
     };

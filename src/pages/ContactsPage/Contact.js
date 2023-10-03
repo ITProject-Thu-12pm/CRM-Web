@@ -4,17 +4,12 @@ import Summary from '../../components/Contacts/ContactSummary';
 import ContactTable from '../../components/Contacts/ContactTable';
 import SideBar from '../../components/Bar.js'
 import contactsData from './ContactsInfo.json';
+import "../../components/RightSideStyles.css"
 import "./ContactStyles.css"
 
 function Contacts() {
     
-    let storedContacts = JSON.parse(localStorage.getItem('contactsData'));
-    if (!storedContacts) {
-        localStorage.setItem('contactsData', JSON.stringify(contactsData));
-        storedContacts = contactsData;
-    }
-    const [contacts, setContacts] = useState(storedContacts)
-    /* const contacts = contactsData;  */
+    const [contacts, setContacts] = useState(contactsData);
 
     return (
         <div className="parent">
@@ -27,17 +22,17 @@ function Contacts() {
                         <Greetings username="Evano" />
                     </div>
                     <div className='summary contacts-cards'>
-                        <Summary total={10} active={7} inactive={3} />
+                        {/* todo: back-end link here */}
+                        <Summary total={7} active={4} inactive={3} />
                     </div>
                     <div className='table contacts-cards'>
-                    <ContactTable contacts={contacts} setContacts={setContacts} />
+                        <ContactTable contacts={contacts} setContacts={setContacts} />
                     </div>
                 </div>
             </div>
         </div>
-
-
     );
 }
+
 
 export default Contacts;

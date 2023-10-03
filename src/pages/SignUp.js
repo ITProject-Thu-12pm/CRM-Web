@@ -3,14 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import InputForm from '../components/Inputs/Input.js'
 import './LoginStyles.css';
 import './SignUpStyles.css';
-import { SignUp } from './Interface.js';
 
 
 function LoadSignPage() {
-  const [userFirstName, setUserFirstName] = useState('');
-  const [userLastName, setUserLastName] = useState('');
-  const [user_email, setUserEmail] = useState('');
-  const [user_password, setUserPassword] = useState('');
   return (
     <div className="container-all">
 
@@ -24,52 +19,22 @@ function LoadSignPage() {
             <h1 className="loginTitle2">What Matters Most</h1>
           </div>
 
-          <SignUpForm 
-          userFirstName = {userFirstName}
-          userLastName = {userLastName}
-          user_email={user_email}
-          user_password={user_password}
-          setUserFirstName={setUserFirstName}
-          setUserLastName={setUserLastName}
-          setUserEmail={setUserEmail}
-          setUserPassword={setUserPassword}
-          />
+          <SignUpForm />
           <Authentication />
-          <LogInButtons
-          userFirstName = {userFirstName}
-          userLastName = {userLastName}
-          user_email={user_email}
-          user_password={user_password}/>
+          <LogInButtons />
         </form>
       </div>
     </div>
   );
 }
 
-function SignUpForm({firstName, lastName, user_email, user_password,
-                     setUserFirstName, setUserLastName, setUserEmail, setUserPassword}) {
+function SignUpForm() {
   return (
     <div className="input">
-      <InputForm 
-      inputTitle="First Name" 
-      inputType="firstName" 
-      value = {firstName}
-      onChange={e => setUserFirstName(e.target.value)}/>
-      <InputForm 
-      inputTitle="Last Name" 
-      inputType="lastName" 
-      value = {lastName}
-      onChange={e => setUserLastName(e.target.value)}/>
-      <InputForm 
-      inputTitle="Email" 
-      inputType="email" 
-      value = {user_email}
-      onChange={e => setUserEmail(e.target.value)}/>
-      <InputForm 
-      inputTitle="Password" 
-      inputType="password" 
-      value = {user_password}
-      onChange={e => setUserPassword(e.target.value)}/>
+      <InputForm inputTitle="First Name" />
+      <InputForm inputTitle="Last Name" />
+      <InputForm inputTitle="Email" inputType="email" />
+      <InputForm inputTitle="Password" inputType="password" />
     </div>
   );
 }
@@ -99,26 +64,16 @@ function Authentication() {
   );
 }
 
-function LogInButtons({userFirstName, userLastName, user_email, user_password}) {
+function LogInButtons() {
   const navigate = useNavigate();
 
   const handleLogInClick = () => {
-      navigate("/login");
+    navigate("/login");
   };
-
-  const handleSignUpClick = () => {
-    SignUp(userFirstName, userLastName, user_email, user_password).then(data => {
-      if (data) {
-        console.log("SignUp success!");
-      } else {
-        console.log("SignUp Fail!");
-      }
-    })  
-  }
   return (
     <form className="btns">
 
-      <button type="button" className="btn btn-lighter-secondary rounded-5 login" onClick={handleSignUpClick}>Create an account</button>
+      <button type="button" className="btn btn-lighter-secondary rounded-5 login">Create an account</button>
       <div className="already-acc">
         <span>Already have an account?</span>
         <button type="button" className="btn-outline-secondary sign-up water-button" onClick={handleLogInClick}>Log in</button>

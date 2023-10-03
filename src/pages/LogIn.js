@@ -88,7 +88,7 @@ function Buttons({ validateInputs }) {
 
   const handleLoginClick = () => {
     if (validateInputs()) {
-      navigate("/profile");
+      navigate("/dashboard");
     }
   };
 

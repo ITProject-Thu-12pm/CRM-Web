@@ -93,8 +93,12 @@ export async function SignUp(firstName, lastName, email, user_password) {
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("SignUp Success!");
-            return true;
-        } 
+            return "SUCCESS";
+        } else if (response.data === 400){
+            return "BAD EMAIL";
+        } else if (response.data === 500) {
+            return "ALREADY EXIEST";
+        }
         // In case server returns any other status code, consider it as a failure.
         console.log("SignUp Fail with status: ", response.status);
         return false;
@@ -116,18 +120,18 @@ export async function GetUserInfor(firstName, lastName, email, user_password) {
 
         // If sign up was successful on the backend
         if (response.status === 202) {
-            console.log(response.data);
+            console.log("Successly get user Infor!");
             return response.data;
         } 
         // In case server returns any other status code, consider it as a failure.
-        console.log("GetInfor Fail with status: ", response.status);
+        console.log("GetUserInfor Fail with status: ", response.status);
         return false;
     } catch (error) {
         // Log different message based on the status code in error response.
         if (error.response && error.response.status === 403) {
-            console.error("SignUp Forbidden (403): ", error.response.data);
+            console.error("GetUserInfor Forbidden (403): ", error.response.data);
         } else {
-            console.error("SignUp Request Failed: ", error);
+            console.error("GetUserInfor Request Failed: ", error);
         }
         return false;
     }

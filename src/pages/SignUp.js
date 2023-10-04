@@ -14,6 +14,7 @@ function LoadSignPage() {
   const [user_email, setUserEmail] = useState('');
   const [user_password, setUserPassword] = useState('');
   const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   return (
     <div className="container-all">
 
@@ -43,10 +44,12 @@ function LoadSignPage() {
           userLastName = {userLastName}
           user_email={user_email}
           user_password={user_password}
-          setShow = {setShow}/>
+          setShow = {setShow}
+          setErrorMessage = {setErrorMessage}/>
           <LogDialog 
           show = {show}
-          setShow = {setShow}/>
+          setShow = {setShow}
+          errorMessage= {errorMessage}/>
         </form>
       </div>
     </div>
@@ -106,7 +109,7 @@ function Authentication() {
   );
 }
 
-function LogInButtons({userFirstName, userLastName, user_email, user_password, setShow}) {
+function LogInButtons({userFirstName, userLastName, user_email, user_password, setShow, setErrorMessage}) {
 
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
@@ -117,12 +120,16 @@ function LogInButtons({userFirstName, userLastName, user_email, user_password, s
 
   const handleSignUpClick = () => {
     SignUp(userFirstName, userLastName, user_email, user_password).then(data => {
-      if (data) {
+      if (data === 'SUCCESS') {
         console.log("SignUp success!");
         navigate("/login");
-      } else {
+      } else if (data === 'ALREADY EXIEST'){
+        setErrorMessage("That email is taken. Try another.");
         handleShow();
         console.log("SignUp Fail!");
+      } else {
+        handleShow();
+        setErrorMessage("That email format is invalid. Try another.");
       }
     })  
   }
@@ -140,7 +147,7 @@ function LogInButtons({userFirstName, userLastName, user_email, user_password, s
   );
 }
 
-function LogDialog({show, setShow}) {
+function LogDialog({show, setShow, errorMessage}) {
   const handleClose = () => setShow(false);
   return (
     <>
@@ -154,7 +161,7 @@ function LogDialog({show, setShow}) {
           <Modal.Title>Sign Up Warning</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        That email is taken. Try another. 
+        {errorMessage} 
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

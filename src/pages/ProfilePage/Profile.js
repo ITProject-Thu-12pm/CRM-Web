@@ -1,29 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
+import {GetUserInfor} from '../Interface.js'
 import profileInfo from './ProfileInfo.json';
+
 import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
-
 function LoadProfilePage() {
-
     const [profile, setProfile] = useState({
         avatar: profileInfo.profile_picture,
         tempAvatar: null,
-        firstName: profileInfo.first_name,
-        lastName: profileInfo.last_name,
-        address: profileInfo.street_address,
-        city: profileInfo.city,
-        state: profileInfo.state,
-        postCode: profileInfo.postcode,
-        email: profileInfo.email,
-        phone: profileInfo.phone,
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        state: '',
+        postCode: '',
+        email: '',
+        phone: '',
         dob: new Date(profileInfo.dob)
     });
-
+    useEffect(() => {
+        // Asynchronously fetch user data
+        const fetchData = async () => {
+            try {
+                const data = await GetUserInfor();
+                // Update the profile state with the fetched data
+                setProfile(prevProfile => ({ 
+                    firstName: data.first_name,
+                    lastName: data.last_name,
+                    email: data.email,
+                    address: data.address,
+                    city: data.city,
+                    state: data.state,
+                    postCode: data.postcode,
+                    phone: data.phone,
+                    dob: new Date(profileInfo.dob)
+                    // Add other fields as needed
+                }));
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        // Invoke the asynchronous function
+        fetchData();
+    }, []);
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {
@@ -122,6 +146,7 @@ function LoadProfilePage() {
                             type="button"
                             className="btn btn-primary rounded-5 change-color-btn"
                             onClick={isEditing ? saveChanges : handleEditToggle}
+                            
                         >
                             {isEditing ? 'Save' : 'Edit'}
                         </button>

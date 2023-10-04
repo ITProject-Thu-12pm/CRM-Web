@@ -112,20 +112,15 @@ export async function SignUp(firstName, lastName, email, user_password) {
 export async function GetUserInfor(firstName, lastName, email, user_password) {
     try {
         // Send a request to the backend
-        const response = await axios.get('http://127.0.0.1:8000/user/me/', {
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            user_password: user_password
-        });
+        const response = await axios.get('http://127.0.0.1:8000/user/me/');
 
         // If sign up was successful on the backend
-        if (response.status === 201) {
-            console.log("SignUp Success!");
-            return true;
+        if (response.status === 202) {
+            console.log(response.data);
+            return response.data;
         } 
         // In case server returns any other status code, consider it as a failure.
-        console.log("SignUp Fail with status: ", response.status);
+        console.log("GetInfor Fail with status: ", response.status);
         return false;
     } catch (error) {
         // Log different message based on the status code in error response.

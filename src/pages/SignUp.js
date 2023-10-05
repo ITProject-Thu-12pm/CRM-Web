@@ -120,6 +120,7 @@ function LogInButtons({userFirstName, userLastName, user_email, user_password, s
 
   const handleSignUpClick = () => {
     SignUp(userFirstName, userLastName, user_email, user_password).then(data => {
+      console.log(data);
       if (data === 'SUCCESS') {
         console.log("SignUp success!");
         navigate("/login");

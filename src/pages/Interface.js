@@ -89,25 +89,20 @@ export async function SignUp(firstName, lastName, email, user_password) {
             email: email,
             user_password: user_password
         });
-
+        console.log(response.status)
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("SignUp Success!");
             return "SUCCESS";
-        } else if (response.data === 400){
-            return "BAD EMAIL";
-        } else if (response.data === 500) {
-            return "ALREADY EXIEST";
-        }
+        } 
         // In case server returns any other status code, consider it as a failure.
         console.log("SignUp Fail with status: ", response.status);
-        return false;
     } catch (error) {
         // Log different message based on the status code in error response.
-        if (error.response && error.response.status === 403) {
-            console.error("SignUp Forbidden (403): ", error.response.data);
-        } else {
-            console.error("SignUp Request Failed: ", error);
+        if (error.response.status === 400){
+            return "BAD EMAIL";
+        } else if (error.response.status === 500) {
+            return "ALREADY EXIEST";
         }
         return false;
     }

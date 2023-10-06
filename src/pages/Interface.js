@@ -125,17 +125,17 @@ export async function UpdateUserProfile(profile, newDate) {
         console.log(response.status);
         // If sign up was successful on the backend
         if (response.status === 201) {
-            console.log("SignUp Success!");
+            console.log("Update Success!");
             return "SUCCESS";
         } 
         // In case server returns any other status code, consider it as a failure.
-        console.log("SignUp Fail with status: ", response.status);
+        console.log("Update Fail with status: ", response.status);
     } catch (error) {
         // Log different message based on the status code in error response.
         if (error.response.status === 400){
-            return "BAD EMAIL";
+            return "BAD Request";
         } else if (error.response.status === 500) {
-            return "ALREADY EXIEST";
+            return "Server Error";
         }
         return false;
     }

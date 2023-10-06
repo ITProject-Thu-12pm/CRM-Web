@@ -3,7 +3,7 @@ import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
-import {GetUserInfor} from '../Interface.js'
+import {GetUserInfor, UpdateUserProfile} from '../Interface.js'
 import profileInfo from './ProfileInfo.json';
 
 import InputFormProfile from '../../components/Inputs/InputProfile';
@@ -66,10 +66,14 @@ function LoadProfilePage() {
     };
 
     const saveChanges = () => {
-        if (profile.tempAvatar) {
+         if (profile.tempAvatar) {
             setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
-        }
-        handleEditToggle();
+            
+         }
+         let original = profile.dob.toLocaleDateString();;
+         let newDate = original.replace(/\//g, "-");
+         UpdateUserProfile(profile, newDate);
+         handleEditToggle();
     };
 
     const navigate = useNavigate();

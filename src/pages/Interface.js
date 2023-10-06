@@ -89,7 +89,40 @@ export async function SignUp(firstName, lastName, email, user_password) {
             email: email,
             user_password: user_password
         });
-        console.log(response.status)
+        // If sign up was successful on the backend
+        if (response.status === 201) {
+            console.log("SignUp Success!");
+            return "SUCCESS";
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("SignUp Fail with status: ", response.status);
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response.status === 400){
+            return "BAD EMAIL";
+        } else if (error.response.status === 500) {
+            return "ALREADY EXIEST";
+        }
+        return false;
+    }
+}
+
+export async function UpdateUserProfile(profile, newDate) {
+    
+    try {
+        //console.log(profile.firstName);
+        // Send a request to the backend
+        const response = await axios.put('http://127.0.0.1:8000/user/profile/', {
+            first_name: profile.firstName,
+            last_name: profile.lastName,
+            address : profile.address, 
+            city : profile.city, 
+            state : profile.state, 
+            postcode : profile.postCode,
+            phone : profile.phone, 
+            dob: newDate
+        });
+        console.log(response.status);
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("SignUp Success!");
@@ -114,7 +147,7 @@ export async function GetUserInfor(firstName, lastName, email, user_password) {
         const response = await axios.get('http://127.0.0.1:8000/user/me/');
 
         // If sign up was successful on the backend
-        if (response.status === 202) {
+        if (response.status === 200) {
             console.log("Successly get user Infor!");
             return response.data;
         } 

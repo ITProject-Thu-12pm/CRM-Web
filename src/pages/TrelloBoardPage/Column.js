@@ -69,6 +69,7 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
           >
             {tasks.map((task, index) => (
               <Task
+              
                 key={task.id}
                 task={task}
                 index={index}

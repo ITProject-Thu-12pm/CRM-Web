@@ -30,8 +30,10 @@ function LoadProfilePage() {
     };
 
     const handleAvatarChange = (event) => {
+        
         const file = event.target.files[0];
         if (file) {
+            
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
@@ -41,7 +43,9 @@ function LoadProfilePage() {
     };
 
     const saveChanges = () => {
+        
         if (profile.tempAvatar) {
+           
             setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
         }
         handleEditToggle();

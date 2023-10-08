@@ -12,6 +12,28 @@ function LoadLogInPage() {
   const [user_password, setUserPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const validateInputs = () => {
+    let isValid = true;
+  
+    if (!user_email.trim()) {
+      setEmailError('Email cannot be empty.');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+  
+    if (!user_password) {
+      setPasswordError('Password cannot be empty.');
+      isValid = false;
+    } else {
+      setPasswordError('');
+    }
+  
+    return isValid;
+  };
   return (
     
     <div className="container-all">
@@ -34,8 +56,11 @@ function LoadLogInPage() {
             user_password = {user_password}
             setUserPassword = {setUserPassword}
             loginStatus = {loginStatus}
+            emailError={emailError}
+            passwordError={passwordError}
           />
           <Buttons 
+            validateInputs={validateInputs}
             user_email = {user_email}
             user_password = {user_password}
             loginStatus = {loginStatus}
@@ -50,7 +75,7 @@ function LoadLogInPage() {
   );
 }
 
-function LogInForm({user_email, setUserEmail, user_password, setUserPassword, loginStatus}) {
+function LogInForm({user_email, setUserEmail, user_password, setUserPassword, loginStatus, emailError, passwordError}) {
   
   return (
     <div className="input">
@@ -59,17 +84,19 @@ function LogInForm({user_email, setUserEmail, user_password, setUserPassword, lo
       inputType="email" 
       value = {user_email}
       onChange={e => setUserEmail(e.target.value)}
+      error={emailError}
       />
       <InputForm inputTitle="Password" 
       inputType="password" 
       value = {user_password}
       onChange={e => setUserPassword(e.target.value)}
+      error={passwordError}
       />
     </div>
   );
 }
 
-function Buttons({user_email, user_password, loginStatus, setLoginStatus, setErrorMessage}) {
+function Buttons({validateInputs, user_email, user_password, loginStatus, setLoginStatus, setErrorMessage}) {
   const navigate = useNavigate();
 
   const handleSignUpClick = () => {
@@ -77,15 +104,16 @@ function Buttons({user_email, user_password, loginStatus, setLoginStatus, setErr
   };
 
   const handleLoginClick = () => {
-    Login(user_email, user_password).then(data => {
-      if (data === true) {
-        navigate('/profile');
-      } else {
-        setLoginStatus(false);
-        setErrorMessage('Please ensure your Email or Password is correct and retry again!');
-      }
-    })
-    
+    if (validateInputs()) {
+      Login(user_email, user_password).then(data => {
+        if (data === true) {
+          navigate('/profile');
+        } else {
+          setLoginStatus(false);
+          setErrorMessage('Please ensure your Email or Password is correct and retry again!');
+        }
+      })
+    }
   };
 
   const handleForgotClick = () => {

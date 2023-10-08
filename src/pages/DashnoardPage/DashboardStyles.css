@@ -1,0 +1,21 @@
+.trello-img {
+    border-radius: 50%;
+    padding: 1rem;
+    font-size: 5rem !important;
+}
+
+.todo-img {
+
+    color: orange;
+    background-color: #fbe4bb;
+}
+
+.in-progress-img {
+    color: #0F5FC2;
+    background-color: #CAF1FF;
+}
+
+.completed-img {
+    color: #00AA11;
+    background-color: #D3FFE7;
+}

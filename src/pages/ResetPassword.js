@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Reset_Passowrd } from './Interface.js';
 import PriorityHighRoundedIcon from '@mui/icons-material/PriorityHighRounded';
 import SideBar from '../components/Bar.js'
 import InputForm from '../components/Inputs/Input.js'
@@ -23,19 +22,16 @@ function LoadResetPage() {
 
     /* check old password */
     const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
     const [reEnteredPassword, setReEnteredPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     /* helper func */
     const handlePasswordCheck = () => {
         console.log("Checking passwords...");
-        if (newPassword !== reEnteredPassword) {
+
+        if (oldPassword !== reEnteredPassword) {
             setErrorMessage('Passwords do not match');
         } else {
-            if(Reset_Passowrd(oldPassword, newPassword)){
-                console.log("Reset success!");
-            }
             /* setErrorMessage(''); */
             /* Proceed with other logic, e.g., API call to update the password */
         }
@@ -80,19 +76,18 @@ function LoadResetPage() {
 
                     <div>
                         <InputForm
-                            inputTitle="enter New Password"
+                            inputTitle="Re-enter Old Password"
                             inputType="password"
-                            value={newPassword}
-                            onChange={e => setNewPassword(e.target.value)}
+                            value={reEnteredPassword}
+                            onChange={e => setReEnteredPassword(e.target.value)}
                         />
                         {checkOldPass()}
                     </div>
 
                     <InputForm
-                        inputTitle="re-enter New Password"
+                        inputTitle="enter New Password"
                         inputType="password"
-                        value={reEnteredPassword}
-                        onChange={e => setReEnteredPassword(e.target.value)}
+
                     />
                     </div>
                    

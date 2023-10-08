@@ -59,9 +59,8 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
           {column.title}
         </h2>
       )}
-      {/* render Task */}
       <Droppable droppableId={column.id} type="task">
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
             className="task-column"
             ref={provided.innerRef}
@@ -69,7 +68,6 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
           >
             {tasks.map((task, index) => (
               <Task
-              
                 key={task.id}
                 task={task}
                 index={index}

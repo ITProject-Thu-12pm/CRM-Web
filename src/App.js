@@ -4,7 +4,6 @@ import LoadLogInPage from "./pages/LogIn";
 import LoadSignPage from "./pages/SignUp";
 import LoadForgotPage from "./pages/ForgotPassword";
 import LoadResetPage from "./pages/ResetPassword";
-import LoadDashboardPage from "./pages/DashnoardPage/Dashboard";
 import Contacts from './pages/ContactsPage/Contact';
 import ContactDetail from  './pages/ContactsPage/ContactsDetails'
 import LoadAddContactPage from  './pages/ContactsPage/AddContactManually'
@@ -17,6 +16,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
+
 
 
 function App() {
@@ -35,7 +35,6 @@ function App() {
         <Route path="/reset" element={<LoadResetPage />} /> 
         <Route path="/calendar" element={<MyCalendar />} /> 
         <Route path="/trello-board" element={<TrelloBoard />} />
-        <Route path="/dashboard" element={<LoadDashboardPage />} />
        
       </Routes>
     </Router> 

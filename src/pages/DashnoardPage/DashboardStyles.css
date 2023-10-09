@@ -1,21 +1,127 @@
 .trello-img {
-    border-radius: 50%;
-    padding: 1rem;
-    font-size: 5rem !important;
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 5rem !important;
 }
 
 .todo-img {
-
-    color: orange;
-    background-color: #fbe4bb;
+  color: orange;
+  background-color: #fbe4bb;
 }
 
 .in-progress-img {
-    color: #0F5FC2;
-    background-color: #CAF1FF;
+  color: #0f5fc2;
+  background-color: #caf1ff;
 }
 
 .completed-img {
-    color: #00AA11;
-    background-color: #D3FFE7;
+  color: #00aa11;
+  background-color: #d3ffe7;
 }
+
+.birthday-img {
+  width: 30%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.birthday-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.calendar-img {
+  width: 100px;
+  height: 100px;
+  /* object-fit: cover;  */
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-img {
+  width: 120px;
+  height: 100px;
+  /* object-fit: cover;  */
+  padding: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-radius {
+  border-radius: 15px;
+}
+
+.info1 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 2px;
+  grid-row-gap: 0px;
+}
+
+.div1 {
+  grid-area: 1 / 1 / 6 / 4;
+}
+.div2 {
+  grid-area: 1 / 4 / 6 / 6;
+}
+
+.time-card {
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  /* min-height: 235.19px; */
+}
+
+.event-card-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.event-col-title {
+  color: #616161;
+  padding-left: 10px;
+}
+
+.event-col-time {
+  color: #616161;
+  padding-left: 40px;
+}
+
+.event-col-date {
+  color: #616161;
+  padding-left: 60px;
+}
+
+.event-list-title {
+  padding-left: 20px;
+}
+
+.event-list-date {
+  text-align: center;
+}
+
+.event-list-time {
+  text-align: center;
+}
+
+.event-list {
+  padding-bottom: 20px;
+}
+
+/* .event-list-time {
+  padding-left: 20px;
+} */

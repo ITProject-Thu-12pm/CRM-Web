@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// Styles
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./DashboardStyles.css";
 
+// Local Components
 import SideBar from "../../components/Bar.js";
 import Greetings from "../../components/Contacts/Greeting";
-import TrelloSummary from "../../components/Dashboard/TrelloSummary";
 
+// MUI Components
 import {
   Typography,
   TextField,
@@ -17,12 +20,20 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Avatar
+  Avatar,
 } from "@mui/material";
 
+// MUI Icons
+import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 
+// Data
 import DashboardData from "./DashboardData.json";
+
+// Bootstrap Components
 import Card from "react-bootstrap/Card";
+
 
 function LoadDashboardPage() {
   // Destructuring data from imported JSON
@@ -64,6 +75,37 @@ function LoadDashboardPage() {
           <div className="contacts-cards">
             <EventCard events={events} />
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrelloSummary({ todo, in_progress, completed }) {
+  return (
+    <div className="summary-container">
+      {/* total contact */}
+      <div className="col d-flex icon-and-content">
+        <DirectionsWalkIcon className="trello-img todo-img" />
+        <div>
+          <div className="summary-first-text">To Do</div>
+          <div className="summary-second-text">{todo}</div>
+        </div>
+      </div>
+      {/* active contact */}
+      <div className="col d-flex icon-and-content">
+        <DirectionsRunIcon className="trello-img in-progress-img" />
+        <div>
+          <div className="summary-first-text">In Progresss</div>
+          <div className="summary-second-text">{in_progress}</div>
+        </div>
+      </div>
+      {/* inactive contact */}
+      <div className="col d-flex icon-and-content">
+        <DoneAllIcon className="trello-img completed-img" />
+        <div>
+          <div className="summary-first-text">Completed</div>
+          <div className="summary-second-text">{completed}</div>
         </div>
       </div>
     </div>

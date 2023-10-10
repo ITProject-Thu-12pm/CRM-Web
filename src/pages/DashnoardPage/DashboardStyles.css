@@ -90,7 +90,7 @@
     /* min-height: 235.19px; */
 }
 .curr-time {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 800;
     background: linear-gradient(100deg, #76daec 0%, #bd66ce 100%);
     -webkit-background-clip: text; 

@@ -16,6 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CardGroup from "react-bootstrap/CardGroup";
+
 import {
   CardContent,
   CardMedia,
@@ -27,6 +28,7 @@ import {
   IconButton,
   Grid,
   Divider,
+  Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Container from "react-bootstrap/Container";
@@ -57,12 +59,15 @@ function LoadDashboardPage() {
           </div>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={12} md={9}>
+            <Grid item xs={12} sm={12} md={8}>
               <BirthdayCard birthdays={birthdays} />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={3}>
-              <TimeCard />
+            <Grid item xs={12} sm={12} md={4}>
+              <Box mb={2}>
+                <TimeCard />
+              </Box>
+              <NoteCard />
             </Grid>
           </Grid>
 
@@ -72,6 +77,35 @@ function LoadDashboardPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function NoteCard() {
+  const [note, setNote] = useState(""); // initial state
+
+  const handleNoteChange = (event) => {
+    const updatedNote = event.target.value;
+    setNote(updatedNote);
+
+    // bankend link here
+  };
+
+  return (
+    <Card className="card-radius">
+      <Card.Header>Quick Note</Card.Header>
+      <Card.Body>
+        <TextField
+          id="standard-multiline-static"
+          multiline
+          rows={5}
+          placeholder="Take a note here..."
+          value={note}
+          fullWidth
+          variant="standard"
+          onChange={handleNoteChange}
+        />
+      </Card.Body>
+    </Card>
   );
 }
 
@@ -134,13 +168,9 @@ function EventCard({ events }) {
         }}
         className="card-radius"
       >
-        {events.map(
-          (
-            event
-          ) => (
-            <EventList key={event.id} {...event} />
-          )
-        )}
+        {events.map((event) => (
+          <EventList key={event.id} {...event} />
+        ))}
       </List>
     </Card>
   );
@@ -189,7 +219,6 @@ function BirthdayCard({ birthdays }) {
         <Card.Title className="birthday-text">Let's celebrate!</Card.Title>
       </Card.Body>
 
-      
       <List
         sx={{
           width: "100%",
@@ -200,13 +229,9 @@ function BirthdayCard({ birthdays }) {
         }}
         className="card-radius"
       >
-        {birthdays.map(
-          (
-            contact
-          ) => (
-            <ContactList key={contact.id} {...contact} />
-          )
-        )}
+        {birthdays.map((contact) => (
+          <ContactList key={contact.id} {...contact} />
+        ))}
       </List>
     </Card>
   );

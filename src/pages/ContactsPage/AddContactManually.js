@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../../components/Bar.js'
@@ -22,7 +22,7 @@ function AddContactManually() {
     const [gender, setGender] = useState('');
     const [avatar, setAvatar] = useState('https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true');
     const [avatarDataUrl, setAvatarDataUrl] = useState(null);
-
+    const [shouldAddUser, setShouldAddUser] = useState(false);
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -35,13 +35,26 @@ function AddContactManually() {
     }
 
     const navigate = useNavigate();
-
+    const formatDate = (date) => {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
     const handleSave = () => {
         if (!firstName || !lastName || !email) {
             alert("Name and Email are mandatory!");
             return;
         }
         const image = new Image();
+        image.crossOrigin = "anonymous";
         image.src = avatar;
         image.onload = function () {
             const canvas = document.createElement('canvas');
@@ -56,15 +69,24 @@ function AddContactManually() {
 
             // 将 Canvas 上的图像转换为 Data URL
             const dataUrl = canvas.toDataURL('image/png'); // 可以选择不同的图像格式，如 'image/png'
-
+            setAvatarDataUrl(dataUrl);
+            setShouldAddUser(true);
+            console.log(dataUrl);
             // dataUrl 就是包含图像的 Base64 编码字符串
-            console.log('Image as Data URL:', dataUrl);
+            //console.log('Image as Data URL:', dataUrl);
         }
-            
-        // todo: Logic to save the contact goes here
-        addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, avatarDataUrl);
-        navigate('/contacts');
+        
+        // todo: Logic to save the contact goes here   
     };
+
+    useEffect(() => {
+        if (shouldAddUser && avatarDataUrl) { 
+            addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatarDataUrl);
+            setShouldAddUser(false); // 重置状态以防止多次添加
+            navigate('/contacts');
+        }
+    }, [shouldAddUser, avatarDataUrl, firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, navigate]
+    ); 
 
     return (
         <div className="parent">

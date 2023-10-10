@@ -16,6 +16,11 @@ function Contacts() {
         const fetchData = async () => {
             try {
                 const data = await GetUserContact();
+                for (let contact of data) {
+                    if (contact.avatar) {
+                        console.log(contact.avatar);
+                    }
+                }
                 setContacts(data);
             } catch (error) {
                 console.error("Error fetching user data:", error);

@@ -33,9 +33,16 @@ function LoadResetPage() {
         if (newPassword !== reEnteredPassword) {
             setErrorMessage('Passwords do not match');
         } else {
-            if(Reset_Passowrd(oldPassword, newPassword)){
-                console.log("Reset success!");
-            }
+            Reset_Passowrd(oldPassword, newPassword).then(data => {
+                if (data === true) {
+                    console.log('Reset Success!');
+                } else {
+                    console.log('Reset Fail');
+                  
+                }
+              })
+                
+            
             /* setErrorMessage(''); */
             /* Proceed with other logic, e.g., API call to update the password */
         }

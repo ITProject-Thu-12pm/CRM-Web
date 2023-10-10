@@ -71,9 +71,11 @@ export async function Reset_Passowrd(old_password, new_password) {
                  success = true
              } else {
                  console.log("User reset password Fail!");
+                 success = false
              } 
          }
      catch (error) {
+        success = false;
         //console.error("Request Fail: ", error);
         
     }
@@ -186,6 +188,7 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
 
 export async function addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, avatar) {
     try {
+        console.log(avatar);
         // Send a request to the backend
         const response = await axios.post('http://127.0.0.1:8000/contacts/', {
             first_name : firstName,
@@ -199,7 +202,7 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
             postcode : postcode,
             gender : gender,
             dob : dob,
-            //avatar : avatar
+            avatar : avatar
         });
 
         // If sign up was successful on the backend

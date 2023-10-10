@@ -56,12 +56,29 @@ function LoadDashboardPage() {
             />
           </div>
 
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={12} md={9}>
+          {/* <Container>
+            <Row>
+                <Col sm={8}>    <BirthdayCard /></Col>
+                <Col sm={4}>    <TimeCard /></Col>
+            </Row>
+        </Container> */}
+
+          {/* <Grid container spacing={3}>
+            <Grid item xs={9}>
               <BirthdayCard birthdays={birthdays} />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={3}>
+            <Grid item xs={3}>
+              <TimeCard />
+            </Grid>
+          </Grid> */}
+
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={8}>
+              <BirthdayCard birthdays={birthdays} />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={4}>
               <TimeCard />
             </Grid>
           </Grid>
@@ -225,12 +242,14 @@ function TimeCard() {
 
   return (
     <Card className="time-card">
-      <Typography variant="h6" style={{ marginBottom: "8px", color: "#333" }}>
+      <div className="curr-time">{dateTime.toLocaleTimeString()}</div>
+      <div className="curr-date">{dateTime.toLocaleDateString()}</div>
+      {/* <Typography variant="h6" style={{ marginBottom: "8px", color: "#333" }}>
         Today's Date: {dateTime.toLocaleDateString()}
       </Typography>
       <Typography variant="body1" style={{ color: "#666" }}>
         Current Time: {dateTime.toLocaleTimeString()}
-      </Typography>
+      </Typography> */}
     </Card>
   );
 }

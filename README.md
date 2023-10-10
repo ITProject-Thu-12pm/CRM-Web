@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# MyCircle: Your Personal CRM
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to MyCircle, a user-friendly Personal CRM built with Django and React.js. With MyCircle, you can manage your contacts, track interactions, and never miss a follow-up.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Contact Management**: Seamlessly add, edit, and delete contacts.
+- **Interaction Tracking**: Keep a log of all your interactions - meetings, calls, emails, and more.
+- **Calendar Integration**: Set reminders for follow-ups or important dates on your personal calendar.
+- **Task Management**: Use the Trello-like board to manage notes and prioritize tasks.
+- **Responsive UI**: Enjoy a modern and responsive interface built with React.js.
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Ensure you have the following installed on your local machine:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Python (3.8 or newer)
+- Node.js (14.0 or newer)
+- npm
 
-### `npm test`
+## Setup & Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frond-end (Javascript)
 
-### `npm run build`
+1. Clone the repository to your local machine:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   git clone https://github.com/ITProject-Thu-12pm/CRM-Web.git
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Navigate to the project directory:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   cd CRM-Web
+   ```
 
-### `npm run eject`
+3. Install the project dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Run the application locally:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   npm start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Learn More
+### Backend (Django)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Navigate to the backend directory:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   cd backend
+   ```
 
-### Code Splitting
+2. Create a virtual environment:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```bash
+   python -m venv venv
+   ```
 
-### Analyzing the Bundle Size
+3. Activate the virtual environment:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   - On Windows: `venv\Scripts\activate`
+   - On macOS and Linux: `source venv/bin/activate`
 
-### Making a Progressive Web App
+4. Install the required packages:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Advanced Configuration
+5. Run migrations:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+   ```bash
+   python manage.py migrate
+   ```
 
-### Deployment
+6. Start the Django server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+   ```bash
+   python manage.py runserver	
+   ```
 
-### `npm run build` fails to minify
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Open your browser and navigate to `http://localhost:3000` to access the frontend.
+2. The backend API can be accessed at `http://localhost:8000`.
+
+## Contributing
+
+We welcome contributions! For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the [License Name] license. 
+

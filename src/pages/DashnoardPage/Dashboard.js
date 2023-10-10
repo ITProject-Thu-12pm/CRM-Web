@@ -64,11 +64,20 @@ function LoadDashboardPage() {
               <BirthdayCard birthdays={birthdays} />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={4}>
-              <Box mb={2}>
-                <TimeCard />
-              </Box>
-              <NoteCard />
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className="date-and-note-container"
+            >
+              <Box className="date-or-note">
+                <TimeCard/>
+              </Box >
+              <Box className="date-or-note">
+                <NoteCard/>
+              </Box >
+              
             </Grid>
           </Grid>
 

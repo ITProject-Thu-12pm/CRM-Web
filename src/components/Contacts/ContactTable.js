@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
 
-const ContactTable = ({ contacts, setContacts }) => {
+const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   /* add a tag */
   const allTags = contacts.flatMap((contact) => contact.tags);
   const uniqueTags = [...new Set(allTags)];
@@ -59,6 +59,12 @@ const ContactTable = ({ contacts, setContacts }) => {
     setShowDeleteModal(false); // Close the modal
   };
 
+  /* direct to contact detail */
+  
+  const handleNameClick = (contactId) => {
+    onSelectContact(contactId);
+  };
+  
   /* toolbar */
   function ContactToolbar() {
     return (
@@ -147,12 +153,16 @@ const ContactTable = ({ contacts, setContacts }) => {
       field: "fullName",
       headerName: "Name",
       flex: 1,
-      valueGetter: (params) =>
-        `${params.row.first_name} ${params.row.last_name}`,
+      valueGetter: (params) => `${params.row.first_name} ${params.row.last_name}`,
       renderCell: (params) => (
-        <Link to={`/contacts/${params.row.id}`}>{params.value}</Link>
+        <div
+          style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+          onClick={() => handleNameClick(params.row.id)}
+        >
+          {params.value}
+        </div>
       ),
-    },
+    },    
     /* tags */
     {
       field: "tags",
@@ -216,6 +226,9 @@ const ContactTable = ({ contacts, setContacts }) => {
 
   return (
     <div>
+      
+      
+      
       {/* "all contacts" and drop down */}
       <div className="d-flex mb-2 conatct-table-header-container">
         <h3 className="contact-table-header-title">All Contacts</h3>

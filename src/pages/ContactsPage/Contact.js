@@ -10,12 +10,14 @@ import "./ContactStyles.css";
 
 function Contacts() {
   const [contacts, setContacts] = useState(contactsData);
-  const [selectedContactId, setSelectedContactId] = useState(null); // Add this state
+  const [selectedContactId, setSelectedContactId] = useState(null); 
 
   if (selectedContactId) {
+    /* direct to contact details when click contact name */
     return <ContactDetails id={selectedContactId} />;
   } else {
     return (
+        /* contact page */
       <div className="parent">
         <div className="div1">
           <SideBar />

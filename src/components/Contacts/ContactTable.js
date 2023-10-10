@@ -60,11 +60,10 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   };
 
   /* direct to contact detail */
-  
   const handleNameClick = (contactId) => {
     onSelectContact(contactId);
   };
-  
+
   /* toolbar */
   function ContactToolbar() {
     return (
@@ -117,6 +116,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
     );
   }
 
+  /* save tags */
   const handleSaveTags = () => {
     const updatedContacts = contacts.map((contact) => {
       if (contact.id === editingContactId) {
@@ -153,16 +153,22 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
       field: "fullName",
       headerName: "Name",
       flex: 1,
-      valueGetter: (params) => `${params.row.first_name} ${params.row.last_name}`,
+      valueGetter: (params) =>
+        `${params.row.first_name} ${params.row.last_name}`,
+        /* direct to contact detail */
       renderCell: (params) => (
         <div
-          style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+          style={{
+            cursor: "pointer",
+            color: "blue",
+            textDecoration: "underline",
+          }}
           onClick={() => handleNameClick(params.row.id)}
         >
           {params.value}
         </div>
       ),
-    },    
+    },
     /* tags */
     {
       field: "tags",
@@ -226,9 +232,6 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
 
   return (
     <div>
-      
-      
-      
       {/* "all contacts" and drop down */}
       <div className="d-flex mb-2 conatct-table-header-container">
         <h3 className="contact-table-header-title">All Contacts</h3>
@@ -259,11 +262,15 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
         <Modal.Header closeButton>
           <Modal.Title>Add by Email</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{/* todo: adding by email goes here */}</Modal.Body>
+        <Modal.Body>
+          <TextField fullWidth label="Email" />
+        </Modal.Body>
+        {/* button */}
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEmailModal(false)}>
             Close
           </Button>
+          {/* Todo: add button here */}
           <Button variant="primary">Add</Button>
         </Modal.Footer>
       </Modal>

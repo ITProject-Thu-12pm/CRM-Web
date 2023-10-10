@@ -59,7 +59,7 @@ function LoadDashboardPage() {
             />
           </div>
 
-          <Grid container spacing={3}>
+          <Grid container spacing={3} className="container-middle">
             <Grid item xs={12} sm={12} md={8}>
               <BirthdayCard birthdays={birthdays} />
             </Grid>
@@ -71,10 +71,10 @@ function LoadDashboardPage() {
               md={4}
               className="date-and-note-container"
             >
-              <Box className="date-or-note">
+              <Box mb={2} className="date-or-note contacts-cards">
                 <TimeCard/>
               </Box >
-              <Box className="date-or-note">
+              <Box className="date-or-note contacts-cards">
                 <NoteCard/>
               </Box >
               
@@ -134,16 +134,17 @@ function NoteCard() {
   };
 
   return (
-    <Card className="card-radius">
+    <Card className="card-radius quick-note-card">
       <Card.Header>Quick Note</Card.Header>
       <Card.Body>
         <TextField
           id="standard-multiline-static"
           multiline
-          rows={5}
+          rows={8}
           placeholder="Take a note here..."
           value={note}
           fullWidth
+          className="full-height-textfield"
           variant="standard"
           onChange={handleNoteChange}
         />
@@ -256,22 +257,22 @@ function ContactList({ id, name, age, dob, avatar }) {
 // Component to show a card containing all birthdays
 function BirthdayCard({ birthdays }) {
   return (
-    <Card className="card-radius">
+    <Card className="card-radius birthday-card">
       <Card.Img
         variant="top"
         src="https://i.etsystatic.com/33670728/r/il/f35ecc/3584410702/il_1588xN.3584410702_44w8.jpg"
         className="birthday-img mx-auto d-block"
       />
-      <Card.Body>
+     
         <Card.Title className="birthday-text">Let's celebrate!</Card.Title>
-      </Card.Body>
+     
 
       <List
         sx={{
           width: "100%",
           maxWidth: "100%",
           bgcolor: "background.paper",
-          maxHeight: 235,
+          maxHeight: 230,
           overflowY: "auto",
         }}
         className="card-radius"
@@ -297,7 +298,7 @@ function TimeCard() {
   }, []);
 
   return (
-    <Card className="time-card">
+    <Card className="card-radius time-card">
       <div className="curr-time">{dateTime.toLocaleTimeString()}</div>
       <div className="curr-date">{dateTime.toLocaleDateString()}</div>
     </Card>

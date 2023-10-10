@@ -110,7 +110,6 @@ export async function SignUp(firstName, lastName, email, user_password) {
 export async function UpdateUserProfile(profile, newDate) {
     
     try {
-        //console.log(profile.firstName);
         // Send a request to the backend
         const response = await axios.put('http://127.0.0.1:8000/user/profile/', {
             first_name: profile.firstName,

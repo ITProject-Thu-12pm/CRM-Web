@@ -3,40 +3,24 @@ import SideBar from "../../components/Bar.js";
 import TrelloSummary from "../../components/Dashboard/TrelloSummary.js";
 import Greetings from "../../components/Contacts/Greeting";
 import DashboardData from "./DashboardData.json";
-import ContactTable from "../../components/Contacts/ContactTable.js";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-// import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-// import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CardGroup from "react-bootstrap/CardGroup";
 
 import {
-  CardContent,
-  CardMedia,
   Typography,
   TextField,
-  Select,
-  MenuItem,
-  InputAdornment,
-  IconButton,
   Grid,
   Divider,
   Box,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 function LoadDashboardPage() {
-  /* trello board */
   const { trello_summary, birthdays, events } = DashboardData;
 
   return (
@@ -81,7 +65,7 @@ function LoadDashboardPage() {
 }
 
 function NoteCard() {
-  const [note, setNote] = useState(""); // initial state
+  const [note, setNote] = useState("");
 
   const handleNoteChange = (event) => {
     const updatedNote = event.target.value;
@@ -252,12 +236,6 @@ function TimeCard() {
     <Card className="time-card">
       <div className="curr-time">{dateTime.toLocaleTimeString()}</div>
       <div className="curr-date">{dateTime.toLocaleDateString()}</div>
-      {/* <Typography variant="h6" style={{ marginBottom: "8px", color: "#333" }}>
-        Today's Date: {dateTime.toLocaleDateString()}
-      </Typography>
-      <Typography variant="body1" style={{ color: "#666" }}>
-        Current Time: {dateTime.toLocaleTimeString()}
-      </Typography> */}
     </Card>
   );
 }

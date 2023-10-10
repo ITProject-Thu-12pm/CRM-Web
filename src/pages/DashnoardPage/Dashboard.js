@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
-import SideBar from "../../components/Bar.js";
-import TrelloSummary from "../../components/Dashboard/TrelloSummary.js";
-import Greetings from "../../components/Contacts/Greeting";
-import DashboardData from "./DashboardData.json";
-import Card from "react-bootstrap/Card";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Typography, TextField, Grid, Divider, Box } from "@mui/material";
+import SideBar from "../../components/Bar.js";
+import Greetings from "../../components/Contacts/Greeting";
+import TrelloSummary from "../../components/Dashboard/TrelloSummary";
+
+import {
+  Typography,
+  TextField,
+  Grid,
+  Divider,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar
+} from "@mui/material";
+
+
+import DashboardData from "./DashboardData.json";
+import Card from "react-bootstrap/Card";
 
 function LoadDashboardPage() {
   // Destructuring data from imported JSON

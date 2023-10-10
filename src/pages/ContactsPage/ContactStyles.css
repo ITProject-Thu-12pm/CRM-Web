@@ -41,23 +41,24 @@
 /* summary */
 
 .summary-container {
-    flex: 1;
+   
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content:flex-start;
+    
     /* Horizontally center the content */
-    align-items: center;
+    align-items:center;
     /* Vertically center the content */
     height: 100%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+   
 
 }
 
 .icon-and-content {
     flex: 1;
-    justify-content: center;
+    justify-content: first baseline;
     /* Horizontally center the content */
+   margin: 1rem;
     align-items: center;
     gap: 1rem;
 }

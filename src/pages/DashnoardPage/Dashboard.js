@@ -36,7 +36,7 @@ import Col from "react-bootstrap/Col";
 
 function LoadDashboardPage() {
   /* trello board */
-  const { trello_summary, birthdays, events} = DashboardData;
+  const { trello_summary, birthdays, events } = DashboardData;
 
   return (
     <div className="parent">
@@ -56,6 +56,7 @@ function LoadDashboardPage() {
               completed={trello_summary.total_completed}
             />
           </div>
+         
 
           {/* <Container>
             <Row>
@@ -64,13 +65,22 @@ function LoadDashboardPage() {
             </Row>
         </Container> */}
 
-          <Grid container spacing={3}>
+          {/* <Grid container spacing={3}>
             <Grid item xs={9}>
               <BirthdayCard birthdays={birthdays} />
-              {/* <ContactList /> */}
             </Grid>
 
             <Grid item xs={3}>
+              <TimeCard />
+            </Grid>
+          </Grid> */}
+
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={9}>
+              <BirthdayCard birthdays={birthdays} />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={3}>
               <TimeCard />
             </Grid>
           </Grid>
@@ -98,7 +108,7 @@ function LoadDashboardPage() {
           <div className="contacts-cards">
             {/* <CardBirthday />  */}
             {/* <CalendarEvents /> */}
-            <EventCard events={events}/>
+            <EventCard events={events} />
           </div>
         </div>
       </div>
@@ -109,10 +119,10 @@ function LoadDashboardPage() {
 function EventList({ id, title, date, time }) {
   return (
     <>
-    {/* <Divider variant="middle"/> */}
-    <Divider variant="middle" component="li" />
-    <Grid container spacing={3} alignItems="center" className="event-list" >
-      {/* <Grid item xs={2}>
+      {/* <Divider variant="middle"/> */}
+      <Divider variant="middle" component="li" />
+      <Grid container spacing={3} alignItems="center" className="event-list">
+        {/* <Grid item xs={2}>
           <CardMedia
             component="img"
             height="60"
@@ -120,25 +130,29 @@ function EventList({ id, title, date, time }) {
             alt="Event"
           />
         </Grid> */}
-      <Grid item xs={6}>
-        <Typography variant="h6" className="event-list-title">
-          {/* <Link to="/calendar/"> */}
+        <Grid item xs={6}>
+          <Typography variant="h6" className="event-list-title">
+            {/* <Link to="/calendar/"> */}
             {title}
             {/* </Link> */}
-        </Typography>
+          </Typography>
 
-        {/* <Typography variant="body2">{description}</Typography> */}
-      </Grid>
-      <Grid item xs={3}>
-        <Typography variant="body1" className="event-list-date">{date}</Typography>
-      </Grid>
-      <Grid item xs={3}>
-        <Typography variant="body1" className="event-list-time">{time}</Typography>
-      </Grid>
-      {/* <Grid item xs={12}>
+          {/* <Typography variant="body2">{description}</Typography> */}
+        </Grid>
+        <Grid item xs={3}>
+          <Typography variant="body1" className="event-list-date">
+            {date}
+          </Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <Typography variant="body1" className="event-list-time">
+            {time}
+          </Typography>
+        </Grid>
+        {/* <Grid item xs={12}>
           <Divider />
         </Grid> */}
-    </Grid>
+      </Grid>
     </>
   );
 }
@@ -194,7 +208,6 @@ function EventCard({ events }) {
           )
         )}
       </List>
-
     </Card>
   );
 }

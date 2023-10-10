@@ -71,10 +71,10 @@ function LoadDashboardPage() {
               md={4}
               className="date-and-note-container"
             >
-              <Box mb={2} className="date-or-note contacts-cards">
+              <Box mb={2} className="date-or-note">
                 <TimeCard/>
               </Box >
-              <Box className="date-or-note contacts-cards">
+              <Box className="date-or-note">
                 <NoteCard/>
               </Box >
               
@@ -144,7 +144,7 @@ function NoteCard() {
           placeholder="Take a note here..."
           value={note}
           fullWidth
-          className="full-height-textfield"
+         
           variant="standard"
           onChange={handleNoteChange}
         />
@@ -272,7 +272,7 @@ function BirthdayCard({ birthdays }) {
           width: "100%",
           maxWidth: "100%",
           bgcolor: "background.paper",
-          maxHeight: 230,
+          maxHeight: 300,
           overflowY: "auto",
         }}
         className="card-radius"

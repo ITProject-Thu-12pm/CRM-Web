@@ -12,17 +12,13 @@ import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import {
-  Typography,
-  TextField,
-  Grid,
-  Divider,
-  Box,
-} from "@mui/material";
+import { Typography, TextField, Grid, Divider, Box } from "@mui/material";
 
 function LoadDashboardPage() {
+  // Destructuring data from imported JSON
   const { trello_summary, birthdays, events } = DashboardData;
 
+  // Main layout of the dashboard page
   return (
     <div className="parent">
       <div className="div1">
@@ -34,7 +30,7 @@ function LoadDashboardPage() {
             <Greetings username="Evano" />
           </div>
           <div className="contacts-cards">
-            {/* todo: back-end link here */}
+            {/* TODO: back-end link here */}
             <TrelloSummary
               todo={trello_summary.total_todo}
               in_progress={trello_summary.total_in_progress}
@@ -64,14 +60,16 @@ function LoadDashboardPage() {
   );
 }
 
+// Component to create and handle quick notes
 function NoteCard() {
+  // Component to create and handle quick notes
   const [note, setNote] = useState("");
 
+  // Handler for updating the note content
   const handleNoteChange = (event) => {
     const updatedNote = event.target.value;
     setNote(updatedNote);
-
-    // bankend link here
+    // TODO: bankend link here
   };
 
   return (
@@ -93,6 +91,7 @@ function NoteCard() {
   );
 }
 
+// Component to list individual events in a summary
 function EventList({ id, title, date, time }) {
   return (
     <>
@@ -118,6 +117,7 @@ function EventList({ id, title, date, time }) {
   );
 }
 
+// Component to show a card containing all events
 function EventCard({ events }) {
   return (
     <Card className="card-radius">
@@ -160,6 +160,7 @@ function EventCard({ events }) {
   );
 }
 
+// Component to list individual contact birthdays
 function ContactList({ id, name, age, dob, avatar }) {
   return (
     <>
@@ -191,6 +192,7 @@ function ContactList({ id, name, age, dob, avatar }) {
   );
 }
 
+// Component to show a card containing all birthdays
 function BirthdayCard({ birthdays }) {
   return (
     <Card className="card-radius">
@@ -221,6 +223,7 @@ function BirthdayCard({ birthdays }) {
   );
 }
 
+// Component to display current date and time
 function TimeCard() {
   const [dateTime, setDateTime] = useState(new Date());
 

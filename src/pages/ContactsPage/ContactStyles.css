@@ -11,6 +11,7 @@
 
 .contacts-cards {
     width: 100%;
+    min-width: 15rem;
     border-radius: 15px;
     background: #ffffff;
     box-shadow: 5px 5px 10px #b2b2b2;

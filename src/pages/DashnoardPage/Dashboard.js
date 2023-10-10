@@ -250,12 +250,14 @@ function TimeCard() {
 
   return (
     <Card className="time-card">
-      <Typography variant="h6" style={{ marginBottom: "8px", color: "#333" }}>
+      <div className="curr-time">{dateTime.toLocaleTimeString()}</div>
+      <div className="curr-date">{dateTime.toLocaleDateString()}</div>
+      {/* <Typography variant="h6" style={{ marginBottom: "8px", color: "#333" }}>
         Today's Date: {dateTime.toLocaleDateString()}
       </Typography>
       <Typography variant="body1" style={{ color: "#666" }}>
         Current Time: {dateTime.toLocaleTimeString()}
-      </Typography>
+      </Typography> */}
     </Card>
   );
 }

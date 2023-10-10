@@ -70,9 +70,9 @@ function LoadProfilePage() {
             setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
             
          }
-         let original = profile.dob.toLocaleDateString();;
-         let newDate = original.replace(/\//g, "-");
-         UpdateUserProfile(profile, newDate);
+         let dobDate = new Date(profileInfo.dob);
+         let formattedDob =  dobDate.getFullYear() + '-' + (dobDate.getMonth() + 1) + '-' + dobDate.getDate();
+         UpdateUserProfile(profile, formattedDob);
          handleEditToggle();
     };
 

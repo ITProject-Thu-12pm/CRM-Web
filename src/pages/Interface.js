@@ -125,23 +125,23 @@ export async function UpdateUserProfile(profile, newDate) {
         console.log(response.status);
         // If sign up was successful on the backend
         if (response.status === 201) {
-            console.log("SignUp Success!");
+            console.log("Update profile success!");
             return "SUCCESS";
         } 
         // In case server returns any other status code, consider it as a failure.
-        console.log("SignUp Fail with status: ", response.status);
+        console.log("Update profile Fail with status: ", response.status);
     } catch (error) {
         // Log different message based on the status code in error response.
         if (error.response.status === 400){
-            return "BAD EMAIL";
+            return "Bad Request";
         } else if (error.response.status === 500) {
-            return "ALREADY EXIEST";
+            return "Internal server wrong";
         }
         return false;
     }
 }
 
-export async function GetUserInfor(firstName, lastName, email, user_password) {
+export async function GetUserInfor() {
     try {
         // Send a request to the backend
         const response = await axios.get('http://127.0.0.1:8000/user/me/');
@@ -164,3 +164,56 @@ export async function GetUserInfor(firstName, lastName, email, user_password) {
         return false;
     }
 }
+
+
+export async function GetUserContact(firstName, lastName, email, user_password) {
+    try {
+        // Send a request to the backend
+        const response = await axios.get('http://127.0.0.1:8000/contacts/');
+
+        // If sign up was successful on the backend
+        if (response.status === 201) {
+            console.log("Successly get user Infor!");
+            return response.data;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("Get Contact Fail with status: ", response.status);
+        return null;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+    
+    }
+}
+
+export async function addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, avatar) {
+    try {
+        // Send a request to the backend
+        const response = await axios.post('http://127.0.0.1:8000/contacts/', {
+            first_name : firstName,
+            last_name : lastName,
+            tags : tags,
+            phone: phone,
+            email : email,
+            address : streetAddress,
+            city : city,
+            state : state,
+            postcode : postcode,
+            gender : gender,
+            dob : dob,
+            //avatar : avatar
+        });
+
+        // If sign up was successful on the backend
+        if (response.status === 201) {
+            console.log("Successly get user Infor!");
+            return true;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("Get Contact Fail with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+    
+    }
+}
+

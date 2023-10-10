@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../../components/Bar.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import DateInput from '../../components/DateInput.js'
+import { addUserContact } from '../Interface.js'
 
 function AddContactManually() {
     const [id, setId] = useState(null);
@@ -20,6 +21,7 @@ function AddContactManually() {
     const [status, setStatus] = useState('');
     const [gender, setGender] = useState('');
     const [avatar, setAvatar] = useState('https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true');
+    const [avatarDataUrl, setAvatarDataUrl] = useState(null);
 
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
@@ -39,9 +41,28 @@ function AddContactManually() {
             alert("Name and Email are mandatory!");
             return;
         }
+        const image = new Image();
+        image.src = avatar;
+        image.onload = function () {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
 
+            // 设置 Canvas 的尺寸与图像一样
+            canvas.width = image.width;
+            canvas.height = image.height;
+
+            // 在 Canvas 上绘制图像
+            ctx.drawImage(image, 0, 0);
+
+            // 将 Canvas 上的图像转换为 Data URL
+            const dataUrl = canvas.toDataURL('image/png'); // 可以选择不同的图像格式，如 'image/png'
+
+            // dataUrl 就是包含图像的 Base64 编码字符串
+            console.log('Image as Data URL:', dataUrl);
+        }
+            
         // todo: Logic to save the contact goes here
-
+        addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, avatarDataUrl);
         navigate('/contacts');
     };
 

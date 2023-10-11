@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
 
-const ContactTable = ({ contacts, setContacts }) => {
+const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   /* add a tag */
   const allTags = contacts.flatMap((contact) => contact.tags);
   const uniqueTags = [...new Set(allTags)];
@@ -57,6 +57,11 @@ const ContactTable = ({ contacts, setContacts }) => {
     setContacts(updatedContacts);
     setSelectedRows([]); // Clear the selection after deletion
     setShowDeleteModal(false); // Close the modal
+  };
+
+  /* direct to contact detail */
+  const handleNameClick = (contactId) => {
+    onSelectContact(contactId);
   };
 
   /* toolbar */
@@ -111,6 +116,7 @@ const ContactTable = ({ contacts, setContacts }) => {
     );
   }
 
+  /* save tags */
   const handleSaveTags = () => {
     const updatedContacts = contacts.map((contact) => {
       if (contact.id === editingContactId) {
@@ -149,8 +155,18 @@ const ContactTable = ({ contacts, setContacts }) => {
       flex: 1,
       valueGetter: (params) =>
         `${params.row.first_name} ${params.row.last_name}`,
+        /* direct to contact detail */
       renderCell: (params) => (
-        <Link to={`/contacts/${params.row.id}`}>{params.value}</Link>
+        <div
+          style={{
+            cursor: "pointer",
+            color: "blue",
+            textDecoration: "underline",
+          }}
+          onClick={() => handleNameClick(params.row.id)}
+        >
+          {params.value}
+        </div>
       ),
     },
     /* tags */
@@ -246,11 +262,15 @@ const ContactTable = ({ contacts, setContacts }) => {
         <Modal.Header closeButton>
           <Modal.Title>Add by Email</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{/* todo: adding by email goes here */}</Modal.Body>
+        <Modal.Body>
+          <TextField fullWidth label="Email" />
+        </Modal.Body>
+        {/* button */}
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEmailModal(false)}>
             Close
           </Button>
+          {/* Todo: add button here */}
           <Button variant="primary">Add</Button>
         </Modal.Footer>
       </Modal>

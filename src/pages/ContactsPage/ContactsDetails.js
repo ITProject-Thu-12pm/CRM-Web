@@ -6,8 +6,8 @@ import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
 
-function ContactDetails() {
-    let { id } = useParams();
+function ContactDetails({id}) {
+   
     const contact = contactsData.find(contact => contact.id === parseInt(id));
 
     const [avatar, setAvatar] = useState(contact.profile_picture);

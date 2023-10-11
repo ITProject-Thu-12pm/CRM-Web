@@ -38,9 +38,11 @@ function LoadProfilePage() {
                     state: data.state,
                     postCode: data.postcode,
                     phone: data.phone,
-                    dob: new Date(data.dob)
+                    dob: new Date(data.dob),
+                    avatar : data.avatar
                     // Add other fields as needed
                 }));
+                console.log(profile.avatar);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -82,10 +84,11 @@ function LoadProfilePage() {
     
     const saveChanges = () => {
          if (profile.tempAvatar) {
-            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
             
+           setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar}));
          }
          let formattedDob = formatDate(profile.dob);
+         console.log(profile.avatar);
          UpdateUserProfile(profile, formattedDob);
          handleEditToggle();
     };

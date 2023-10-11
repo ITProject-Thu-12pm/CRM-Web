@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import contactsData from './ContactsInfo.json';
 import SideBar from '../../components/Bar'
 import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
 
-function ContactDetails({id}) {
-   
-    const contact = contactsData.find(contact => contact.id === parseInt(id));
+function ContactDetails({id, contacts}) {
+   console.log(contacts);
+    const contact = contacts.find(contact => contact.id === parseInt(9));
 
     const [avatar, setAvatar] = useState(contact.profile_picture);
     const [tempAvatar, setTempAvatar] = useState(null);
@@ -20,7 +19,7 @@ function ContactDetails({id}) {
     const [zipCode, setZipCode] = useState(contact.address.postcode);
     const [email, setEmail] = useState(contact.email);
     const [phone, setPhone] = useState(contact.phone);
-    const [dob, setDob] = useState(new Date(contact.date_of_birth));
+    const [dob, setDob] = useState(new Date(contact.dob));
     const [gender, setGender] = useState(contact.gender);
 
     const [isEditing, setIsEditing] = useState(false);
@@ -39,7 +38,7 @@ function ContactDetails({id}) {
             reader.readAsDataURL(file);
         }
     };
-    const initialContacts = contactsData;
+    const initialContacts = contacts;
     const [contactsList, setContactsList] = useState(initialContacts);
 
     const saveChanges = () => {
@@ -107,7 +106,7 @@ function ContactDetails({id}) {
                         <div className='col-md-6'>
                             <DateInput
                                 inputTitle="Date of Birth"
-                                selectedDate={dob}
+                                selectedDate= {dob}
                                 setSelectedDate={setDob}
                                 isEditing={isEditing}
                             />

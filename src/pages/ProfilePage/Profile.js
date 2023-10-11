@@ -11,7 +11,7 @@ import InputFormProfile from '../../components/Inputs/InputProfile';
 
 function LoadProfilePage() {
     const [profile, setProfile] = useState({
-        avatar: profileInfo.profile_picture,
+        avatar: null,
         tempAvatar: null,
         firstName: '',
         lastName: '',
@@ -21,7 +21,7 @@ function LoadProfilePage() {
         postCode: '',
         email: '',
         phone: '',
-        dob: new Date(profileInfo.dob)
+        dob: ''
     });
     useEffect(() => {
         // Asynchronously fetch user data
@@ -38,8 +38,8 @@ function LoadProfilePage() {
                     state: data.state,
                     postCode: data.postcode,
                     phone: data.phone,
-                    dob: new Date(data.dob),
-                    avatar : data.avatar
+                    avatar : data.avatar,
+                    dob: data.dob ? new Date(data.dob) : prevProfile.dob
                     // Add other fields as needed
                 }));
                 //console.log(profile.avatar);
@@ -63,7 +63,7 @@ function LoadProfilePage() {
             reader.onloadend = () => {
                 setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
             };
-            //reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
         }
     };
 
@@ -87,8 +87,14 @@ function LoadProfilePage() {
             
            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar}));
          }
-         let formattedDob = formatDate(profile.dob);
-         console.log(profile.avatar);
+         let formattedDob;
+         if (profile.dob) {
+            formattedDob = formatDate(profile.dob);
+         } else {
+            formattedDob = null;
+         }
+         
+         //console.log(profile.avatar);
          UpdateUserProfile(profile, formattedDob);
          handleEditToggle();
     };

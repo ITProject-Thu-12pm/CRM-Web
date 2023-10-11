@@ -112,7 +112,7 @@ export async function SignUp(firstName, lastName, email, user_password) {
 export async function UpdateUserProfile(profile, newDate) {
     
     try {
-        console.log(profile.tempAvatar);
+        //console.log(profile.tempAvatar);
         // Send a request to the backend
         const response = await axios.put('http://127.0.0.1:8000/user/profile/', {
             first_name: profile.firstName,
@@ -158,8 +158,7 @@ async function fetchNextChunk(chunkNumber = 0, fullImage = "") {
             return fullImage;
         }
     } catch (error) {
-        console.error("Error fetching data chunk:", error);
-        throw error; // Propagate error upwards to allow caller functions to handle it
+        return null;
     }
 }
 
@@ -167,12 +166,12 @@ export async function GetUserInfor() {
     try {
         // Send a request to the backend and get the infor except avatar
         const response = await axios.get('http://127.0.0.1:8000/user/me/');
-
+        //const imageBase64 = await fetchNextChunk();
         //get the base64 string of avatar
-        const imageBase64 = await fetchNextChunk();
-
+        if (response.data["avatar"]) {
+            response.data["avatar"] = "data:image/png;base64," + response.data["avatar"];
+        }
         //add the avatar into response
-        response.data["avatar"] = "data:image/png;base64," + imageBase64;
         //console.log(response.data.avatar);
         // If get user was successful on the backend
         if (response.status === 200) {
@@ -234,7 +233,8 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
             postcode : postcode,
             gender : gender,
             dob : dob,
-            avatar : avatar
+            avatar : avatar,
+            gender : gender
         });
 
         // If sign up was successful on the backend

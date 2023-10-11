@@ -1,10 +1,8 @@
 import React from "react";
 import "bootstrap";
-import './BarStyles.css';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
-
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import './BarStyles.css';
 
 function SideBar() {
     const navigate = useNavigate();

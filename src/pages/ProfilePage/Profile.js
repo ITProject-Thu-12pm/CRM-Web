@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
@@ -31,8 +30,10 @@ function LoadProfilePage() {
     };
 
     const handleAvatarChange = (event) => {
+        
         const file = event.target.files[0];
         if (file) {
+            
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
@@ -42,7 +43,9 @@ function LoadProfilePage() {
     };
 
     const saveChanges = () => {
+        
         if (profile.tempAvatar) {
+           
             setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
         }
         handleEditToggle();
@@ -95,7 +98,7 @@ function LoadProfilePage() {
                     </div>
                     <div className='row'>
                         <div className='col-md-6'>
-                            <InputFormProfile inputTitle="Email" inputContent={profile.email} inputType="email" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, email: value }))} isEditing={isEditing} />
+                            <InputFormProfile inputTitle="Email" inputContent={profile.email} inputType="email" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, email: value }))} isEditing={isEditing} isProfileEmail={true}/>
                         </div>
                         <div className='col-md-6'>
                             <InputFormProfile inputTitle="Phone" inputContent={profile.phone} inputType="tel" setInputContent={value => setProfile(prevProfile => ({ ...prevProfile, phone: value }))} isEditing={isEditing} />

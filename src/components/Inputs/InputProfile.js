@@ -1,7 +1,7 @@
 import React from "react";
 import './InputStyles.css';
 
-function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent, isEditing }) {
+function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent, isEditing, isProfileEmail = false }) {
 
     const handleChange = (e) => {
         if (setInputContent) {
@@ -17,7 +17,8 @@ function InputFormProfile({ inputTitle, inputContent, inputType, setInputContent
                 className="form-control input-profile"
                 value={inputContent}
                 onChange={handleChange}
-                readOnly={!isEditing}
+                /* if input is ProfileEamil then cannit be edited */
+                readOnly={!isEditing || isProfileEmail} 
             />
         </div>
     );

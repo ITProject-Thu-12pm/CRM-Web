@@ -18,7 +18,6 @@ function Contacts() {
               try {
                   const datas = await GetUserContact();
                   for (let data in datas) {
-                    console.log(datas[data]["address"]);
                     datas[data]["address"] = {"street_address" : datas[data]["address"],
                                     "city": datas[data]["city"],
                                     "state": datas[data]["state"],
@@ -34,7 +33,6 @@ function Contacts() {
           fetchData();
       }, []);
   if (selectedContactId) {
-    console.log(contacts);
     /* direct to contact details when click contact name */
     return <ContactDetails id={selectedContactId} contacts = {contacts}/>;
   } else {

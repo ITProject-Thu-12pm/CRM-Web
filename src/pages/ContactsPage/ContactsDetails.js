@@ -6,10 +6,8 @@ import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
 
 function ContactDetails({id, contacts}) {
-   console.log(contacts);
-    const contact = contacts.find(contact => contact.id === parseInt(9));
-
-    const [avatar, setAvatar] = useState(contact.profile_picture);
+    const contact = contacts.find(contact => contact.id === parseInt(id));
+    const [avatar, setAvatar] = useState(contact["avatar"]);
     const [tempAvatar, setTempAvatar] = useState(null);
     const [firstName, setFirstName] = useState(contact.first_name);
     const [lastName, setLastName] = useState(contact.last_name);

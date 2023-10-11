@@ -18,7 +18,12 @@ import "../ButtonStyle.css";
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   /* add a tag */
-  const allTags = contacts.flatMap((contact) => contact.tags);
+  var allTags = null;
+  console.log(contacts.tags);
+  if ((contact) => contact.tags) {
+    allTags = contacts.flatMap((contact) => contact.tags);
+  }
+   
   const uniqueTags = [...new Set(allTags)];
   const [showModal, setShowModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);

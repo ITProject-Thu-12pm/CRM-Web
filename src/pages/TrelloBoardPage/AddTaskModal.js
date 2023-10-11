@@ -5,6 +5,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 function AddTaskModal({ open, onClose, onSave }) {
   const [taskContent, setTaskContent] = useState("");
+  /* dedault = medium */
   const [selectedPriority, setSelectedPriority] = useState("medium");
 
   const priorities = ["high", "medium", "low"];

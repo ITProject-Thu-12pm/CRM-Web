@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import events from "./eventsInfo";
 import MyCalendarComponent from "./calendar";
 import moment from "moment";
-import AddEvent from "./addEvent.js";
 import SideBar from '../../components/Bar.js'
 import "./calendarStyles.css"
 import { addEvent,getEvent,updateEvent,deleteEvent } from '../Interface.js'
 
 function MyCalendar() {
-  const [allEvents, setAllEvents] = useState(events);
+  const [allEvents, setAllEvents] = useState();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -36,7 +34,7 @@ function MyCalendar() {
     startTime: "",
     endDate: "",
     endTime: "",
-    id: ""
+    id: "",
   });
 
 
@@ -116,14 +114,13 @@ function MyCalendar() {
         alert("Failed to add the event. Please try again later.");
     }
   };
-
+  // console.log(eventBeingEdited);
   return (
     <div className="parent">
-      <div className='div1'>
+      <div className="div1">
         <SideBar />
       </div>
-      <div className='div2 right--side-bg'>
-
+      <div className="div2 right--side-bg">
         {/* <AddEvent newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} /> */}
         <MyCalendarComponent
           allEvents={allEvents}
@@ -134,9 +131,7 @@ function MyCalendar() {
           handleAddEvent={handleAddEvent}
         />
       </div>
-
     </div>
-
   );
 }
 

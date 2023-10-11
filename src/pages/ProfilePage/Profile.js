@@ -4,14 +4,13 @@ import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
 import {GetUserInfor, UpdateUserProfile} from '../Interface.js'
-import profileInfo from './ProfileInfo.json';
 
 import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
 function LoadProfilePage() {
     const [profile, setProfile] = useState({
-        avatar: profileInfo.profile_picture,
+        avatar: null,
         tempAvatar: null,
         firstName: '',
         lastName: '',
@@ -21,68 +20,30 @@ function LoadProfilePage() {
         postCode: '',
         email: '',
         phone: '',
-        dob: new Date(profileInfo.dob)
+        dob: ''
     });
-    // useEffect(() => {
-    //     // Asynchronously fetch user data
-    //     const fetchData = async () => {
-    //         try {
-    //             const data = await GetUserInfor();
-    //             // Update the profile state with the fetched data
-    //             setProfile(prevProfile => ({ 
-    //                 firstName: data.first_name,
-    //                 lastName: data.last_name,
-    //                 email: data.email,
-    //                 address: data.address,
-    //                 city: data.city,
-    //                 state: data.state,
-    //                 postCode: data.postcode,
-    //                 phone: data.phone,
-    //                 dob: new Date(data.dob),
-    //                 avatar : data.avatar
-    //                 // Add other fields as needed
-    //             }));
-    //             console.log(profile.avatar);
-    //         } catch (error) {
-    //             console.error("Error fetching user data:", error);
-    //         }
-    //     };
-    //     // Invoke the asynchronous function
-    //     fetchData();
-    // }, []);
     
 
     useEffect(() => {
-        let fullAvatar = '';
-    
-        const fetchAvatarChunk = async (chunkNumber) => {
-            const data = await GetUserInfor(chunkNumber);
-            if (data && data.avatar_chunk) {
-                fullAvatar += data.avatar_chunk;
-                await fetchAvatarChunk(chunkNumber + 1);
-            }
-        };
     
         const fetchData = async () => {
             try {
-                const data = await GetUserInfor();  // Fetch user data without the avatar
-    
-                if (data && data.avatar) {
-                    // If avatar exists, start fetching from chunkNumber 0
-                    await fetchAvatarChunk(0);
-                    setProfile(prevProfile => ({ 
-                        // ... other fields
-                        avatar: fullAvatar
-
-                    }));
-                } else {
-                    // If no avatar, set avatar to null
-                    setProfile(prevProfile => ({ 
-                        avatar: null
-                    }));
-                }
-    
-                console.log(profile.avatar);
+                const data = await GetUserInfor();
+                // Update the profile state with the fetched data
+                setProfile(prevProfile => ({ 
+                    firstName: data.first_name,
+                    lastName: data.last_name,
+                    email: data.email,
+                    address: data.address,
+                    city: data.city,
+                    state: data.state,
+                    postCode: data.postcode,
+                    phone: data.phone,
+                    avatar : data.avatar,
+                    dob: data.dob ? new Date(data.dob) : prevProfile.dob
+                    // Add other fields as needed
+                }));
+                //console.log(profile.avatar);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -129,8 +90,14 @@ function LoadProfilePage() {
             
            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar}));
          }
-         let formattedDob = formatDate(profile.dob);
-         console.log(profile.avatar);
+         let formattedDob;
+         if (profile.dob) {
+            formattedDob = formatDate(profile.dob);
+         } else {
+            formattedDob = null;
+         }
+         
+         //console.log(profile.avatar);
          UpdateUserProfile(profile, formattedDob);
          handleEditToggle();
     };

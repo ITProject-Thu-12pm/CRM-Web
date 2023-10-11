@@ -1,4 +1,5 @@
 import axios from "axios";
+import { defaultValue } from './default.js';
 
 export async function Login(user_email, user_password) {
     let authentication_status = false;
@@ -89,7 +90,8 @@ export async function SignUp(firstName, lastName, email, user_password) {
             first_name: firstName,
             last_name: lastName,
             email: email,
-            user_password: user_password
+            user_password: user_password,
+            avatar: null
         });
         // If sign up was successful on the backend
         if (response.status === 201) {
@@ -143,16 +145,21 @@ export async function UpdateUserProfile(profile, newDate) {
     }
 }
 
-export async function GetUserInfor(chunkNumber) {
-    try {
-        const url = chunkNumber !== null 
-        ? `http://127.0.0.1:8000/user/me/?chunk=${chunkNumber}` 
-        : 'http://127.0.0.1:8000/user/me/';
-        console.log(url)
-        // Send a request to the backend
-        const response = await axios.get(url);
 
-        // If sign up was successful on the backend
+export async function GetUserInfor() {
+    try {
+        // Send a request to the backend and get the infor except avatar
+        const response = await axios.get('http://127.0.0.1:8000/user/me/');
+        //const imageBase64 = await fetchNextChunk();
+        //get the base64 string of avatar
+        if (response.data["avatar"]) {
+            response.data["avatar"] = "data:image/png;base64," + response.data["avatar"];
+        } else {
+            response.data["avatar"] = "data:image/png;base64," + defaultValue
+        }
+        //add the avatar into response
+        //console.log(response.data.avatar);
+        // If get user was successful on the backend
         if (response.status === 200) {
             console.log("Successly get user Infor!");
             return response.data;
@@ -176,7 +183,12 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
     try {
         // Send a request to the backend
         const response = await axios.get('http://127.0.0.1:8000/contacts/');
-
+        for (let eachContact in response.data) {
+            if (response.data[eachContact]["avatar"]) {
+                response.data[eachContact]["avatar"] = "data:image/png;base64," + response.data[eachContact]["avatar"];
+            }
+             
+        }
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Successly get user Infor!");
@@ -193,7 +205,10 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
 
 export async function addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, avatar) {
     try {
-        console.log(avatar);
+        if (avatar === "https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true") {
+            avatar = defaultValue
+        }
+
         // Send a request to the backend
         const response = await axios.post('http://127.0.0.1:8000/contacts/', {
             first_name : firstName,

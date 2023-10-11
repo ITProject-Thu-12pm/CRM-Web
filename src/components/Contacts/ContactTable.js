@@ -137,7 +137,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   const columns = [
     /* avatar */
     {
-      field: "profile_picture",
+      field: "avatar",
       headerName: "Avatar",
       flex: 0.5,
       renderCell: (params) => (
@@ -205,7 +205,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
       ),
     },
     {
-      field: "date_of_birth",
+      field: "dob",
       headerName: "DOB",
       flex: 1,
     },

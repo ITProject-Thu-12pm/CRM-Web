@@ -198,7 +198,12 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
     try {
         // Send a request to the backend
         const response = await axios.get('http://127.0.0.1:8000/contacts/');
-
+        for (let eachContact in response.data) {
+            if (response.data[eachContact]["avatar"]) {
+                response.data[eachContact]["avatar"] = "data:image/png;base64," + response.data[eachContact]["avatar"];
+            }
+             
+        }
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Successly get user Infor!");

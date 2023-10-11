@@ -36,7 +36,11 @@ import Card from "react-bootstrap/Card";
 
 
 function LoadDashboardPage() {
+<<<<<<< HEAD
   // Destructuring data from imported JSON
+=======
+  /* trello board */
+>>>>>>> ab672d4 (time card responsive fixes)
   const { trello_summary, birthdays, events } = DashboardData;
 
   // Main layout of the dashboard page
@@ -58,9 +62,22 @@ function LoadDashboardPage() {
               completed={trello_summary.total_completed}
             />
           </div>
+         
 
+<<<<<<< HEAD
           <Grid container spacing={3} className="container-middle">
             <Grid item xs={12} sm={12} md={8}>
+=======
+          {/* <Container>
+            <Row>
+                <Col sm={8}>    <BirthdayCard /></Col>
+                <Col sm={4}>    <TimeCard /></Col>
+            </Row>
+        </Container> */}
+
+          {/* <Grid container spacing={3}>
+            <Grid item xs={9}>
+>>>>>>> ab672d4 (time card responsive fixes)
               <BirthdayCard birthdays={birthdays} />
             </Grid>
 
@@ -79,9 +96,24 @@ function LoadDashboardPage() {
               </Box >
               
             </Grid>
+          </Grid> */}
+
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={9}>
+              <BirthdayCard birthdays={birthdays} />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={3}>
+              <TimeCard />
+            </Grid>
           </Grid>
 
           <div className="contacts-cards">
+<<<<<<< HEAD
+=======
+            {/* <CardBirthday />  */}
+            {/* <CalendarEvents /> */}
+>>>>>>> ab672d4 (time card responsive fixes)
             <EventCard events={events} />
           </div>
         </div>
@@ -157,12 +189,34 @@ function NoteCard() {
 function EventList({ id, title, date, time }) {
   return (
     <>
+<<<<<<< HEAD
       <Divider variant="middle" component="li" />
       <Grid container spacing={3} alignItems="center" className="event-list">
         <Grid item xs={6}>
           <Typography variant="h6" className="event-list-title">
             {title}
           </Typography>
+=======
+      {/* <Divider variant="middle"/> */}
+      <Divider variant="middle" component="li" />
+      <Grid container spacing={3} alignItems="center" className="event-list">
+        {/* <Grid item xs={2}>
+          <CardMedia
+            component="img"
+            height="60"
+            image="https://via.placeholder.com/80" // You can replace this with the actual image URL
+            alt="Event"
+          />
+        </Grid> */}
+        <Grid item xs={6}>
+          <Typography variant="h6" className="event-list-title">
+            {/* <Link to="/calendar/"> */}
+            {title}
+            {/* </Link> */}
+          </Typography>
+
+          {/* <Typography variant="body2">{description}</Typography> */}
+>>>>>>> ab672d4 (time card responsive fixes)
         </Grid>
         <Grid item xs={3}>
           <Typography variant="body1" className="event-list-date">
@@ -174,6 +228,12 @@ function EventList({ id, title, date, time }) {
             {time}
           </Typography>
         </Grid>
+<<<<<<< HEAD
+=======
+        {/* <Grid item xs={12}>
+          <Divider />
+        </Grid> */}
+>>>>>>> ab672d4 (time card responsive fixes)
       </Grid>
     </>
   );

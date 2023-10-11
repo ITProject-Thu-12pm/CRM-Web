@@ -18,11 +18,14 @@ import "../ButtonStyle.css";
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   /* add a tag */
-  var allTags = null;
-  console.log(contacts.tags);
-  if ((contact) => contact.tags) {
-    allTags = contacts.flatMap((contact) => contact.tags);
+  if (contacts == undefined) {
+    console.log("contacts list undefined");
+}
+  var allTags;
+  if (contacts) {
+    allTags = contacts.filter(contact => contact.tags != null).flatMap((contact) => contact.tags);
   }
+  
    
   const uniqueTags = [...new Set(allTags)];
   const [showModal, setShowModal] = useState(false);

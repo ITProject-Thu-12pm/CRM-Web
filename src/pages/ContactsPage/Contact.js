@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 import Greetings from "../../components/Contacts/Greeting";
 import Summary from "../../components/Contacts/ContactSummary";
 import ContactTable from "../../components/Contacts/ContactTable";
@@ -7,24 +7,11 @@ import SideBar from "../../components/Bar.js";
 import contactsData from "./ContactsInfo.json";
 import "../../components/RightSideStyles.css";
 import "./ContactStyles.css";
-import {GetUserContact} from "../Interface.js";
 
 function Contacts() {
   const [contacts, setContacts] = useState(contactsData);
   const [selectedContactId, setSelectedContactId] = useState(null); 
-    useEffect(() => {
-        // Asynchronously fetch user data
-        const fetchData = async () => {
-            try {
-                const data = await GetUserContact();
-                setContacts(data);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
-        // Invoke the asynchronous function
-        fetchData();
-    }, []);
+
   if (selectedContactId) {
     /* direct to contact details when click contact name */
     return <ContactDetails id={selectedContactId} />;

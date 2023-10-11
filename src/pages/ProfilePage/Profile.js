@@ -1,55 +1,28 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState } from 'react';
 import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
-import {GetUserInfor, UpdateUserProfile} from '../Interface.js'
 import profileInfo from './ProfileInfo.json';
-
 import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
 function LoadProfilePage() {
+
     const [profile, setProfile] = useState({
         avatar: profileInfo.profile_picture,
         tempAvatar: null,
-        firstName: '',
-        lastName: '',
-        address: '',
-        city: '',
-        state: '',
-        postCode: '',
-        email: '',
-        phone: '',
+        firstName: profileInfo.first_name,
+        lastName: profileInfo.last_name,
+        address: profileInfo.street_address,
+        city: profileInfo.city,
+        state: profileInfo.state,
+        postCode: profileInfo.postcode,
+        email: profileInfo.email,
+        phone: profileInfo.phone,
         dob: new Date(profileInfo.dob)
     });
-    useEffect(() => {
-        // Asynchronously fetch user data
-        const fetchData = async () => {
-            try {
-                const data = await GetUserInfor();
-                // Update the profile state with the fetched data
-                setProfile(prevProfile => ({ 
-                    firstName: data.first_name,
-                    lastName: data.last_name,
-                    email: data.email,
-                    address: data.address,
-                    city: data.city,
-                    state: data.state,
-                    postCode: data.postcode,
-                    phone: data.phone,
-                    dob: new Date(data.dob),
-                    avatar : data.avatar
-                    // Add other fields as needed
-                }));
-                //console.log(profile.avatar);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
-        // Invoke the asynchronous function
-        fetchData();
-    }, []);
+
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {
@@ -57,40 +30,25 @@ function LoadProfilePage() {
     };
 
     const handleAvatarChange = (event) => {
+        
         const file = event.target.files[0];
         if (file) {
+            
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
             };
-            //reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
         }
     };
 
-
-    const formatDate = (date) => {
-        const d = new Date(date);
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        const year = d.getFullYear();
-    
-        if (month.length < 2) 
-            month = '0' + month;
-        if (day.length < 2) 
-            day = '0' + day;
-    
-        return [year, month, day].join('-');
-    }
-    
     const saveChanges = () => {
-         if (profile.tempAvatar) {
-            
-           setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar}));
-         }
-         let formattedDob = formatDate(profile.dob);
-         console.log(profile.avatar);
-         UpdateUserProfile(profile, formattedDob);
-         handleEditToggle();
+        
+        if (profile.tempAvatar) {
+           
+            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
+        }
+        handleEditToggle();
     };
 
     const navigate = useNavigate();
@@ -167,7 +125,6 @@ function LoadProfilePage() {
                             type="button"
                             className="btn btn-primary rounded-5 change-color-btn"
                             onClick={isEditing ? saveChanges : handleEditToggle}
-                            
                         >
                             {isEditing ? 'Save' : 'Edit'}
                         </button>

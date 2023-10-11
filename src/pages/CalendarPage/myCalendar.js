@@ -45,9 +45,10 @@ function MyCalendar() {
       !newEvent.startDate ||
       !newEvent.startTime ||
       !newEvent.endDate ||
-      !newEvent.endTime
+      !newEvent.endTime ||
+      !newEvent.title
     ) {
-      alert("Please fill in all date and time fields.");
+      alert("Please fill in all the fields.");
       return;
     }
 

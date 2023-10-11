@@ -47,7 +47,7 @@ function MyCalendarComponent({
         <DnDCalendar
           localizer={localizer}
           events={allEvents}
-          defaultDate={new Date(2015, 3, 1)}
+          defaultDate={new Date()}
           // defaultDate={new Date()}
           startAccessor="start"
           endAccessor="end"

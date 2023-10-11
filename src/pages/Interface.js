@@ -143,10 +143,14 @@ export async function UpdateUserProfile(profile, newDate) {
     }
 }
 
-export async function GetUserInfor() {
+export async function GetUserInfor(chunkNumber) {
     try {
+        const url = chunkNumber !== null 
+        ? `http://127.0.0.1:8000/user/me/?chunk=${chunkNumber}` 
+        : 'http://127.0.0.1:8000/user/me/';
+        console.log(url)
         // Send a request to the backend
-        const response = await axios.get('http://127.0.0.1:8000/user/me/');
+        const response = await axios.get(url);
 
         // If sign up was successful on the backend
         if (response.status === 200) {

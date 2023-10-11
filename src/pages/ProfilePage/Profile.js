@@ -23,33 +23,75 @@ function LoadProfilePage() {
         phone: '',
         dob: new Date(profileInfo.dob)
     });
+    // useEffect(() => {
+    //     // Asynchronously fetch user data
+    //     const fetchData = async () => {
+    //         try {
+    //             const data = await GetUserInfor();
+    //             // Update the profile state with the fetched data
+    //             setProfile(prevProfile => ({ 
+    //                 firstName: data.first_name,
+    //                 lastName: data.last_name,
+    //                 email: data.email,
+    //                 address: data.address,
+    //                 city: data.city,
+    //                 state: data.state,
+    //                 postCode: data.postcode,
+    //                 phone: data.phone,
+    //                 dob: new Date(data.dob),
+    //                 avatar : data.avatar
+    //                 // Add other fields as needed
+    //             }));
+    //             console.log(profile.avatar);
+    //         } catch (error) {
+    //             console.error("Error fetching user data:", error);
+    //         }
+    //     };
+    //     // Invoke the asynchronous function
+    //     fetchData();
+    // }, []);
+    
+
     useEffect(() => {
-        // Asynchronously fetch user data
+        let fullAvatar = '';
+    
+        const fetchAvatarChunk = async (chunkNumber) => {
+            const data = await GetUserInfor(chunkNumber);
+            if (data && data.avatar_chunk) {
+                fullAvatar += data.avatar_chunk;
+                await fetchAvatarChunk(chunkNumber + 1);
+            }
+        };
+    
         const fetchData = async () => {
             try {
-                const data = await GetUserInfor();
-                // Update the profile state with the fetched data
-                setProfile(prevProfile => ({ 
-                    firstName: data.first_name,
-                    lastName: data.last_name,
-                    email: data.email,
-                    address: data.address,
-                    city: data.city,
-                    state: data.state,
-                    postCode: data.postcode,
-                    phone: data.phone,
-                    dob: new Date(data.dob),
-                    avatar : data.avatar
-                    // Add other fields as needed
-                }));
+                const data = await GetUserInfor();  // Fetch user data without the avatar
+    
+                if (data && data.avatar) {
+                    // If avatar exists, start fetching from chunkNumber 0
+                    await fetchAvatarChunk(0);
+                    setProfile(prevProfile => ({ 
+                        // ... other fields
+                        avatar: fullAvatar
+
+                    }));
+                } else {
+                    // If no avatar, set avatar to null
+                    setProfile(prevProfile => ({ 
+                        avatar: null
+                    }));
+                }
+    
                 console.log(profile.avatar);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
         };
-        // Invoke the asynchronous function
+    
         fetchData();
     }, []);
+    
+    
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {

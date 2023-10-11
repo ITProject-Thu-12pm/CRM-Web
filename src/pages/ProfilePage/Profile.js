@@ -42,7 +42,7 @@ function LoadProfilePage() {
                     avatar : data.avatar
                     // Add other fields as needed
                 }));
-                console.log(profile.avatar);
+                //console.log(profile.avatar);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -63,7 +63,7 @@ function LoadProfilePage() {
             reader.onloadend = () => {
                 setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
             };
-            reader.readAsDataURL(file);
+            //reader.readAsDataURL(file);
         }
     };
 

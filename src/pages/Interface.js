@@ -112,6 +112,7 @@ export async function SignUp(firstName, lastName, email, user_password) {
 export async function UpdateUserProfile(profile, newDate) {
     
     try {
+        console.log(profile.tempAvatar);
         // Send a request to the backend
         const response = await axios.put('http://127.0.0.1:8000/user/profile/', {
             first_name: profile.firstName,
@@ -143,12 +144,37 @@ export async function UpdateUserProfile(profile, newDate) {
     }
 }
 
+async function fetchNextChunk(chunkNumber = 0, fullImage = "") {
+    try {
+        const response = await axios.get(`http://127.0.0.1:8000/user/me/`, {
+            params: { chunk: chunkNumber }
+        });
+        
+        fullImage += response.data.chunk;
+        
+        if (response.data.hasMore) {
+            return await fetchNextChunk(chunkNumber + 1, fullImage);
+        } else {
+            return fullImage;
+        }
+    } catch (error) {
+        console.error("Error fetching data chunk:", error);
+        throw error; // Propagate error upwards to allow caller functions to handle it
+    }
+}
+
 export async function GetUserInfor() {
     try {
-        // Send a request to the backend
+        // Send a request to the backend and get the infor except avatar
         const response = await axios.get('http://127.0.0.1:8000/user/me/');
 
-        // If sign up was successful on the backend
+        //get the base64 string of avatar
+        const imageBase64 = await fetchNextChunk();
+
+        //add the avatar into response
+        response.data["avatar"] = "data:image/png;base64," + imageBase64;
+        //console.log(response.data.avatar);
+        // If get user was successful on the backend
         if (response.status === 200) {
             console.log("Successly get user Infor!");
             return response.data;

@@ -121,7 +121,6 @@ function LoadDashboardPage() {
   );
 }
 */
-
 function TrelloSummary({ todo, in_progress, completed }) {
   return (
     <div className="summary-container">

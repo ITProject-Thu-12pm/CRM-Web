@@ -32,6 +32,7 @@ function AddContactManually() {
             };
             reader.readAsDataURL(file);
         }
+        
     }
 
     const navigate = useNavigate();
@@ -53,40 +54,33 @@ function AddContactManually() {
             alert("Name and Email are mandatory!");
             return;
         }
-        const image = new Image();
-        image.crossOrigin = "anonymous";
-        image.src = avatar;
-        image.onload = function () {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+        console.log(avatar);
+        addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatar);
+        navigate('/contacts');
+        // const image = new Image();
+        // image.crossOrigin = "anonymous";
+        // image.src = avatar;
+        // image.onload = function () {
+        //     const canvas = document.createElement('canvas');
+        //     const ctx = canvas.getContext('2d');
 
-            // 设置 Canvas 的尺寸与图像一样
-            canvas.width = image.width;
-            canvas.height = image.height;
+        //     // 设置 Canvas 的尺寸与图像一样
+        //     canvas.width = image.width;
+        //     canvas.height = image.height;
 
-            // 在 Canvas 上绘制图像
-            ctx.drawImage(image, 0, 0);
+        //     // 在 Canvas 上绘制图像
+        //     ctx.drawImage(image, 0, 0);
 
-            // 将 Canvas 上的图像转换为 Data URL
-            const dataUrl = canvas.toDataURL('image/png'); // 可以选择不同的图像格式，如 'image/png'
-            setAvatarDataUrl(dataUrl);
-            setShouldAddUser(true);
-            console.log(dataUrl);
+        //     // 将 Canvas 上的图像转换为 Data URL
+        //     const dataUrl = canvas.toDataURL('image/png'); // 可以选择不同的图像格式，如 'image/png'
             // dataUrl 就是包含图像的 Base64 编码字符串
             //console.log('Image as Data URL:', dataUrl);
-        }
         
         // todo: Logic to save the contact goes here   
     };
 
-    useEffect(() => {
-        if (shouldAddUser && avatarDataUrl) { 
-            addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatarDataUrl);
-            setShouldAddUser(false); // 重置状态以防止多次添加
-            navigate('/contacts');
-        }
-    }, [shouldAddUser, avatarDataUrl, firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, navigate]
-    ); 
+    
+    
 
     return (
         <div className="parent">

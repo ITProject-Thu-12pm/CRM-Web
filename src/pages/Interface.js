@@ -121,7 +121,8 @@ export async function UpdateUserProfile(profile, newDate) {
             state : profile.state, 
             postcode : profile.postCode,
             phone : profile.phone, 
-            dob: newDate
+            dob: newDate,
+            avatar: profile.tempAvatar
         });
         console.log(response.status);
         // If sign up was successful on the backend

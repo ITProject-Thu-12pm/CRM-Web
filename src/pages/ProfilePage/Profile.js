@@ -38,7 +38,7 @@ function LoadProfilePage() {
                     state: data.state,
                     postCode: data.postcode,
                     phone: data.phone,
-                    dob: new Date(profileInfo.dob)
+                    dob: new Date(data.dob)
                     // Add other fields as needed
                 }));
             } catch (error) {

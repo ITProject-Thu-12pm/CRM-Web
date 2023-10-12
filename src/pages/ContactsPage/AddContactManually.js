@@ -37,6 +37,9 @@ function AddContactManually() {
 
     const navigate = useNavigate();
     const formatDate = (date) => {
+        if (!date) {
+            return null;
+        }
         const d = new Date(date);
         let month = '' + (d.getMonth() + 1);
         let day = '' + d.getDate();

@@ -90,8 +90,7 @@ export async function SignUp(firstName, lastName, email, user_password) {
             first_name: firstName,
             last_name: lastName,
             email: email,
-            user_password: user_password,
-            avatar: null
+            user_password: user_password
         });
         // If sign up was successful on the backend
         if (response.status === 201) {

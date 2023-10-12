@@ -4,7 +4,6 @@ import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
 import {GetUserInfor, UpdateUserProfile} from '../Interface.js'
-import profileInfo from './ProfileInfo.json';
 
 import InputFormProfile from '../../components/Inputs/InputProfile';
 
@@ -23,8 +22,10 @@ function LoadProfilePage() {
         phone: '',
         dob: ''
     });
+    
+
     useEffect(() => {
-        // Asynchronously fetch user data
+    
         const fetchData = async () => {
             try {
                 const data = await GetUserInfor();
@@ -47,9 +48,11 @@ function LoadProfilePage() {
                 console.error("Error fetching user data:", error);
             }
         };
-        // Invoke the asynchronous function
+    
         fetchData();
     }, []);
+    
+    
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {

@@ -65,10 +65,6 @@ function AddContactManually() {
         // todo: Logic to save the contact goes here   
     };
 
-    const handleGenderChange = (event) => {
-        setGender(event.target.value);
-    }
-    
 
     return (
         <div className="parent">

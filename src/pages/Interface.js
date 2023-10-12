@@ -113,7 +113,6 @@ export async function SignUp(firstName, lastName, email, user_password) {
 export async function UpdateUserProfile(profile, newDate) {
     
     try {
-        //console.log(profile.tempAvatar);
         // Send a request to the backend
         const response = await axios.put('http://127.0.0.1:8000/user/profile/', {
             first_name: profile.firstName,
@@ -145,23 +144,6 @@ export async function UpdateUserProfile(profile, newDate) {
     }
 }
 
-async function fetchNextChunk(chunkNumber = 0, fullImage = "") {
-    try {
-        const response = await axios.get(`http://127.0.0.1:8000/user/me/`, {
-            params: { chunk: chunkNumber }
-        });
-        
-        fullImage += response.data.chunk;
-        
-        if (response.data.hasMore) {
-            return await fetchNextChunk(chunkNumber + 1, fullImage);
-        } else {
-            return fullImage;
-        }
-    } catch (error) {
-        return null;
-    }
-}
 
 export async function GetUserInfor() {
     try {
@@ -171,6 +153,8 @@ export async function GetUserInfor() {
         //get the base64 string of avatar
         if (response.data["avatar"]) {
             response.data["avatar"] = "data:image/png;base64," + response.data["avatar"];
+        } else {
+            response.data["avatar"] = "data:image/png;base64," + defaultValue
         }
         //add the avatar into response
         //console.log(response.data.avatar);
@@ -236,21 +220,131 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
             postcode : postcode,
             gender : gender,
             dob : dob,
-            avatar : avatar,
-            gender : gender
+            avatar : avatar
         });
 
         // If sign up was successful on the backend
         if (response.status === 201) {
-            console.log("Successly get user Infor!");
+            console.log("Successly add contact Infor!");
             return true;
         } 
         // In case server returns any other status code, consider it as a failure.
-        console.log("Get Contact Fail with status: ", response.status);
+        console.log("Add Contact Fail with status: ", response.status);
         return false;
     } catch (error) {
         // Log different message based on the status code in error response.
     
+    }
+}
+
+export async function addByEmail(email) {
+    try {
+
+        // Send a request to the backend
+        const response = await axios.post('http://127.0.0.1:8000/contacts/', {
+            email : email
+        });
+
+        // If sign up was successful on the backend
+        if (response.status === 201) {
+            console.log("Successly add contact Infor!");
+            return response.status;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("Add Contact Fail with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response && error.response.status === 500) {
+            console.error("This email has not been registered.");
+            return error.response.status
+        }
+        if (error.response && error.response.status === 400) {
+            console.error("Invalid email format.");
+            return error.response.status
+        }
+    }
+}
+
+
+
+export async function addEvent(eventData) {
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/event/', eventData);
+        
+        // Check if the request was successful
+        if (response.status === 201) {
+            console.log("Successfully added the event!");
+            return true;
+        } 
+
+        console.log("Failed to add event with status:", response.status);
+    } catch (error) {
+
+        if (error.response.status === 400){
+            return "Bad Request";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
+        }
+        return false;
+    }
+}
+
+export async function getEvent() {
+    try {
+        // Send a request to the backend
+        const response = await axios.get('http://127.0.0.1:8000/event/');
+
+        // If sign up was successful on the backend
+        if (response.status === 200) {
+            console.log("Successly get event Info!");
+            return response.data;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("getEvent Fail with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response && error.response.status === 403) {
+            console.error("getEvent Forbidden (403): ", error.response.data);
+        } else {
+            console.error("getEvent Request Failed: ", error);
+        }
+        return false;
+    }
+}
+
+export async function updateEvent(eventData, id) {
+    try {
+        const response = await axios.put(`http://127.0.0.1:8000/event/${id}/`, eventData);
+        
+        if (response.status === 200) {
+            console.log("Successfully updated the event!");
+            return true;
+        } 
+
+        console.log("Failed to update event with status:", response.status);
+        return false;
+    } catch (error) {
+        console.error("Error updating event:", error);
+        return false;
+    }
+}
+
+export async function deleteEvent(id) {
+    try {
+        const response = await axios.delete(`http://127.0.0.1:8000/event/${id}/`);
+
+        if (response.status === 204) { // 204 No Content is the typical response for a successful DELETE request
+            console.log("Successfully deleted the event!");
+            return true;
+        } 
+
+        console.log("Failed to delete event with status:", response.status);
+        return false;
+    } catch (error) {
+        console.error("Error deleting event:", error);
+        return false;
     }
 }
 

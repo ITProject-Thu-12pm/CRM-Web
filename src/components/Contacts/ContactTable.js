@@ -15,6 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
+import { addByEmail } from '../../pages/Interface.js';
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   
@@ -28,6 +29,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [currentContactTags, setCurrentContactTags] = useState([]);
   const [editingContactId, setEditingContactId] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleTagClick = (id, tags) => {
     setEditingContactId(id);
@@ -37,6 +39,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
 
   const navigate = useNavigate();
   const [showEmailModal, setShowEmailModal] = useState(false);
+  const [emailValue, setEmailValue] = useState('');
 
   /* add contacts */
   const handleAddManullyClick = () => {
@@ -46,6 +49,22 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   const handleAddByEmailClick = () => {
     setShowEmailModal(true);
   };
+
+  const handleAddByEmail = async () => {
+    const success = await addByEmail(emailValue);
+    if (success === 201) {
+        // You might want to reset the email input value after a successful addition
+        setEmailValue("");
+        setShowEmailModal(false);
+        console.log("Add by email succeed!")
+        // Maybe show a success notification here
+    } else if (success === 500){
+        // Handle failure, perhaps show an error notification
+        setErrorMessage("This email has not been registered.");
+    } else {
+        setErrorMessage("Invalid email format.");
+    }
+};
 
   /* delete contacts */
   const [selectedRows, setSelectedRows] = useState([]);
@@ -267,7 +286,21 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
           <Modal.Title>Add by Email</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <TextField fullWidth label="Email" />
+
+          <TextField 
+            fullWidth 
+            label="Email" 
+            value={emailValue} 
+            onChange={(e) => {setEmailValue(e.target.value)
+                      if (errorMessage) {
+                        setErrorMessage('');
+                      }
+                    }
+                  }
+            error={!!errorMessage}
+            helperText={errorMessage}
+          />
+
         </Modal.Body>
         {/* button */}
         <Modal.Footer>
@@ -275,7 +308,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
             Close
           </Button>
           {/* Todo: add button here */}
-          <Button variant="primary">Add</Button>
+          <Button variant="primary" onClick={handleAddByEmail}>Add</Button>
         </Modal.Footer>
       </Modal>
 

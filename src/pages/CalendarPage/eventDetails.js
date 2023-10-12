@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import moment from "moment";
 
@@ -7,7 +7,6 @@ function EventDetail({
   showModal,
   handleCloseModal,
   handleDeleteEvent,
-  openEditModal,
 }) {
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
@@ -88,13 +87,7 @@ function EventDetail({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="outline-primary"
-          onClick={() => {
-            handleCloseModal();
-            openEditModal(selectedEvent);
-          }}
-        >
+        <Button variant="outline-primary" onClick={handleCloseModal}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

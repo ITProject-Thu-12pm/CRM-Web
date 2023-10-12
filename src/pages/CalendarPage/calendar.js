@@ -17,7 +17,6 @@ function MyCalendarComponent({
   newEvent,
   setNewEvent,
   handleAddEvent,
-  openEditModal,
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -68,7 +67,6 @@ function MyCalendarComponent({
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         handleDeleteEvent={handleDeleteEvent}
-        openEditModal={openEditModal}
       />
     </div>
   );

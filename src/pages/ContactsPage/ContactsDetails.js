@@ -56,7 +56,6 @@ function ContactDetails({id, contacts, setSelectedContactId}) {
     const navigate = useNavigate();
 
     const handleContactClick = () => {
-        console.log("已经handle了");
         setSelectedContactId(null);
         navigate("/contacts", { replace: true });
     };

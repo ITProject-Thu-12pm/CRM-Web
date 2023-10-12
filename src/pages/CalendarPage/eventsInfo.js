@@ -2,8 +2,8 @@ export default [
   {
     'title': 'All Day Event very long title',
     'allDay': true,
-    'start': new Date(2015, 3, 0),
-    'end': new Date(2015, 3, 1),
+    'start': new Date(2023, 10, 10),
+    'end': new Date(2023, 10, 10),
     'id': '0'
   },
   {

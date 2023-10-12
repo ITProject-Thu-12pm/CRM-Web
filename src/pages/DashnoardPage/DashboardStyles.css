@@ -84,7 +84,7 @@
 .time-card {
   padding: 16px;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 0 !important;
   border-radius: 15px;
   /* min-height: 235.19px; */
 }

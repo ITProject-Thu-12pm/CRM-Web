@@ -84,6 +84,7 @@
 .time-card {
   padding: 16px;
   background-color: white;
+  border: 0 !important;
   border-radius: 15px;
   border: 0 !important;
   align-items: center;

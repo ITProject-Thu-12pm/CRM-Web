@@ -17,14 +17,10 @@ import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
+  
   /* add a tag */
-  if (contacts == undefined) {
-    console.log("contacts list undefined");
-}
   var allTags;
-  if (contacts) {
-    allTags = contacts.filter(contact => contact.tags != null).flatMap((contact) => contact.tags);
-  }
+  allTags = contacts.flatMap((contact) => contact.tags);
   
    
   const uniqueTags = [...new Set(allTags)];

@@ -35,6 +35,7 @@ function LoadResetPage() {
         } else {
             Reset_Passowrd(oldPassword, newPassword).then(data => {
                 if (data === true) {
+                    navigate('/login');
                     console.log('Reset Success!');
                 } else {
                     console.log('Reset Fail');

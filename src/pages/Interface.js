@@ -1,4 +1,5 @@
 import axios from "axios";
+import { defaultValue } from './default.js';
 
 export async function Login(user_email, user_password) {
     let authentication_status = false;
@@ -219,7 +220,9 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
 
 export async function addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, avatar) {
     try {
-        console.log(avatar);
+        if (avatar === "https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true") {
+            avatar = defaultValue
+        }
         // Send a request to the backend
         const response = await axios.post('http://127.0.0.1:8000/contacts/', {
             first_name : firstName,

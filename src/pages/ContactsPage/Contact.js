@@ -49,7 +49,7 @@ function Contacts() {
               <Greetings username="Evano" />
             </div>
             <div className="summary contacts-cards">
-              <Summary total={7} active={4} inactive={3} />
+              <Summary total={contacts.length} active={0} inactive={0} />
             </div>
             <div className="table contacts-cards">
               <ContactTable

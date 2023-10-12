@@ -5,7 +5,7 @@ import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
 
-function ContactDetails({id, contacts}) {
+function ContactDetails({id, contacts, setSelectedContactId}) {
     const contact = contacts.find(contact => contact.id === parseInt(id));
     const [avatar, setAvatar] = useState(contact["avatar"]);
     const [tempAvatar, setTempAvatar] = useState(null);
@@ -50,13 +50,15 @@ function ContactDetails({id, contacts}) {
         );
 
         setContactsList(updatedContacts); // Update the contacts state
-        localStorage.setItem('contactsData', JSON.stringify(updatedContacts));
+        //localStorage.setItem('contacts', JSON.stringify(updatedContacts));
     };
 
     const navigate = useNavigate();
 
     const handleContactClick = () => {
-        navigate("/contacts");
+        console.log("已经handle了");
+        setSelectedContactId(null);
+        navigate("/contacts", { replace: true });
     };
 
 

@@ -10,11 +10,13 @@ import "./ContactStyles.css";
 import {GetUserContact} from "../Interface.js";
 
 function Contacts() {
+  //console.log("nextTurn\n\n");
+
   const [contacts, setContacts] = useState(contactsData);
   const [selectedContactId, setSelectedContactId] = useState(null); 
   useEffect(() => {
           // Asynchronously fetch user data
-          const fetchData = async () => {
+        const fetchData = async () => {
               try {
                   const datas = await GetUserContact();
                   for (let data in datas) {
@@ -23,7 +25,6 @@ function Contacts() {
                                     "state": datas[data]["state"],
                                     "postcode": datas[data]["postcode"]}
                   }
-                  
                   setContacts(datas);
               } catch (error) {
                   console.error("Error fetching user data:", error);
@@ -34,7 +35,7 @@ function Contacts() {
       }, []);
   if (selectedContactId) {
     /* direct to contact details when click contact name */
-    return <ContactDetails id={selectedContactId} contacts = {contacts}/>;
+    return <ContactDetails id={selectedContactId} contacts = {contacts} setSelectedContactId = {setSelectedContactId}/>;
   } else {
     return (
         /* contact page */

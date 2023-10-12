@@ -226,15 +226,42 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
 
         // If sign up was successful on the backend
         if (response.status === 201) {
-            console.log("Successly get user Infor!");
+            console.log("Successly add contact Infor!");
             return true;
         } 
         // In case server returns any other status code, consider it as a failure.
-        console.log("Get Contact Fail with status: ", response.status);
+        console.log("Add Contact Fail with status: ", response.status);
         return false;
     } catch (error) {
         // Log different message based on the status code in error response.
     
+    }
+}
+
+export async function addByEmail(email) {
+    try {
+
+        // Send a request to the backend
+        const response = await axios.post('http://127.0.0.1:8000/contacts/', {
+            email : email
+        });
+
+        // If sign up was successful on the backend
+        if (response.status === 201) {
+            console.log("Successly add contact Infor!");
+            return true;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("Add Contact Fail with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response && error.response.status === 500) {
+            console.error("This email has not been registered.");
+        }
+        if (error.response && error.response.status === 400) {
+            console.error("Invalid email format.");
+        }
     }
 }
 

@@ -17,7 +17,6 @@ import {
   Grid,
   Divider,
   Box,
-  
   List,
   ListItem,
   ListItemText,
@@ -35,7 +34,6 @@ import DashboardData from "./DashboardData.json";
 
 // Bootstrap Components
 import Card from "react-bootstrap/Card";
-
 
 function LoadDashboardPage() {
   /* trello board */
@@ -73,13 +71,13 @@ function LoadDashboardPage() {
               md={4}
               className="date-and-note-container"
             >
-              <Box mb={2} className="date-or-note">
-                <TimeCard/>
-              </Box >
+              <Box mb={5} className="date-or-note">
+                <TimeCard />
+              </Box>
+
               <Box className="date-or-note">
-                <NoteCard/>
-              </Box >
-              
+                <NoteCard />
+              </Box>
             </Grid>
           </Grid>
 
@@ -171,11 +169,10 @@ function NoteCard() {
         <TextField
           id="standard-multiline-static"
           multiline
-          rows={8}
+          rows={9}
           placeholder="Take a note here..."
           value={note}
           fullWidth
-         
           variant="standard"
           onChange={handleNoteChange}
         />
@@ -294,9 +291,8 @@ function BirthdayCard({ birthdays }) {
         src="https://i.etsystatic.com/33670728/r/il/f35ecc/3584410702/il_1588xN.3584410702_44w8.jpg"
         className="birthday-img mx-auto d-block"
       />
-     
-        <Card.Title className="birthday-text">Let's celebrate!</Card.Title>
-     
+
+      <Card.Title className="birthday-text">Let's celebrate!</Card.Title>
 
       <List
         sx={{

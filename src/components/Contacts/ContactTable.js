@@ -18,14 +18,10 @@ import "../ButtonStyle.css";
 import { addByEmail } from '../../pages/Interface.js';
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
+  
   /* add a tag */
-  if (contacts === undefined) {
-    console.log("contacts list undefined");
-}
   var allTags;
-  if (contacts) {
-    allTags = contacts.filter(contact => contact.tags != null).flatMap((contact) => contact.tags);
-  }
+  allTags = contacts.flatMap((contact) => contact.tags);
   
    
   const uniqueTags = [...new Set(allTags)];
@@ -33,7 +29,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [currentContactTags, setCurrentContactTags] = useState([]);
   const [editingContactId, setEditingContactId] = useState(null);
-
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleTagClick = (id, tags) => {
     setEditingContactId(id);
@@ -56,15 +52,17 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
 
   const handleAddByEmail = async () => {
     const success = await addByEmail(emailValue);
-    if (success) {
+    if (success === 201) {
         // You might want to reset the email input value after a successful addition
         setEmailValue("");
         setShowEmailModal(false);
         console.log("Add by email succeed!")
         // Maybe show a success notification here
-    } else {
+    } else if (success === 500){
         // Handle failure, perhaps show an error notification
-        console.log("Add by email fail!")
+        setErrorMessage("This email has not been registered.");
+    } else {
+        setErrorMessage("Invalid email format.");
     }
 };
 
@@ -288,11 +286,19 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
           <Modal.Title>Add by Email</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
           <TextField 
             fullWidth 
             label="Email" 
             value={emailValue} 
-            onChange={(e) => setEmailValue(e.target.value)} 
+            onChange={(e) => {setEmailValue(e.target.value)
+                      if (errorMessage) {
+                        setErrorMessage('');
+                      }
+                    }
+                  }
+            error={!!errorMessage}
+            helperText={errorMessage}
           />
 
         </Modal.Body>

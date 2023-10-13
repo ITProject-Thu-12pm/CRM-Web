@@ -25,18 +25,19 @@ function LoadResetPage() {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [reEnteredPassword, setReEnteredPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-
+    const [oldPaErrorMessage, setOldPaErrorMessage] = useState('');
+    const [newPaErrorMessage, setNewPaErrorMessage] = useState('');
     /* helper func */
     const handlePasswordCheck = () => {
-        console.log("Checking passwords...");
         if (newPassword !== reEnteredPassword) {
-            setErrorMessage('Passwords do not match');
+            setNewPaErrorMessage('Passwords do not match');
         } else {
             Reset_Passowrd(oldPassword, newPassword).then(data => {
                 if (data === true) {
+                    navigate('/login');
                     console.log('Reset Success!');
                 } else {
+                    setOldPaErrorMessage('Reset Fail')
                     console.log('Reset Fail');
                   
                 }
@@ -49,17 +50,29 @@ function LoadResetPage() {
     };
 
     const checkOldPass = () => {
-        if (errorMessage) {
+        if (oldPaErrorMessage) {
             return (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <PriorityHighRoundedIcon fontSize="small" style={{ color: 'red' }} />
-                    <span style={{ color: 'red' }}>{errorMessage}</span>
+                    <span style={{ color: 'red' }}>{oldPaErrorMessage}</span>
                 </div>
             );
         }
+         
         return null;
     };
-
+    const checkNewPass = () => {
+        if (newPaErrorMessage) {
+            return (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <PriorityHighRoundedIcon fontSize="small" style={{ color: 'red' }} />
+                    <span style={{ color: 'red' }}>{newPaErrorMessage}</span>
+                </div>
+            );
+        }
+         
+        return null;
+    };
 
     return (
 
@@ -75,13 +88,17 @@ function LoadResetPage() {
                     </div>
                     <div className='d-flex flex-column'>
                     <div>
+                        {checkOldPass()}
                         <InputForm
                             inputTitle="Enter Old Password"
                             inputType="password"
                             value={oldPassword}
-                            onChange={e => setOldPassword(e.target.value)}
+                            onChange={e => {setOldPassword(e.target.value);
+                                            if (oldPaErrorMessage){
+                                                setOldPaErrorMessage('');
+                                            }}}
                         />
-                        {checkOldPass()}
+                        {checkNewPass()}
 
                     </div>
 
@@ -90,16 +107,22 @@ function LoadResetPage() {
                             inputTitle="enter New Password"
                             inputType="password"
                             value={newPassword}
-                            onChange={e => setNewPassword(e.target.value)}
+                            onChange={e => {setNewPassword(e.target.value);
+                                            if (newPaErrorMessage){
+                                                setNewPaErrorMessage('');
+                                            }}}
                         />
-                        {checkOldPass()}
+                        {checkNewPass()}
                     </div>
 
                     <InputForm
                         inputTitle="re-enter New Password"
                         inputType="password"
                         value={reEnteredPassword}
-                        onChange={e => setReEnteredPassword(e.target.value)}
+                        onChange={e => {setReEnteredPassword(e.target.value);
+                                            if (newPaErrorMessage){
+                                                setNewPaErrorMessage('');
+                                        }}}
                     />
                     </div>
                    

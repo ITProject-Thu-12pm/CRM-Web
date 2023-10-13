@@ -207,7 +207,6 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
         if (avatar === "https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true") {
             avatar = defaultValue
         }
-
         // Send a request to the backend
         const response = await axios.post('http://127.0.0.1:8000/contacts/', {
             first_name : firstName,
@@ -249,7 +248,7 @@ export async function addByEmail(email) {
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Successly add contact Infor!");
-            return true;
+            return response.status;
         } 
         // In case server returns any other status code, consider it as a failure.
         console.log("Add Contact Fail with status: ", response.status);
@@ -258,9 +257,11 @@ export async function addByEmail(email) {
         // Log different message based on the status code in error response.
         if (error.response && error.response.status === 500) {
             console.error("This email has not been registered.");
+            return error.response.status
         }
         if (error.response && error.response.status === 400) {
             console.error("Invalid email format.");
+            return error.response.status
         }
     }
 }

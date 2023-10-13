@@ -19,7 +19,7 @@ function AddContactManually() {
     const [postcode, setPostcode] = useState('');
     const [dob, setDob] = useState('');
     const [status, setStatus] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState('M');
     const [avatar, setAvatar] = useState('https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true');
     const [avatarDataUrl, setAvatarDataUrl] = useState(null);
     const [shouldAddUser, setShouldAddUser] = useState(false);
@@ -57,7 +57,7 @@ function AddContactManually() {
             alert("Name and Email are mandatory!");
             return;
         }
-        console.log(gender);
+        console.log(gender);   
         addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatar);
         navigate('/contacts');
         

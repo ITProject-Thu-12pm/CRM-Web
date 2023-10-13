@@ -127,7 +127,7 @@ function SideBar() {
         <nav class="navbar bg-body-tertiary">
           <div class="container-fluid">
             <a class="navbar-brand" href="/">
-              Hello Evano
+              Hello Yiqun
               <img
                 src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/hello(60%20x%2060).png?raw=true"
                 class="h-25 w-25"

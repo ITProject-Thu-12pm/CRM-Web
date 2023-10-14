@@ -1,5 +1,6 @@
 import axios from "axios";
 import { defaultValue } from './default.js';
+import { useNavigate } from 'react-router-dom'; 
 
 export async function Login(user_email, user_password) {
     let authentication_status = false;
@@ -145,7 +146,7 @@ export async function UpdateUserProfile(profile, newDate) {
 }
 
 
-export async function GetUserInfor() {
+export async function GetUserInfor({loginStatus}) {
     try {
         // Send a request to the backend and get the infor except avatar
         const response = await axios.get('http://127.0.0.1:8000/user/me/');

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { updateTask } from '../Interface.js'
 
 function EditTaskModal({ open, onClose, onSave, task }) {
   const [taskContent, setTaskContent] = useState(task?.content || "");
   const [selectedPriority, setSelectedPriority] = useState(task?.priority || "medium");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const priorities = ["high", "medium", "low"];
 
@@ -14,8 +16,23 @@ function EditTaskModal({ open, onClose, onSave, task }) {
     setSelectedPriority(task?.priority || "medium");
   }, [task]);
 
-  const handleSave = () => {
-    onSave(task.id, taskContent, selectedPriority);
+  // const handleSave = () => {
+  //   onSave(task.id, taskContent, selectedPriority);
+  //   onClose();
+  // };
+
+  const handleSave = async () => {
+    const result = await updateTask(task.id, taskContent, selectedPriority); // Call the update function
+    if (result) { // If the task was successfully updated
+        onSave(task.id, taskContent, selectedPriority);
+    } else if (result === "Bad Request1") {
+      // Handle error messages
+      setErrorMessage("Description cannot be empty!")
+      console.error("Description cannot be empty!");
+    } else if (result === "Bad Request2") {
+      setErrorMessage("Priority cannot be empty!")
+      console.error("Priority cannot be empty!");
+    } 
     onClose();
   };
 

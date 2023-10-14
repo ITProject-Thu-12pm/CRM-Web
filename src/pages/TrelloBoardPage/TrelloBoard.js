@@ -5,7 +5,7 @@ import SideBar from "../../components/Bar";
 import Column from "./Column";
 import "./TrelloBoardStyles.css";
 import EditTaskModal from "./EditTaskModal";
-import { addColumn,getColumn,getTask } from '../Interface.js'
+import { addColumn,getColumn,getTask,deleteT } from '../Interface.js'
 
 const TrelloBoard = () => {
   const [hasInitialized, setHasInitialized] = useState(false);
@@ -45,44 +45,6 @@ const TrelloBoard = () => {
   };
 
 
-  // React.useEffect(() => {
-  
-  //   const fetchColumnsForUser = async () => {
-  //     try {
-  //       const userColumns = await getColumn();
-        
-  //       // Aggregating tasks from all columns
-  //       const allTasks = userColumns.reduce((acc, column) => {
-  //         column.tasks.forEach(task => {
-  //           acc[task.id] = task;
-  //         });
-  //         return acc;
-  //       }, {});
-
-  //       console.log(allTasks)
-
-  //       if (!hasInitialized && userColumns.length === 0) {
-  //         await initializeColumnsForNewUser();
-  //         setHasInitialized(true);
-  //       } else {
-  //         setState(prevState => ({
-  //           ...prevState,
-  //           tasks: allTasks,  // Here we set the accumulated tasks
-  //           columns: userColumns.reduce((acc, column) => {
-  //             acc[column.id] = column;
-  //             return acc;
-  //           }, {}),
-  //           columnsOrder: userColumns.map(column => column.id)
-  //         }));
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to fetch columns!", error.message);
-  //     }
-  //   }
-  //   fetchColumnsForUser();
-  // }, [hasInitialized]);
-
-
   React.useEffect(() => {
   
     const fetchColumnsForUser = async () => {
@@ -98,7 +60,6 @@ const TrelloBoard = () => {
             tasks: modifiedTasks
           };
         });
-        console.log(updatedColumns)
         // Fetch tasks for each column
         const tasksForColumnsPromises = userColumns.map(column => getTask(column.id));
         const tasksForColumns = await Promise.all(tasksForColumnsPromises);
@@ -113,7 +74,6 @@ const TrelloBoard = () => {
           });
           return acc;
         }, {});
-        console.log(allTasks)
   
         if (!hasInitialized && userColumns.length === 0) {
           await initializeColumnsForNewUser();
@@ -136,23 +96,6 @@ const TrelloBoard = () => {
     fetchColumnsForUser();
   }, [hasInitialized]);
   
-
-  
-  // const handleAddNewTask = (task, columnId) => {
-  //   setState(prevState => {
-  //       const newTasks = {...prevState.tasks};
-  //       newTasks[task.id] = task;
-        
-  //       const newColumns = {...prevState.columns};
-  //       newColumns[columnId].tasks.push(task.id);
-
-  //       return {
-  //           ...prevState,
-  //           tasks: newTasks,
-  //           columns: newColumns
-  //       };
-  //   });
-  // };
 
 
   /* drag and drop logic*/
@@ -242,6 +185,11 @@ const TrelloBoard = () => {
   /* delete task logic */
   const deleteTask = (taskId, columnId) => {
     // Create a new tasks object without the task to be deleted
+    const response = deleteT(taskId);
+    if (response) { 
+      console.log("Successfully deleted the task!");
+    }
+
     const updatedTasks = { ...state.tasks };
     delete updatedTasks[taskId];
 
@@ -335,7 +283,6 @@ const TrelloBoard = () => {
                               key={column.id}
                               column={column}
                               tasks={tasks}
-                              // onAddNewTask={handleAddNewTask}
                               onDeleteTask={deleteTask}
                               onEditTaskClick={handleEditTaskClick}
                             />

@@ -9,6 +9,7 @@ import { addTask } from '../Interface.js'
 function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
   /* add task modal */
   const [openModal, setOpenModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleAddCardClick = () => {
     setOpenModal(true);
@@ -18,22 +19,13 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
     setOpenModal(false);
   };
 
-  // const handleSaveNewCard = (title, priority) => {
-  //   // todo: Logic to save the new card to the state/board
-  //   console.log(title, priority);
-  //   setOpenModal(false);
-  // };
-
   const handleSaveNewCard = async (title, priority) => {
     // create the task data object
-    // const newTaskId = `task-${Object.keys(tasks).length + 1}`;
     const taskData = {
         content: title,
         priority: priority,
         column: parseInt(column.id.split('-')[1], 10)  // this is the column's unique identifier
     };
-
-    // setTasks(prevTasks => ({ ...prevTasks, [column]: taskData }));
   
     const response = await addTask(taskData);
     
@@ -43,9 +35,13 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
       // onAddNewTask(taskData, column.id);
       // onClose();  
       setOpenModal(false);  // close the modal
-    } else if (typeof response === "string") {
+    } else if (response === "Bad Request1") {
       // Handle error messages
-      console.error(response);
+      setErrorMessage("Description cannot be empty!")
+      console.error("Description cannot be empty!");
+    } else if (response === "Bad Request2") {
+      setErrorMessage("Priority cannot be empty!")
+      console.error("Priority cannot be empty!");
     } else {
       console.error("Failed to add task!");
     }

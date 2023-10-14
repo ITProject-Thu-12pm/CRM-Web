@@ -362,7 +362,10 @@ export async function addTask(taskData) {
     } catch (error) {
 
         if (error.response.status === 400){
-            return "Bad Request";
+            if (taskData.content === ""){
+                return "Bad Request1";
+            }
+            return "Bad Request2";
         } else if (error.response.status === 500) {
             return "Internal server wrong";
         }
@@ -434,6 +437,56 @@ export async function getTask(columnId) {
         } else {
             console.error("getTask Request Failed: ", error);
         }
+        return false;
+    }
+}
+
+
+export async function updateTask(taskId, taskContent, taskPriority) {
+    try {
+        // Assuming the backend accepts a JSON payload with the task's content and priority
+        const response = await axios.put(`http://127.0.0.1:8000/trello/task/?str=${taskId}`, {
+            content: taskContent,
+            priority: taskPriority,
+        });
+        
+        // If the update was successful on the backend
+        if (response.status === 200) {
+            console.log("Successfully updated task info!");
+            return response.data;
+        } 
+        // In case the server returns any other status code, consider it as a failure.
+        console.log("updateTask failed with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different messages based on the status code in the error response.
+        if (error.response && error.response.status === 403) {
+            console.error("updateTask Forbidden (403): ", error.response.data);
+        } else if (error.response.status === 400){
+            if (taskContent === ""){
+                return "Bad Request1";
+            }
+            return "Bad Request2";
+        } else {
+            console.error("updateTask Request Failed: ", error);
+        }
+        return false;
+    }
+}
+
+export async function deleteT(taskId) {
+    try {
+        const response = await axios.delete(`http://127.0.0.1:8000/trello/task/?str=${taskId}`);
+
+        if (response.status === 204) { // 204 No Content is the typical response for a successful DELETE request
+            console.log("Successfully deleted the task!");
+            return true;
+        } 
+
+        console.log("Failed to delete task with status:", response.status);
+        return false;
+    } catch (error) {
+        console.error("Error deleting task:", error);
         return false;
     }
 }

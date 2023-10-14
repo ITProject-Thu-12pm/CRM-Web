@@ -348,3 +348,92 @@ export async function deleteEvent(id) {
     }
 }
 
+export async function addTask(taskData) {
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/trello/task/', taskData);
+        
+        // Check if the request was successful
+        if (response.status === 201) {
+            console.log("Successfully added the task!");
+            return true;
+        } 
+
+        console.log("Failed to add task with status:", response.status);
+    } catch (error) {
+
+        if (error.response.status === 400){
+            return "Bad Request";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
+        }
+        return false;
+    }
+}
+
+export async function addColumn(columnData) {
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/trello/column/', columnData);
+        
+        // Check if the request was successful
+        if (response.status === 201) {
+            console.log("Successfully added the column!");
+            return true;
+        } 
+
+        console.log("Failed to add column with status:", response.status);
+    } catch (error) {
+
+        if (error.response.status === 400){
+            return "Bad Request";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
+        }
+        return false;
+    }
+}
+
+export async function getColumn() {
+    try {
+        const response = await axios.get('http://127.0.0.1:8000/trello/column/');
+        
+        // If sign up was successful on the backend
+        if (response.status === 200) {
+            console.log("Successly get column Info!");
+            return response.data;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("getColumn Fail with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response && error.response.status === 403) {
+            console.error("getColumn Forbidden (403): ", error.response.data);
+        } else {
+            console.error("getColumn Request Failed: ", error);
+        }
+        return false;
+    }
+}
+
+export async function getTask(columnId) {
+    try {
+        const response = await axios.get(`http://127.0.0.1:8000/trello/task/?str=${columnId}`);
+        
+        // If sign up was successful on the backend
+        if (response.status === 200) {
+            console.log("Successly get task Info!");
+            return response.data;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("getTask Fail with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response && error.response.status === 403) {
+            console.error("getTask Forbidden (403): ", error.response.data);
+        } else {
+            console.error("getTask Request Failed: ", error);
+        }
+        return false;
+    }
+}

@@ -2,13 +2,158 @@ import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import Button from "react-bootstrap/Button";
 import SideBar from "../../components/Bar";
-import { boardData } from "./BoardData";
 import Column from "./Column";
 import "./TrelloBoardStyles.css";
 import EditTaskModal from "./EditTaskModal";
+import { addColumn,getColumn,getTask } from '../Interface.js'
 
 const TrelloBoard = () => {
-  const [state, setState] = useState(boardData);
+  const [hasInitialized, setHasInitialized] = useState(false);
+  const [state, setState] = useState({
+    tasks: {},
+    columns: {},
+    columnsOrder: []
+  });
+
+  const DEFAULT_COLUMNS = [
+    { title: "To Do" },
+    { title: "In Progress" },
+    { title: "Completed" }
+  ];
+
+  const initializeColumnsForNewUser = async () => {
+    for (let column of DEFAULT_COLUMNS) {
+      const addedColumn = await addColumn(column);
+  
+      if (addedColumn) {
+        setState(prevState => ({
+          ...prevState,
+          columns: {
+            ...prevState.columns,
+            [addedColumn.id]: {
+              id: addedColumn.id,
+              title: addedColumn.title,
+              tasks: [],   // Fixed the typo from 'asks' to 'tasks'
+            }
+          },
+          columnsOrder: [...prevState.columnsOrder, addedColumn.id]
+        }));
+      } else {
+        console.error("Failed to add column!");
+      }
+    }
+  };
+
+
+  // React.useEffect(() => {
+  
+  //   const fetchColumnsForUser = async () => {
+  //     try {
+  //       const userColumns = await getColumn();
+        
+  //       // Aggregating tasks from all columns
+  //       const allTasks = userColumns.reduce((acc, column) => {
+  //         column.tasks.forEach(task => {
+  //           acc[task.id] = task;
+  //         });
+  //         return acc;
+  //       }, {});
+
+  //       console.log(allTasks)
+
+  //       if (!hasInitialized && userColumns.length === 0) {
+  //         await initializeColumnsForNewUser();
+  //         setHasInitialized(true);
+  //       } else {
+  //         setState(prevState => ({
+  //           ...prevState,
+  //           tasks: allTasks,  // Here we set the accumulated tasks
+  //           columns: userColumns.reduce((acc, column) => {
+  //             acc[column.id] = column;
+  //             return acc;
+  //           }, {}),
+  //           columnsOrder: userColumns.map(column => column.id)
+  //         }));
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to fetch columns!", error.message);
+  //     }
+  //   }
+  //   fetchColumnsForUser();
+  // }, [hasInitialized]);
+
+
+  React.useEffect(() => {
+  
+    const fetchColumnsForUser = async () => {
+      try {
+        const userColumns = await getColumn();
+        
+        const updatedColumns = userColumns.map(column => {
+          // Modify each task in the tasks array to its desired string representation
+          const modifiedTasks = column.tasks.map(task => `${task.id}`);
+          // Return a new column object with the modified tasks array
+          return {
+            ...column,
+            tasks: modifiedTasks
+          };
+        });
+        console.log(updatedColumns)
+        // Fetch tasks for each column
+        const tasksForColumnsPromises = userColumns.map(column => getTask(column.id));
+        const tasksForColumns = await Promise.all(tasksForColumnsPromises);
+  
+        // Aggregating tasks from all columns and the fetched tasks
+        const allTasks = userColumns.reduce((acc, column, index) => {
+          // Combine tasks from column and fetched tasks
+          const combinedTasks = [...column.tasks, ...tasksForColumns[index]];
+  
+          combinedTasks.forEach(task => {
+            acc[task.id] = task;
+          });
+          return acc;
+        }, {});
+        console.log(allTasks)
+  
+        if (!hasInitialized && userColumns.length === 0) {
+          await initializeColumnsForNewUser();
+          setHasInitialized(true);
+        } else {
+          setState(prevState => ({
+            ...prevState,
+            tasks: allTasks,  // Here we set the accumulated tasks
+            columns: updatedColumns.reduce((acc, column) => {
+              acc[column.id] = column;
+              return acc;
+            }, {}),
+            columnsOrder: userColumns.map(column => column.id)
+          }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch columns!", error.message);
+      }
+    }
+    fetchColumnsForUser();
+  }, [hasInitialized]);
+  
+
+  
+  // const handleAddNewTask = (task, columnId) => {
+  //   setState(prevState => {
+  //       const newTasks = {...prevState.tasks};
+  //       newTasks[task.id] = task;
+        
+  //       const newColumns = {...prevState.columns};
+  //       newColumns[columnId].tasks.push(task.id);
+
+  //       return {
+  //           ...prevState,
+  //           tasks: newTasks,
+  //           columns: newColumns
+  //       };
+  //   });
+  // };
+
 
   /* drag and drop logic*/
   const onDragEnd = (result) => {
@@ -171,6 +316,7 @@ const TrelloBoard = () => {
                     const tasks = column.tasks.map(
                       (taskId) => state.tasks[taskId]
                     );
+                    // if (!tasks) return null;  
                     return (
                       <Draggable
                         key={column.id}
@@ -189,6 +335,7 @@ const TrelloBoard = () => {
                               key={column.id}
                               column={column}
                               tasks={tasks}
+                              // onAddNewTask={handleAddNewTask}
                               onDeleteTask={deleteTask}
                               onEditTaskClick={handleEditTaskClick}
                             />

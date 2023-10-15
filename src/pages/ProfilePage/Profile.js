@@ -9,6 +9,8 @@ import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
 function LoadProfilePage() {
+    const [loginStatus, setLoginStatus] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState({
         avatar: null,
         tempAvatar: null,
@@ -47,6 +49,7 @@ function LoadProfilePage() {
                     //console.log(profile.avatar);
                 } catch (error) {
                     console.error("Error fetching user data:", error);
+                    navigate('/login');
                 }
             }
             
@@ -54,9 +57,8 @@ function LoadProfilePage() {
     
         fetchData();
     }, []);
+            
     
-    const [loginStatus, setLoginStatus] = useState(true);
-    const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
@@ -108,8 +110,8 @@ function LoadProfilePage() {
     const navigate = useNavigate();
 
     const handleLogInClick = () => {
-        navigate("/login");
         setLoginStatus(false);
+        navigate("/login");
         Logout().then(data => {
             console.log("Dadsa");
             if (data) {

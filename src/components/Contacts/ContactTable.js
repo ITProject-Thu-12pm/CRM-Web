@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
 import { addByEmail } from '../../pages/Interface.js';
+import { UpdateContactTag } from "../../pages/Interface";
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   
@@ -23,18 +24,20 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   var allTags;
   allTags = contacts.flatMap((contact) => contact.tags);
   
-   
+  
   const uniqueTags = [...new Set(allTags)];
   const [showModal, setShowModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [currentContactTags, setCurrentContactTags] = useState([]);
   const [editingContactId, setEditingContactId] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-
+  var idContact;
   const handleTagClick = (id, tags) => {
     setEditingContactId(id);
     setCurrentContactTags(tags);
+    idContact = contacts.find(contact => contact.id === parseInt(id));
     setShowModal(true);
+
   };
 
   const navigate = useNavigate();
@@ -143,6 +146,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   const handleSaveTags = () => {
     const updatedContacts = contacts.map((contact) => {
       if (contact.id === editingContactId) {
+        UpdateContactTag(editingContactId, selectedTags, idContact);
         return { ...contact, tags: selectedTags };
       }
       return contact;

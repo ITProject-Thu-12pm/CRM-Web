@@ -14,18 +14,25 @@ function Contacts() {
 
   const [contacts, setContacts] = useState(contactsData);
   const [selectedContactId, setSelectedContactId] = useState(null); 
+  const [activeUser, setActiveUser] = useState(0);
   useEffect(() => {
           // Asynchronously fetch user data
         const fetchData = async () => {
               try {
                   const datas = await GetUserContact();
+                  var active = 0;
                   for (let data in datas) {
+                    
                     datas[data]["address"] = {"street_address" : datas[data]["address"],
                                     "city": datas[data]["city"],
                                     "state": datas[data]["state"],
                                     "postcode": datas[data]["postcode"]}
+                    if (datas[data]["is_user"]) { 
+                        active += 1;
+                    }
                   }
                   setContacts(datas);
+                  setActiveUser(active);
               } catch (error) {
                   console.error("Error fetching user data:", error);
               }
@@ -33,6 +40,7 @@ function Contacts() {
           // Invoke the asynchronous function
           fetchData();
       }, []);
+
   if (selectedContactId) {
     /* direct to contact details when click contact name */
     return <ContactDetails id={selectedContactId} contacts = {contacts} setSelectedContactId = {setSelectedContactId}/>;
@@ -49,7 +57,7 @@ function Contacts() {
               <Greetings username="Evano" />
             </div>
             <div className="summary contacts-cards">
-              <Summary total={contacts.length} active={0} inactive={0} />
+              <Summary total={contacts.length} active={activeUser} inactive={contacts.length - activeUser} />
             </div>
             <div className="table contacts-cards">
               <ContactTable

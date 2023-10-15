@@ -6,7 +6,7 @@ import AddTaskModal from "./AddTaskModal";
 import "../../components/ButtonStyle.css";
 import { addTask } from '../Interface.js'
 
-function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
+function Column({ column, tasks, onDeleteTask, onEditTaskClick, onAddNewTask }) {
   /* add task modal */
   const [openModal, setOpenModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,7 +32,7 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick }) {
     if (response === true) {
       console.log("Task added successfully!");
       // this.props.onAddNewTask(taskData, this.props.column.id);
-      // onAddNewTask(taskData, column.id);
+       onAddNewTask(taskData, column.id);
       // onClose();  
       setOpenModal(false);  // close the modal
     } else if (response === "Bad Request1") {

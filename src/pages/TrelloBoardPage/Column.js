@@ -9,7 +9,8 @@ import { addTask } from '../Interface.js'
 function Column({ column, tasks, onDeleteTask, onEditTaskClick, onAddNewTask }) {
   /* add task modal */
   const [openModal, setOpenModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [priorityError, setPriorityError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
 
   const handleAddCardClick = () => {
     setOpenModal(true);
@@ -32,15 +33,15 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick, onAddNewTask }) 
     if (response === true) {
       console.log("Task added successfully!");
       // this.props.onAddNewTask(taskData, this.props.column.id);
-       onAddNewTask(taskData, column.id);
+      onAddNewTask(taskData, column.id);
       // onClose();  
       setOpenModal(false);  // close the modal
     } else if (response === "Bad Request1") {
       // Handle error messages
-      setErrorMessage("Description cannot be empty!")
+      setDescriptionError("Description cannot be empty!")
       console.error("Description cannot be empty!");
     } else if (response === "Bad Request2") {
-      setErrorMessage("Priority cannot be empty!")
+      setPriorityError("Priority cannot be empty!")
       console.error("Priority cannot be empty!");
     } else {
       console.error("Failed to add task!");
@@ -122,6 +123,10 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick, onAddNewTask }) 
       </Button>
       <AddTaskModal
         open={openModal}
+        descriptionError={descriptionError}
+        setDescriptionError={setDescriptionError}
+        priorityError={priorityError}
+        setPriorityError={setPriorityError}
         onClose={handleCloseModal}
         onSave={handleSaveNewCard}
       />

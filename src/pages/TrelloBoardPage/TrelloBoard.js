@@ -9,12 +9,15 @@ import { addColumn,getColumn,getTask,deleteT } from '../Interface.js'
 
 const TrelloBoard = () => {
   console.log("TrelloBoard Mounted")
+  const [priorityError2, setPriorityError2] = useState("");
+  const [descriptionError2, setDescriptionError2] = useState("");
   const [hasInitialized, setHasInitialized] = useState(false);
   const [state, setState] = useState({
     tasks: {},
     columns: {},
     columnsOrder: []
   });
+
 
   const DEFAULT_COLUMNS = [
     { title: "To Do" },
@@ -385,6 +388,10 @@ const TrelloBoard = () => {
         onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveEditedTask}
         task={currentTask}
+        descriptionError2={descriptionError2}
+        setDescriptionError2={setDescriptionError2}
+        priorityError2={priorityError2}
+        setPriorityError2={setPriorityError2}
       />
     </div>
   );

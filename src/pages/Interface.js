@@ -459,16 +459,14 @@ export async function updateTask(taskId, taskContent, taskPriority) {
         console.log("updateTask failed with status: ", response.status);
         return false;
     } catch (error) {
-        // Log different messages based on the status code in the error response.
-        if (error.response && error.response.status === 403) {
-            console.error("updateTask Forbidden (403): ", error.response.data);
-        } else if (error.response.status === 400){
+
+        if (error.response.status === 400){
             if (taskContent === ""){
                 return "Bad Request1";
             }
             return "Bad Request2";
-        } else {
-            console.error("updateTask Request Failed: ", error);
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
         }
         return false;
     }

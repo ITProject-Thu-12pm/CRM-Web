@@ -473,10 +473,25 @@ function BirthdayCard({ birthdays }) {
 // Component to display current date and time
 function TimeCard() {
   const [dateTime, setDateTime] = useState(new Date());
-
+  const [year, setYear] = useState('');
+  const [time, setTime] = useState('');
+  const setAll = (time) => {
+    var year;
+    var ti;
+    year = time.substring(0,10);
+    ti = time.substring(11, 20);
+    setYear(year);
+    setTime(ti);
+  }
   useEffect(() => {
     const interval = setInterval(() => {
-      setDateTime(new Date());
+      const melbourneTimeZone = 'Australia/Melbourne';
+      const date = new Date();
+      const options = { timeZone: melbourneTimeZone };
+      const localTimeInMelbourne = date.toLocaleString('en-US', options);
+      //console.log(localTimeInMelbourne);
+        setAll(localTimeInMelbourne);
+        setDateTime(localTimeInMelbourne);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -484,8 +499,8 @@ function TimeCard() {
 
   return (
     <Card className="card-radius time-card">
-      <div className="curr-time">{dateTime.toLocaleTimeString()}</div>
-      <div className="curr-date">{dateTime.toLocaleDateString()}</div>
+      <div className="curr-time">{time}</div>
+      <div className="curr-date">{year}</div>
     </Card>
   );
 }

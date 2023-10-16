@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './InputStyles.css';
 
 const InputForm = ({ inputTitle, inputType, value, onChange, error }) => {
+
     return (
         <div className="mb-3 form-floating ">
            
@@ -16,7 +17,7 @@ const InputForm = ({ inputTitle, inputType, value, onChange, error }) => {
             />
                <label htmlFor="floatingInput">{inputTitle}</label>
             {error && <div className="invalid-feedback">
-                {error}
+                {error === 'ALL_RED' ? '' : error}
             </div>}
         </div>
     );

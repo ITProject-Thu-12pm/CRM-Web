@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { GetUserContact } from "../Interface";
 
 // Styles
 import "bootstrap/dist/css/bootstrap.min.css";

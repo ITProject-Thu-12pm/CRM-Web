@@ -295,7 +295,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
             fullWidth 
             label="Email" 
             value={emailValue} 
-            onChange={(e) => {setEmailValue(e.target.value)
+            onChange={(e) => {setEmailValue(e.target.value);
                       if (errorMessage) {
                         setErrorMessage('');
                       }

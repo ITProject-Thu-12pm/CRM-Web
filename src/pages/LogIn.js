@@ -11,7 +11,6 @@ function LoadLogInPage() {
   const [user_email, setUserEmail] = useState('');
   const [user_password, setUserPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
@@ -49,7 +48,7 @@ function LoadLogInPage() {
             <h1 className="loginTitle2">What Matters Most</h1>
             
           </div>
-          {errorMessage && <div className="error-message" style={{color: 'red'}}>{errorMessage}</div>}
+          
           <LogInForm 
             user_email = {user_email}
             setUserEmail = {setUserEmail}
@@ -58,6 +57,8 @@ function LoadLogInPage() {
             loginStatus = {loginStatus}
             emailError={emailError}
             passwordError={passwordError}
+            setEmailError={setEmailError}
+            setPasswordError={setPasswordError}
           />
           <Buttons 
             validateInputs={validateInputs}
@@ -65,7 +66,8 @@ function LoadLogInPage() {
             user_password = {user_password}
             loginStatus = {loginStatus}
             setLoginStatus = {setLoginStatus}
-            setErrorMessage = {setErrorMessage}
+            setEmailError={setEmailError}
+            setPasswordError={setPasswordError}
           />
           
 
@@ -75,7 +77,7 @@ function LoadLogInPage() {
   );
 }
 
-function LogInForm({user_email, setUserEmail, user_password, setUserPassword, loginStatus, emailError, passwordError}) {
+function LogInForm({user_email, setUserEmail, user_password, setUserPassword, loginStatus, emailError, passwordError, setEmailError, setPasswordError}) {
   
   return (
     <div className="input">
@@ -83,20 +85,20 @@ function LogInForm({user_email, setUserEmail, user_password, setUserPassword, lo
       inputTitle="Email Address" 
       inputType="email" 
       value = {user_email}
-      onChange={e => setUserEmail(e.target.value)}
+      onChange={e => {setUserEmail(e.target.value); setEmailError(''); setPasswordError('')}}
       error={emailError}
       />
       <InputForm inputTitle="Password" 
       inputType="password" 
       value = {user_password}
-      onChange={e => setUserPassword(e.target.value)}
+      onChange={e => {setUserPassword(e.target.value); setPasswordError(''); setEmailError('');}}
       error={passwordError}
       />
     </div>
   );
 }
 
-function Buttons({validateInputs, user_email, user_password, loginStatus, setLoginStatus, setErrorMessage}) {
+function Buttons({validateInputs, user_email, user_password, loginStatus, setLoginStatus, setEmailError, setPasswordError}) {
   const navigate = useNavigate();
 
   const handleSignUpClick = () => {
@@ -110,7 +112,9 @@ function Buttons({validateInputs, user_email, user_password, loginStatus, setLog
           navigate('/profile');
         } else {
           setLoginStatus(false);
-          setErrorMessage('Please ensure your Email or Password is correct and retry again!');
+          //setErrorMessage('Please ensure Email or Password is correct and retry again!');
+          setEmailError('Please ensure Email or Password is correct and retry again!');
+          setPasswordError('ALL_RED');
         }
       })
     }

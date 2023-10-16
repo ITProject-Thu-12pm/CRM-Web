@@ -3,35 +3,39 @@ import { useNavigate } from "react-router-dom";
 import InputForm from "../components/Inputs/Input.js";
 import "./ForgotPasswordStyles.css";
 import emailjs from "@emailjs/browser";
+import { useEffect } from "react";
 
 function LoadForgotPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [verificationCodeSent, setVerificationCodeSent] = useState(false);
   const [enteredCode, setEnteredCode] = useState("");
-
-  //generate vertification code
+  const [codeGenerationTime, setCodeGenerationTime] = useState(null);
   const [verificationCode] = useState(
     Math.floor(100000 + Math.random() * 900000).toString()
   );
 
   const handleVerifyCode = () => {
-    console.log(verificationCode);
-    if (enteredCode !== verificationCode) {
-      alert(
-        "The verification code you entered is incorrect. Please try again."
-      );
-    } else {
-      //Todo: implement change password here!
-      navigate("/login");
+    const currentTime = new Date().getTime();
+    const maxSeconds = 20 * 60 * 1000;
+
+    if (currentTime - codeGenerationTime > maxSeconds) {
+      alert("The verification code has expired. Please request a new code.");
+      return;
     }
+
+    if (enteredCode !== verificationCode) {
+      alert("The verification code you entered is incorrect. Please try again.");
+      return;
+    }
+
+    //Todo: implement change password here!
+    navigate("/login");
   };
 
   return (
     <div className="container-all">
-      {/* bg-img */}
       <div className="container-left"></div>
-      {/* content */}
       <div className="container-right">
         <form className="content">
           <div className="header">
@@ -44,6 +48,7 @@ function LoadForgotPage() {
             setVerificationCodeSent={setVerificationCodeSent}
             verificationCode={verificationCode}
             setEnteredCode={setEnteredCode}
+            setCodeGenerationTime={setCodeGenerationTime}
           />
           <Buttons handleVerifyCode={handleVerifyCode} />
         </form>
@@ -53,7 +58,26 @@ function LoadForgotPage() {
 }
 
 function ResetForm(props) {
+
+ /* btn cannot be clicked in 30 seconds */
+  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [countdown, setCountdown] = useState(30);
+
+  useEffect(() => {
+    if (btnDisabled && countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (countdown === 0) {
+      setBtnDisabled(false);
+      setCountdown(30); // Reset countdown
+    }
+  }, [btnDisabled, countdown]);
+
+    /* send email config */
   const handleGetCodeClick = () => {
+    setBtnDisabled(true);
     emailjs
       .send(
         "service_pduei9j",
@@ -69,32 +93,37 @@ function ResetForm(props) {
       .then((response) => {
         console.log("Email sent successfully:", response);
         props.setVerificationCodeSent(true);
+        props.setCodeGenerationTime(new Date().getTime());
       })
       .catch((error) => {
         console.error("Error sending email:", error);
       });
   };
 
+  
+
   return (
     <div>
       <InputForm
         inputTitle="Email Address"
+        value={props.email}
         onChange={(e) => props.setEmail(e.target.value)}
       />
       <div className="vertification">
         <div className="vertification-left">
           <InputForm
-            inputTitle="Email Verification Code"
+            inputTitle="6-digital Code"
             onChange={(e) => props.setEnteredCode(e.target.value)}
           />
         </div>
         <div>
           <button
             type="button"
+            disabled={btnDisabled}
             className="btn-outline-secondary rounded-5 get-code"
             onClick={handleGetCodeClick}
           >
-            Get Code
+            {btnDisabled ? `${countdown}s` : 'Get Code'}
           </button>
         </div>
       </div>

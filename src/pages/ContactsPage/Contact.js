@@ -14,7 +14,7 @@ function Contacts() {
 
   if (selectedContactId) {
     /* direct to contact details when click contact name */
-    return <ContactDetails id={selectedContactId} />;
+    return <ContactDetails id={selectedContactId}  contacts = {contacts} setSelectedContactId = {setSelectedContactId}/>;
   } else {
     return (
         /* contact page */

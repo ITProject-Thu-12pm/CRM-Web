@@ -90,35 +90,6 @@ function LoadDashboardPage() {
   );
 }
 
-/* function NoteCard() {
-  const [note, setNote] = useState(""); // initial state
-
-  const handleNoteChange = (event) => {
-    const updatedNote = event.target.value;
-    setNote(updatedNote);
-
-    // bankend link here
-  };
- 
-  return (
-    <Card className="card-radius">
-      <Card.Header>Quick Note</Card.Header>
-      <Card.Body>
-        <TextField
-          id="standard-multiline-static"
-          multiline
-          rows={5}
-          placeholder="Take a note here..."
-          value={note}
-          fullWidth
-          variant="standard"
-          onChange={handleNoteChange}
-        />
-      </Card.Body>
-    </Card>
-  );
-}
-*/
 function TrelloSummary({ todo, in_progress, completed }) {
   return (
     <div className="summary-container">
@@ -257,9 +228,9 @@ function ContactList({ id, name, age, dob, avatar }) {
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Link to={`/contacts/${id}`}>
+          
             <Avatar src={avatar} />
-          </Link>
+          
         </ListItemAvatar>
         <ListItemText
           primary={name}

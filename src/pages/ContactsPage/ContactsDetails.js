@@ -6,9 +6,9 @@ import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
 
-function ContactDetails({id}) {
+function ContactDetails({id, contacts, setSelectedContactId}) {
    
-    const contact = contactsData.find(contact => contact.id === parseInt(id));
+    const contact = contacts.find(contact => contact.id === parseInt(id));
 
     const [avatar, setAvatar] = useState(contact.profile_picture);
     const [tempAvatar, setTempAvatar] = useState(null);
@@ -59,7 +59,8 @@ function ContactDetails({id}) {
     const navigate = useNavigate();
 
     const handleContactClick = () => {
-        navigate("/contacts");
+        setSelectedContactId(null);
+        navigate("/contacts", { replace: true });
     };
 
 

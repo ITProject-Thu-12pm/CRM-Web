@@ -480,6 +480,9 @@ function TimeCard() {
     var ti;
     year = time.substring(0,10);
     ti = time.substring(11, 20);
+    if (time.substring(20, 23) === 'AM' && ti.substring(0, 2) === '12') {
+      ti = "00" + time.substring(13, 20);
+    }
     setYear(year);
     setTime(ti);
   }

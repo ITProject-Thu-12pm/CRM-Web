@@ -29,7 +29,7 @@ function MyCalendarComponent({
   function handleCloseModal() {
     setShowModal(false);
   }
-
+  console.log(allEvents);
   return (
     <div className="container-calender">
       <div className="calendar-header-row header-container-blur">
@@ -47,8 +47,8 @@ function MyCalendarComponent({
         <DnDCalendar
           localizer={localizer}
           events={allEvents}
+         
           defaultDate={new Date()}
-          // defaultDate={new Date()}
           startAccessor="start"
           endAccessor="end"
           defaultView="month"

@@ -8,6 +8,7 @@ import "./TrelloBoardStyles.css";
 import EditTaskModal from "./EditTaskModal";
 
 const TrelloBoard = () => {
+  console.log("trello start");
   const [state, setState] = useState(boardData);
 
   /* drag and drop logic*/

@@ -22,8 +22,7 @@ function EventDetail({
             id="floatingTitle"
             className="form-control"
             value={selectedEvent ? selectedEvent.title : ""}
-            // readOnly  //only for testing
-            disabled
+
           />
           <label htmlFor="floatingTitle">Title</label>
         </div>

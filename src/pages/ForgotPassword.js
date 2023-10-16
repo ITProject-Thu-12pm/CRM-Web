@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InputForm from "../components/Inputs/Input.js";
 import "./ForgotPasswordStyles.css";
 import emailjs from "@emailjs/browser";
-import { useEffect } from "react";
 
 function LoadForgotPage() {
   const navigate = useNavigate();
@@ -14,19 +13,21 @@ function LoadForgotPage() {
   const [verificationCode] = useState(
     Math.floor(100000 + Math.random() * 900000).toString()
   );
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleVerifyCode = () => {
     const currentTime = new Date().getTime();
     const maxSeconds = 20 * 60 * 1000;
 
-    if (currentTime - codeGenerationTime > maxSeconds) {
-      alert("The verification code has expired. Please request a new code.");
+    if ((enteredCode !== verificationCode) || (currentTime - codeGenerationTime > maxSeconds)) {
+      alert("The verification code you entered is incorrect. Please try again.");
       return;
     }
 
-    if (enteredCode !== verificationCode) {
-      alert("The verification code you entered is incorrect. Please try again.");
-      return;
+    if (newPassword !== confirmPassword) {
+        alert("Passwords do not match. Please re-enter.");
+        return;
     }
 
     //Todo: implement change password here!
@@ -49,8 +50,17 @@ function LoadForgotPage() {
             verificationCode={verificationCode}
             setEnteredCode={setEnteredCode}
             setCodeGenerationTime={setCodeGenerationTime}
+            setNewPassword={setNewPassword}
+            setConfirmPassword={setConfirmPassword}
           />
           <Buttons handleVerifyCode={handleVerifyCode} />
+          <button
+            type="button"
+            className="forgot-go-back"
+            onClick={() => navigate("/login")}
+          >
+            Go Back
+          </button>
         </form>
       </div>
     </div>
@@ -58,8 +68,6 @@ function LoadForgotPage() {
 }
 
 function ResetForm(props) {
-
- /* btn cannot be clicked in 30 seconds */
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [countdown, setCountdown] = useState(30);
 
@@ -75,7 +83,6 @@ function ResetForm(props) {
     }
   }, [btnDisabled, countdown]);
 
-    /* send email config */
   const handleGetCodeClick = () => {
     setBtnDisabled(true);
     emailjs
@@ -99,8 +106,6 @@ function ResetForm(props) {
         console.error("Error sending email:", error);
       });
   };
-
-  
 
   return (
     <div>
@@ -127,8 +132,14 @@ function ResetForm(props) {
           </button>
         </div>
       </div>
-      <InputForm inputTitle="New Password" />
-      <InputForm inputTitle="Re-enter New Password" />
+      <InputForm 
+        inputTitle="New Password" 
+        onChange={(e) => props.setNewPassword(e.target.value)}
+      />
+      <InputForm 
+        inputTitle="Re-enter New Password" 
+        onChange={(e) => props.setConfirmPassword(e.target.value)}
+      />
     </div>
   );
 }

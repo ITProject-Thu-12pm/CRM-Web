@@ -583,3 +583,67 @@ export async function deleteT(taskId) {
         return false;
     }
 }
+
+
+export async function updateNote(notes) {
+    try {
+        const response = await axios.put(`http://127.0.0.1:8000/note/`, notes);
+        
+        if (response.status === 200) {
+            console.log("Successfully updated the notes!");
+            return true;
+        } 
+
+        console.log("Failed to update notes with status:", response.status);
+        return false;
+    } catch (error) {
+        console.error("Error updating notes:", error);
+        return false;
+    }
+}
+
+export async function addNote(notes) {
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/note/', notes);
+        
+        // Check if the request was successful
+        if (response.status === 201) {
+            console.log("Successfully added the notes!");
+            return true;
+        } 
+
+        console.log("Failed to add notes with status:", response.status);
+    } catch (error) {
+
+        if (error.response.status === 400){
+            return "Bad Request";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
+        }
+        return false;
+    }
+}
+
+export async function getNote() {
+    try {
+        // Send a request to the backend
+        const response = await axios.get('http://127.0.0.1:8000/note/');
+
+        // If sign up was successful on the backend
+        if (response.status === 200) {
+            console.log("Successly get notes Info!");
+            return response.data;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("getNote Fail with status: ", response.status);
+        return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response && error.response.status === 403) {
+            console.error("getNote Forbidden (403): ", error.response.data);
+        } else {
+            console.error("getNote Request Failed: ", error);
+        }
+        return false;
+    }
+}

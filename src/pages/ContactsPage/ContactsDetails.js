@@ -7,6 +7,11 @@ import '../ProfilePage/ProfileStyles.css';
 import { UpdatedContact } from '../Interface'
 
 function ContactDetails({id, contacts, setSelectedContactId}) {
+// function ContactDetails({ setSelectedContactId }) {
+    // console.log("Contacts:", contacts);
+    // const { id, contacts } = useParams();
+    // console.log("id:", id);
+    // console.log("Contacts:", contacts);
     const contact = contacts.find(contact => contact.id === parseInt(id));
     const [avatar, setAvatar] = useState(contact["avatar"]);
     const [tempAvatar, setTempAvatar] = useState(null);

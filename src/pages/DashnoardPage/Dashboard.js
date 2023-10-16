@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { GetUserContact } from "../Interface";
+import { getColumn, GetUserContact, updateNote, addNote, getNote } from '../Interface.js'
 
 // Styles
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -34,11 +34,148 @@ import DashboardData from "./DashboardData.json";
 
 // Bootstrap Components
 import Card from "react-bootstrap/Card";
+import { Save } from "@mui/icons-material";
 
 
 function LoadDashboardPage() {
   // Destructuring data from imported JSON
-  const { trello_summary, birthdays, events } = DashboardData;
+  const [trello_summary, setTrelloSummary] = useState({
+    total_todo: '0',
+    total_in_progress: '0',
+    total_completed: '0'
+  });
+  const [contacts, setContacts] = useState([]);
+  const [filterContacts, setFilterContacts] = useState([]);
+  const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
+  const { events } = DashboardData;
+
+
+  useEffect(() => {
+    const fetchColumnsForUser = async () => {
+      try {
+        const userColumns = await getColumn();
+
+        // count trelloSummary
+        const summary = userColumns.reduce((acc, column) => {
+          switch (column.title) {
+            case 'To Do':
+              acc.total_todo = String(column.tasks.length);
+              break;
+            case 'In Progress':
+              acc.total_in_progress = String(column.tasks.length);
+              break;
+            case 'Completed':
+              acc.total_completed = String(column.tasks.length);
+              break;
+            default:
+              break;
+          }
+          return acc;
+        }, {
+          total_todo: '0',
+          total_in_progress: '0',
+          total_completed: '0'
+        });
+
+        setTrelloSummary(summary);
+      } catch (error) {
+        console.error("Failed to fetch columns!", error.message);
+      }
+    };
+
+    fetchColumnsForUser();
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const datas = await GetUserContact();
+  //       for (let data in datas) {
+  //         datas[data]["address"] = {
+  //           "street_address": datas[data]["address"],
+  //           "city": datas[data]["city"],
+  //           "state": datas[data]["state"],
+  //           "postcode": datas[data]["postcode"]
+  //         };
+  //       }
+  //       setContacts(datas);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+    
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    // Asynchronously fetch user data
+    const fetchData = async () => {
+        try {
+            const datas = await GetUserContact();
+            
+            // Filter and format contacts with upcoming birthdays
+            const filterContacts = datas.filter(contact => contact.dob).map(contact => ({
+                id: contact.id.toString(),
+                name: `${contact.first_name} ${contact.last_name}`,
+                age: new Date().getFullYear() - parseInt(contact.dob.split('-')[0], 10),
+                dob: contact.dob,
+                avatar: contact.avatar
+            }));
+            
+            setFilterContacts(filterContacts);
+
+            for (let data in datas) {
+              datas[data]["address"] = {
+                "street_address": datas[data]["address"],
+                "city": datas[data]["city"],
+                "state": datas[data]["state"],
+                "postcode": datas[data]["postcode"]
+              };
+            }
+            setContacts(datas);
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    
+    // Invoke the asynchronous function
+    fetchData();
+  }, []);
+
+
+  useEffect(() => {
+    const formatDateToMonthDay = (date) => {
+      const month = date.getMonth() + 1;  // Months are 0-indexed in JS
+      const day = date.getDate();
+      return `${month}/${day}`;
+    };
+
+    const getFutureDates = (days) => {
+      const dates = [];
+      const now = new Date()
+      for (let i = 0; i < days; i++) {
+        const futureDate = new Date(now);
+        futureDate.setDate(now.getDate() + i);
+        dates.push(formatDateToMonthDay(futureDate));
+      }
+      return dates;
+    };
+
+    const isUpcomingBirthday = (dobString) => {
+      if (!dobString) {
+        return false;
+      }
+      const [year, month, day] = dobString.split("-");
+      const formattedDob = `${month}/${day}`;
+      const futureDates = getFutureDates(7);
+
+      return futureDates.includes(formattedDob);
+    };
+
+    const filteredContacts = filterContacts.filter(filterContacts => isUpcomingBirthday(filterContacts.dob));
+    setUpcomingBirthdays(filteredContacts);
+  }, [filterContacts]);
 
   // Main layout of the dashboard page
   return (
@@ -62,7 +199,7 @@ function LoadDashboardPage() {
 
           <Grid container spacing={3} className="container-middle">
             <Grid item xs={12} sm={12} md={8}>
-              <BirthdayCard birthdays={birthdays} />
+              <BirthdayCard birthdays={upcomingBirthdays} />
             </Grid>
 
             <Grid
@@ -126,16 +263,64 @@ function TrelloSummary({ todo, in_progress, completed }) {
 function NoteCard() {
   // Component to create and handle quick notes
   const [note, setNote] = useState("");
+  const noteRef = useRef(null);  // create a ref for the card component
+  const [isNewNote, setIsNewNote] = useState(true);
+  // const fetchedNoteRef = useRef(null); // Ref to hold the fetchedNote
+
+  useEffect(() => {
+    async function fetchNote() {
+      const fetchedNote = await getNote();
+      if (fetchedNote) {
+        setNote(fetchedNote.content);
+        setIsNewNote(false);
+        // fetchedNoteRef.current = fetchedNote; // Store the fetchedNote in the ref
+      }
+    }
+
+    fetchNote();
+
+    // Add event listener when the component mounts
+    document.addEventListener("click", handleClickOutside);
+
+    // Cleanup when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+
+  const handleClickOutside = (event) => {
+    // Check if the click was outside of the note component
+    if (noteRef.current && !noteRef.current.contains(event.target)) {
+      saveNote()
+      // if (!getNote()){
+      //   addNote({ content: note });
+      // } else {
+      //   updateNote({ content: note });
+      // }
+  }};
+
+  const saveNote = async () => {
+    if (!getNote()) {
+      const success = await addNote({ content: note });
+      if (success) {
+        setIsNewNote(false);
+      }
+    } else {
+      await updateNote({ content: note });
+    }
+  };
 
   // Handler for updating the note content
-  const handleNoteChange = (event) => {
+  const handleNoteChange = async (event) => {
     const updatedNote = event.target.value;
     setNote(updatedNote);
     // TODO: bankend link here
   };
 
+  
   return (
-    <Card className="card-radius quick-note-card">
+    <Card ref={noteRef} className="card-radius quick-note-card">
       <Card.Header>Quick Note</Card.Header>
       <Card.Body>
         <TextField
@@ -145,7 +330,6 @@ function NoteCard() {
           placeholder="Take a note here..."
           value={note}
           fullWidth
-         
           variant="standard"
           onChange={handleNoteChange}
         />

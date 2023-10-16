@@ -17,7 +17,8 @@ function MyCalendarComponent({
   newEvent,
   setNewEvent,
   handleAddEvent,
-  openEditModal,
+ 
+  handleUpdateEvent
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -47,7 +48,7 @@ function MyCalendarComponent({
         <DnDCalendar
           localizer={localizer}
           events={allEvents}
-         
+          key={allEvents.length}
           defaultDate={new Date()}
           startAccessor="start"
           endAccessor="end"
@@ -68,7 +69,7 @@ function MyCalendarComponent({
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         handleDeleteEvent={handleDeleteEvent}
-        openEditModal={openEditModal}
+        handleUpdateEvent={handleUpdateEvent}
       />
     </div>
   );

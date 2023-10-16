@@ -6,7 +6,6 @@ import AddEvent from "./addEvent.js";
 import SideBar from "../../components/Bar.js";
 import "./calendarStyles.css";
 
-import EditEventModal from "./EditEventModal";
 
 function MyCalendar() {
   const [allEvents, setAllEvents] = useState(events);
@@ -19,21 +18,18 @@ function MyCalendar() {
     id: "",
   });
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [eventBeingEdited, setEventBeingEdited] = useState(null);
+
+
 
   const handleUpdateEvent = (updatedEvent) => {
     const updatedEvents = allEvents.map((event) =>
       event.id === updatedEvent.id ? updatedEvent : event
     );
     setAllEvents(updatedEvents);
-    setIsEditModalOpen(false);
+    
   };
 
-  const openEditModal = (event) => {
-    setEventBeingEdited(event);
-    setIsEditModalOpen(true);
-  };
+ 
 
   const handleDeleteEvent = (e) => {
     const updatedEvents = allEvents.filter((event) => event.id !== e.id);
@@ -68,7 +64,7 @@ function MyCalendar() {
       id: "",
     });
   };
-  console.log(isEditModalOpen);
+  
   // console.log(eventBeingEdited);
   return (
     <div className="parent">
@@ -83,16 +79,12 @@ function MyCalendar() {
           newEvent={newEvent}
           setNewEvent={setNewEvent}
           handleAddEvent={handleAddEvent}
-          openEditModal={openEditModal}
+          /* save event */
+          handleUpdateEvent={handleUpdateEvent}
+          
         />
         <div>
-          {isEditModalOpen && eventBeingEdited && (
-            <EditEventModal
-              eventToEdit={eventBeingEdited}
-              handleUpdateEvent={handleUpdateEvent}
-              closeModal={() => setIsEditModalOpen(false)}
-            />
-          )}
+         
         </div>
       </div>
     </div>

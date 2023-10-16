@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { getColumn, GetUserContact, updateNote, addNote, getNote } from '../Interface.js'
+import { getColumn, GetUserContact, updateNote, addNote, getNote, getEvent } from '../Interface.js'
 
 // Styles
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,7 +47,8 @@ function LoadDashboardPage() {
   const [contacts, setContacts] = useState([]);
   const [filterContacts, setFilterContacts] = useState([]);
   const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
-  const { events } = DashboardData;
+  // const { events } = DashboardData;
+  const [allEvents, setAllEvents] = useState([]);
 
 
   useEffect(() => {
@@ -177,6 +178,58 @@ function LoadDashboardPage() {
     setUpcomingBirthdays(filteredContacts);
   }, [filterContacts]);
 
+
+  // Event
+  const transformEvents = (events) => {
+    return events.map(event => {
+      const startDate = new Date(event.start);
+      const endDate = new Date(event.end);
+  
+      const formatDate = date => {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // +1 because months are 0-indexed
+        const year = date.getFullYear();
+        return `${year}-${month}-${day}`;
+      };
+  
+      const formatTime = date => {
+        const hours = String(date.getUTCHours() - 1).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+      };
+  
+      return {
+        id: String(event.id),
+        title: event.title,
+        date: formatDate(startDate),
+        time: `${formatTime(startDate)}AM - ${formatTime(endDate)}PM` // Adjust AM/PM accordingly
+      };
+    });
+  };
+  
+  
+    useEffect(() => {
+      const fetchEvents = async () => {
+        try {
+          const fetchedEvents = await getEvent();
+          if (fetchedEvents) {
+            const transformedEvents = transformEvents(fetchedEvents);
+            setAllEvents(transformedEvents);
+          } else {
+            console.error("Failed to fetch events");
+            // Optionally, handle the error in your UI.
+          }
+        } catch (error) {
+          console.error("Error fetching events:", error);
+          // Handle the error, maybe set some state to show an error message to the user.
+        }
+      };
+  
+      fetchEvents();
+    }, []);
+  
+  
+
   // Main layout of the dashboard page
   return (
     <div className="parent">
@@ -220,7 +273,7 @@ function LoadDashboardPage() {
           </Grid>
 
           <div className="contacts-cards">
-            <EventCard events={events} />
+            <EventCard events={allEvents} />
           </div>
         </div>
       </div>
@@ -340,6 +393,7 @@ function NoteCard() {
 
 // Component to list individual events in a summary
 function EventList({ id, title, date, time }) {
+  
   return (
     <>
       <Divider variant="middle" component="li" />

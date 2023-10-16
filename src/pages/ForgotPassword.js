@@ -18,7 +18,7 @@ function LoadForgotPage() {
 
   const handleVerifyCode = () => {
     const currentTime = new Date().getTime();
-    const maxSeconds = 20 * 60 * 1000;
+    const maxSeconds = 10 * 60 * 1000;
 
     if ((enteredCode !== verificationCode) || (currentTime - codeGenerationTime > maxSeconds)) {
       alert("The verification code you entered is incorrect. Please try again.");

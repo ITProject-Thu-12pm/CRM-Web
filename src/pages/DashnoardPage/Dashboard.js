@@ -48,7 +48,7 @@ function LoadDashboardPage() {
       <div className="div2 right--side-bg">
         <div className="container-contact">
           <div className="">
-            <Greetings username="Evano" />
+            <Greetings username={localStorage.getItem('userName')} />
           </div>
           <div className="contacts-cards">
             {/* TODO: back-end link here */}

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { defaultValue } from './default.js';
-import { useNavigate } from 'react-router-dom'; 
 
 export async function Login(user_email, user_password) {
     let authentication_status = false;
@@ -38,7 +37,7 @@ export async function Logout() {
         // If logout was successful on the backend
         if (response.status === 200) {
             console.log("Logout Success!");
-
+            localStorage.removeItem('userName');
             // Remove the token from local storage
             localStorage.removeItem('token');
 
@@ -194,6 +193,8 @@ export async function GetUserInfor({loginStatus}) {
         // If get user was successful on the backend
         if (response.status === 200) {
             console.log("Successly get user Infor!");
+            localStorage.setItem('userName', response.data.first_name);
+            localStorage.setItem('avatar', response.data.avatar);
             return response.data;
         } 
         // In case server returns any other status code, consider it as a failure.
@@ -224,6 +225,7 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Successly get user Infor!");
+
             return response.data;
         } 
         // In case server returns any other status code, consider it as a failure.
@@ -302,7 +304,29 @@ export async function UpdatedContact(id, firstName, lastName, phone, email, stre
         return false;
     }
 }
-
+export async function DeleteUserContact(contacts) {
+    var deleteAll;
+    try {
+        // Send a request to the backend
+        for (let contact in contacts) {
+            const id = contacts[contact]["id"];  
+            console.log(id);  
+            var url = 'http://127.0.0.1:8000/contacts/' + id + '/';
+            const response = await axios.delete(url);
+            if (response.status === 204) {
+                console.log("Delete success!");
+                continue;
+            } else {
+                console.log("Delete Fail");
+            }
+        }
+        return true;
+        
+    } catch (error) {
+        // Log different message based on the status code in error response.
+    
+    }
+}
 
 export async function addByEmail(email) {
     try {

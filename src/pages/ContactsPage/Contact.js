@@ -29,6 +29,7 @@ function Contacts() {
                                     "postcode": datas[data]["postcode"]}
                     if (datas[data]["is_user"]) { 
                         active += 1;
+                        datas[data]["status"] = "Active";
                     }
                   }
                   setContacts(datas);
@@ -54,7 +55,7 @@ function Contacts() {
         <div className="div2 right--side-bg">
           <div className="container-contact">
             <div className="greeting">
-              <Greetings username="Evano" />
+              <Greetings username={localStorage.getItem('userName')} />
             </div>
             <div className="summary contacts-cards">
               <Summary total={contacts.length} active={activeUser} inactive={contacts.length - activeUser} />

@@ -15,7 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
-import { addByEmail } from '../../pages/Interface.js';
+import { addByEmail, DeleteUserContact } from '../../pages/Interface.js';
 import { UpdateContactTag } from "../../pages/Interface";
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
@@ -75,12 +75,12 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
 
   const handleDeleteConfirmation = () => {
     console.log("Selected rows to delete:", selectedRows);
-    const updatedContacts = contacts.filter(
-      (contact) => !selectedRows.includes(contact.id)
-    );
-    console.log("Updated contacts:", updatedContacts);
+    const deleteContacts = contacts.filter(
+      (contact) => selectedRows.includes(contact.id)
+    );;
+    DeleteUserContact(deleteContacts);
 
-    setContacts(updatedContacts);
+    //setContacts(updatedContacts);
     setSelectedRows([]); // Clear the selection after deletion
     setShowDeleteModal(false); // Close the modal
   };

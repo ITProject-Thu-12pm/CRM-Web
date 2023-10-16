@@ -5,6 +5,7 @@ import SideBar from '../components/Bar.js'
 import InputForm from '../components/Inputs/Input.js'
 import './ProfilePage/ProfileStyles.css';
 import './ResetPasswordStyles.css'
+import { app, analytics } from '../firebaseConfig.js';
 
 
 function LoadResetPage() {

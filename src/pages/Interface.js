@@ -38,6 +38,7 @@ export async function Logout() {
         if (response.status === 200) {
             console.log("Logout Success!");
             localStorage.removeItem('userName');
+            localStorage.removeItem('avatar');
             // Remove the token from local storage
             localStorage.removeItem('token');
 
@@ -125,10 +126,13 @@ export async function UpdateUserProfile(profile, newDate) {
             dob: newDate,
             avatar: profile.tempAvatar
         });
-        console.log(response.status);
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Update profile success!");
+            if (profile.tempAvatar) {
+                localStorage.setItem('avatar', profile.tempAvatar);
+            };
+            localStorage.setItem('userName', profile.firstName);
             return "SUCCESS";
         } 
         // In case server returns any other status code, consider it as a failure.

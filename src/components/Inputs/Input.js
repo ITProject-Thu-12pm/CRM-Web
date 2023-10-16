@@ -1,7 +1,7 @@
 import React from "react";
 import './InputStyles.css';
 
-const InputForm = ({ inputTitle, inputType, value, onChange }) => {
+const InputForm = ({ inputTitle, inputType, value, onChange}) => {
     return (
         <form>
             <div className="form-floating input-margin input-box-size input-font">

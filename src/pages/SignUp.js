@@ -57,7 +57,7 @@ function LoadSignPage() {
     } else {
       setPasswordError('');
     }
-
+    console.log(firstNameError);
     return isValid;
   };
 
@@ -132,6 +132,7 @@ function LoadSignPage() {
 }
 
 function SignUpForm({ firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, firstNameError, lastNameError, emailError, passwordError}) {
+  console.log(!!firstNameError);
   return (
     <div className="input">
       <InputForm

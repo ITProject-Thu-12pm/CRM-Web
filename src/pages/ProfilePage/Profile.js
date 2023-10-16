@@ -3,12 +3,14 @@ import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
-import {GetUserInfor, UpdateUserProfile} from '../Interface.js'
+import {GetUserInfor, UpdateUserProfile, Logout} from '../Interface.js'
 
 import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
 function LoadProfilePage() {
+    const [loginStatus, setLoginStatus] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState({
         avatar: null,
         tempAvatar: null,
@@ -23,37 +25,40 @@ function LoadProfilePage() {
         dob: ''
     });
     
-
+    
     useEffect(() => {
     
         const fetchData = async () => {
-            try {
-                const data = await GetUserInfor();
-                // Update the profile state with the fetched data
-                setProfile(prevProfile => ({ 
-                    firstName: data.first_name,
-                    lastName: data.last_name,
-                    email: data.email,
-                    address: data.address,
-                    city: data.city,
-                    state: data.state,
-                    postCode: data.postcode,
-                    phone: data.phone,
-                    avatar : data.avatar,
-                    dob: data.dob ? new Date(data.dob) : prevProfile.dob
-                    // Add other fields as needed
-                }));
-                //console.log(profile.avatar);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
+            if (loginStatus) {
+                try {
+                    const data = await GetUserInfor(loginStatus);
+                    // Update the profile state with the fetched data
+                    setProfile(prevProfile => ({ 
+                        firstName: data.first_name,
+                        lastName: data.last_name,
+                        email: data.email,
+                        address: data.address,
+                        city: data.city,
+                        state: data.state,
+                        postCode: data.postcode,
+                        phone: data.phone,
+                        avatar : data.avatar,
+                        dob: data.dob ? new Date(data.dob) : prevProfile.dob
+                        // Add other fields as needed
+                    }));
+                    //console.log(profile.avatar);
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                    navigate('/login');
+                }
             }
+            
         };
     
         fetchData();
     }, []);
+            
     
-    
-    const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
@@ -105,7 +110,17 @@ function LoadProfilePage() {
     const navigate = useNavigate();
 
     const handleLogInClick = () => {
+        setLoginStatus(false);
         navigate("/login");
+        Logout().then(data => {
+            console.log("Dadsa");
+            if (data) {
+                navigate("/login");
+            } else {  
+            }
+        })
+        
+        
     };
 
     const handleResetClick = () => {

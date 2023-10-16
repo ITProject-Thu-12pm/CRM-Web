@@ -37,7 +37,8 @@ export async function Logout() {
         // If logout was successful on the backend
         if (response.status === 200) {
             console.log("Logout Success!");
-
+            localStorage.removeItem('userName');
+            localStorage.removeItem('avatar');
             // Remove the token from local storage
             localStorage.removeItem('token');
 
@@ -125,10 +126,13 @@ export async function UpdateUserProfile(profile, newDate) {
             dob: newDate,
             avatar: profile.tempAvatar
         });
-        console.log(response.status);
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Update profile success!");
+            if (profile.tempAvatar) {
+                localStorage.setItem('avatar', profile.tempAvatar);
+            };
+            localStorage.setItem('userName', profile.firstName);
             return "SUCCESS";
         } 
         // In case server returns any other status code, consider it as a failure.
@@ -144,23 +148,57 @@ export async function UpdateUserProfile(profile, newDate) {
     }
 }
 
+export async function UpdateContactTag(id, tags, idContact) {
+    const full_url = 'http://127.0.0.1:8000/contacts/' + id + '/';
+    console.log(tags);
+    try {
+        // Send a request to the backend
+        const response = await axios.put(full_url, {
+            // first_name : idContact.firstName,
+            // last_name : idContact.lastName,
+            // phone: idContact.phone,
+            // address : idContact.address.street_address,
+            // city : idContact.address.city,
+            // state : idContact.address.state,
+            // postcode : idContact.address.postcode,
+            // gender : idContact.gender,
+            // dob : idContact.dob,
+            // avatar : idContact.avatar,
+            tags : tags
+        });
+        // If sign up was successful on the backend
+        if (response.data) {
+            console.log("Update profile success!");
+            return true;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("Update profile Fail with status: ", response.status);
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response.status === 400){
+            return "Bad Request";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
+        }
+        return false;
+    }
+}
 
-export async function GetUserInfor() {
+
+export async function GetUserInfor({loginStatus}) {
     try {
         // Send a request to the backend and get the infor except avatar
         const response = await axios.get('http://127.0.0.1:8000/user/me/');
-        //const imageBase64 = await fetchNextChunk();
-        //get the base64 string of avatar
         if (response.data["avatar"]) {
             response.data["avatar"] = "data:image/png;base64," + response.data["avatar"];
         } else {
             response.data["avatar"] = "data:image/png;base64," + defaultValue
         }
-        //add the avatar into response
-        //console.log(response.data.avatar);
         // If get user was successful on the backend
         if (response.status === 200) {
             console.log("Successly get user Infor!");
+            localStorage.setItem('userName', response.data.first_name);
+            localStorage.setItem('avatar', response.data.avatar);
             return response.data;
         } 
         // In case server returns any other status code, consider it as a failure.
@@ -191,6 +229,7 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Successly get user Infor!");
+
             return response.data;
         } 
         // In case server returns any other status code, consider it as a failure.
@@ -222,7 +261,6 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
             dob : dob,
             avatar : avatar
         });
-
         // If sign up was successful on the backend
         if (response.status === 201) {
             console.log("Successly add contact Infor!");
@@ -231,6 +269,63 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
         // In case server returns any other status code, consider it as a failure.
         console.log("Add Contact Fail with status: ", response.status);
         return false;
+    } catch (error) {
+        // Log different message based on the status code in error response.
+    
+    }
+}
+export async function UpdatedContact(id, firstName, lastName, phone, email, streetAddress, city, state, postcode, dob, gender, avatar) {
+    const full_url = 'http://127.0.0.1:8000/contacts/' + id + '/';
+    try {
+        // Send a request to the backend
+        const response = await axios.put(full_url, {
+            first_name : firstName,
+            last_name : lastName,
+            phone: phone,
+            email : email,
+            address : streetAddress,
+            city : city,
+            state : state,
+            postcode : postcode,
+            gender : gender,
+            dob : dob,
+            avatar : avatar
+        });
+        // If sign up was successful on the backend
+        if (response.data) {
+            console.log("Update contact success!");
+            return response.data;
+        } 
+        // In case server returns any other status code, consider it as a failure.
+        console.log("Update profile Fail with status: ", response.status);
+    } catch (error) {
+        // Log different message based on the status code in error response.
+        if (error.response.status === 400){
+            return "Bad Request";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
+        }
+        return false;
+    }
+}
+export async function DeleteUserContact(contacts) {
+    var deleteAll;
+    try {
+        // Send a request to the backend
+        for (let contact in contacts) {
+            const id = contacts[contact]["id"];  
+            console.log(id);  
+            var url = 'http://127.0.0.1:8000/contacts/' + id + '/';
+            const response = await axios.delete(url);
+            if (response.status === 204) {
+                console.log("Delete success!");
+                continue;
+            } else {
+                console.log("Delete Fail");
+            }
+        }
+        return true;
+        
     } catch (error) {
         // Log different message based on the status code in error response.
     

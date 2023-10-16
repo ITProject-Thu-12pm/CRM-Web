@@ -50,14 +50,16 @@ function LoadSignPage() {
     } else {
       setEmailError('');
     }
-
+    console.log(password.length);
     if (!password) {
       setPasswordError('Password cannot be empty.');
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password is made up of more than six digits of numbers, letters, symbols');
       isValid = false;
     } else {
       setPasswordError('');
     }
-
     return isValid;
   };
 
@@ -108,6 +110,10 @@ function LoadSignPage() {
             lastNameError={lastNameError}
             emailError={emailError}
             passwordError={passwordError}
+            setFirstNameError={setFirstNameError}
+            setLastNameError={setLastNameError}
+            setEmailError={setEmailError}
+            setPasswordError={setPasswordError}
           />
           <Authentication
             setIsTermsChecked={setIsTermsChecked}
@@ -131,33 +137,33 @@ function LoadSignPage() {
   );
 }
 
-function SignUpForm({ firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, firstNameError, lastNameError, emailError, passwordError}) {
+function SignUpForm({ firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, firstNameError, lastNameError, emailError, passwordError, setFirstNameError, setLastNameError, setEmailError, setPasswordError}) {
   return (
     <div className="input">
       <InputForm
         inputTitle="First Name"
         value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
+        onChange={(e) => {setFirstName(e.target.value); setFirstNameError('')}}
         error={firstNameError}
       />
       <InputForm
         inputTitle="Last Name"
         value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
+        onChange={(e) => {setLastName(e.target.value); setLastNameError('')}}
         error={lastNameError}
       />
       <InputForm
         inputTitle="Email"
         inputType="email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {setEmail(e.target.value); setEmailError('')}}
         error={emailError}
       />
       <InputForm
         inputTitle="Password"
         inputType="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {setPassword(e.target.value); setPasswordError('')}}
         error={passwordError}
       />
     </div>

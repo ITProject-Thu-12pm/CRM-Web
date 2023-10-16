@@ -15,7 +15,8 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
-import { addByEmail } from '../../pages/Interface.js';
+import { addByEmail, DeleteUserContact } from '../../pages/Interface.js';
+import { UpdateContactTag } from "../../pages/Interface";
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   
@@ -23,18 +24,20 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   var allTags;
   allTags = contacts.flatMap((contact) => contact.tags);
   
-   
+  
   const uniqueTags = [...new Set(allTags)];
   const [showModal, setShowModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [currentContactTags, setCurrentContactTags] = useState([]);
   const [editingContactId, setEditingContactId] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-
+  var idContact;
   const handleTagClick = (id, tags) => {
     setEditingContactId(id);
     setCurrentContactTags(tags);
+    idContact = contacts.find(contact => contact.id === parseInt(id));
     setShowModal(true);
+
   };
 
   const navigate = useNavigate();
@@ -72,12 +75,12 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
 
   const handleDeleteConfirmation = () => {
     console.log("Selected rows to delete:", selectedRows);
-    const updatedContacts = contacts.filter(
-      (contact) => !selectedRows.includes(contact.id)
-    );
-    console.log("Updated contacts:", updatedContacts);
+    const deleteContacts = contacts.filter(
+      (contact) => selectedRows.includes(contact.id)
+    );;
+    DeleteUserContact(deleteContacts);
 
-    setContacts(updatedContacts);
+    //setContacts(updatedContacts);
     setSelectedRows([]); // Clear the selection after deletion
     setShowDeleteModal(false); // Close the modal
   };
@@ -143,6 +146,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   const handleSaveTags = () => {
     const updatedContacts = contacts.map((contact) => {
       if (contact.id === editingContactId) {
+        UpdateContactTag(editingContactId, selectedTags, idContact);
         return { ...contact, tags: selectedTags };
       }
       return contact;
@@ -291,7 +295,7 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
             fullWidth 
             label="Email" 
             value={emailValue} 
-            onChange={(e) => {setEmailValue(e.target.value)
+            onChange={(e) => {setEmailValue(e.target.value);
                       if (errorMessage) {
                         setErrorMessage('');
                       }

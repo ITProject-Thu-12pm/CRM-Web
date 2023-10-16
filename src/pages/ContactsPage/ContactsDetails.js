@@ -4,6 +4,7 @@ import SideBar from '../../components/Bar'
 import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
+import { UpdatedContact } from '../Interface'
 
 function ContactDetails({id, contacts, setSelectedContactId}) {
 // function ContactDetails({ setSelectedContactId }) {
@@ -30,7 +31,19 @@ function ContactDetails({id, contacts, setSelectedContactId}) {
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
     };
-
+    const formatDate = (date) => {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -53,8 +66,24 @@ function ContactDetails({id, contacts, setSelectedContactId}) {
         const updatedContacts = contactsList.map(c =>
             c.id === contact.id ? { ...contact, firstName, lastName } : c
         );
+        let formattedDob;
+         if (dob) {
+            formattedDob = formatDate(dob);
+         } else {
+            formattedDob = null;
+         }
+         if (tempAvatar) {
+            UpdatedContact(id, firstName, lastName, phone, email, address, city, state, zipCode, formattedDob, gender, tempAvatar).then(data => {
+                setContactsList(data);
+            })
+         } else {
+            UpdatedContact(id, firstName, lastName, phone, email, address, city, state, zipCode, formattedDob, gender, avatar).then(data => {
+                setContactsList(data);
+            })
+         }
+        
 
-        setContactsList(updatedContacts); // Update the contacts state
+        ; // Update the contacts state
         //localStorage.setItem('contacts', JSON.stringify(updatedContacts));
     };
 

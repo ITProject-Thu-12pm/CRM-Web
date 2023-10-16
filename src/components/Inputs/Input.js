@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import './InputStyles.css';
 
-const InputForm = ({ inputTitle, inputType, value, onChange }) => {
+const InputForm = ({ inputTitle, inputType, value, onChange, error }) => {
+
     return (
-        <form>
-            <div className="form-floating input-margin input-box-size input-font">
-                <input
-                    type={inputType}
-                    className="form-control"
-                    id="floatingInput"
-                    placeholder="name@example.com"
-                    autocomplete="off"
-                    value={value}
-                    onChange={onChange}
-                />
-                <label htmlFor="floatingInput">{inputTitle}</label>
-            </div>
-        </form>
+        <div className="mb-3 form-floating ">
+           
+            <input
+                type={inputType}
+                className={`form-control ${error ? 'is-invalid' : ''}`}
+                id="floatingInput"
+               placeholder="www"
+                autocomplete="off"
+                value={value}
+                onChange={onChange}
+            />
+               <label htmlFor="floatingInput">{inputTitle}</label>
+            {error && <div className="invalid-feedback">
+                {error === 'ALL_RED' ? '' : error}
+            </div>}
+        </div>
     );
-}
+};
+  
 
 export default InputForm;

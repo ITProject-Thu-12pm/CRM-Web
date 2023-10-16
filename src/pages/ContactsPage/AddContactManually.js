@@ -59,7 +59,7 @@ function AddContactManually() {
         }
         console.log(gender);   
         addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatar);
-        navigate('/contacts');
+        navigate('/contacts', {replace: true});
         
         
         // todo: Logic to save the contact goes here   

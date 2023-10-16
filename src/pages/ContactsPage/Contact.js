@@ -10,7 +10,6 @@ import "./ContactStyles.css";
 import {GetUserContact} from "../Interface.js";
 
 function Contacts() {
-  //console.log("nextTurn\n\n");
 
   const [contacts, setContacts] = useState(contactsData);
   const [selectedContactId, setSelectedContactId] = useState(null); 

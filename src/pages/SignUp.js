@@ -50,9 +50,12 @@ function LoadSignPage() {
     } else {
       setEmailError('');
     }
-
+    console.log(password.length);
     if (!password) {
       setPasswordError('Password cannot be empty.');
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password is made up of more than six digits of numbers, letters, symbols');
       isValid = false;
     } else {
       setPasswordError('');

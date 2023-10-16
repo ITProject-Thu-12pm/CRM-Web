@@ -37,16 +37,21 @@ function LoadResetPage() {
             setNewPaErrorMessage('New passwords must be enter');
             //setReEnteredPaErrorMessage('Please enter a new password');
         } else {
-            Reset_Passowrd(oldPassword, newPassword).then(data => {
-                if (data === true) {
-                    navigate('/login');
-                    console.log('Reset Success!');
-                } else {
-                    setOldPaErrorMessage('Old password is incorrect')
-                    console.log('Reset Fail');
-                  
-                }
-              })
+            if (newPassword.length >= 6) {
+                Reset_Passowrd(oldPassword, newPassword).then(data => {
+                    if (data === true) {
+                        navigate('/login');
+                        console.log('Reset Success!');
+                    } else {
+                        setOldPaErrorMessage('Old password is incorrect')
+                        console.log('Reset Fail');
+                      
+                    }
+                  })
+            } else {
+                setNewPaErrorMessage("Password must made up of more than six digits of numbers, letters, symbols")
+            }
+            
                 
             
             /* setErrorMessage(''); */

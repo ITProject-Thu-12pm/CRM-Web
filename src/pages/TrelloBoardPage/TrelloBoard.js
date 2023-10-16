@@ -8,12 +8,16 @@ import EditTaskModal from "./EditTaskModal";
 import { addColumn,getColumn,getTask,deleteT } from '../Interface.js'
 
 const TrelloBoard = () => {
+  console.log("TrelloBoard Mounted")
+  const [priorityError2, setPriorityError2] = useState("");
+  const [descriptionError2, setDescriptionError2] = useState("");
   const [hasInitialized, setHasInitialized] = useState(false);
   const [state, setState] = useState({
     tasks: {},
     columns: {},
     columnsOrder: []
   });
+
 
   const DEFAULT_COLUMNS = [
     { title: "To Do" },
@@ -22,6 +26,7 @@ const TrelloBoard = () => {
   ];
 
   const initializeColumnsForNewUser = async () => {
+    console.log(1)
     for (let column of DEFAULT_COLUMNS) {
       const addedColumn = await addColumn(column);
   
@@ -97,6 +102,85 @@ const TrelloBoard = () => {
   }, [hasInitialized]);
   
 
+  // React.useEffect(() => {
+  //   if (hasInitialized === null) {
+  //     const checkAndInitializeColumns = async () => {
+  //       const userColumns = await getColumn();
+  //       if (userColumns.length === 0) {
+  //         await initializeColumnsForNewUser();
+  //       }
+  //       setHasInitialized(true);
+  //     };
+  
+  //     checkAndInitializeColumns();
+  //   }
+  // }, [hasInitialized]);
+  
+  // React.useEffect(() => {
+
+  //   if (hasInitialized) {
+  //   const fetchColumnsForUser = async () => {
+      
+  //     try {
+  //       const userColumns = await getColumn();
+        
+  //       const updatedColumns = userColumns.map(column => {
+  //         // Modify each task in the tasks array to its desired string representation
+  //         const modifiedTasks = column.tasks.map(task => `${task.id}`);
+  //         // Return a new column object with the modified tasks array
+  //         return {
+  //           ...column,
+  //           tasks: modifiedTasks
+  //         };
+  //       });
+  //       // Fetch tasks for each column
+  //       const tasksForColumnsPromises = userColumns.map(column => getTask(column.id));
+  //       const tasksForColumns = await Promise.all(tasksForColumnsPromises);
+  
+  //       // Aggregating tasks from all columns and the fetched tasks
+  //       const allTasks = userColumns.reduce((acc, column, index) => {
+  //         // Combine tasks from column and fetched tasks
+  //         const combinedTasks = [...column.tasks, ...tasksForColumns[index]];
+  
+  //         combinedTasks.forEach(task => {
+  //           acc[task.id] = task;
+  //         });
+  //         return acc;
+  //       }, {});
+  
+  //         setState(prevState => ({
+  //           ...prevState,
+  //           tasks: allTasks,  // Here we set the accumulated tasks
+  //           columns: updatedColumns.reduce((acc, column) => {
+  //             acc[column.id] = column;
+  //             return acc;
+  //           }, {}),
+  //           columnsOrder: userColumns.map(column => column.id)
+  //         }));
+  //     } catch (error) {
+  //       console.error("Failed to fetch columns!", error.message);
+  //     }
+  //   }
+  //   fetchColumnsForUser();
+  // }
+  // }, [hasInitialized]);
+  
+
+  const handleAddNewTask = (task, columnId) => {
+      setState(prevState => {
+          const newTasks = {...prevState.tasks};
+          newTasks[task.id] = task;
+          
+          const newColumns = {...prevState.columns};
+          newColumns[columnId].tasks.push(task.id);
+  
+          return {
+              ...prevState,
+              tasks: newTasks,
+              columns: newColumns
+          };
+      });
+    };
 
   /* drag and drop logic*/
   const onDragEnd = (result) => {
@@ -283,6 +367,7 @@ const TrelloBoard = () => {
                               key={column.id}
                               column={column}
                               tasks={tasks}
+                              onAddNewTask={handleAddNewTask}
                               onDeleteTask={deleteTask}
                               onEditTaskClick={handleEditTaskClick}
                             />
@@ -303,6 +388,10 @@ const TrelloBoard = () => {
         onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveEditedTask}
         task={currentTask}
+        descriptionError2={descriptionError2}
+        setDescriptionError2={setDescriptionError2}
+        priorityError2={priorityError2}
+        setPriorityError2={setPriorityError2}
       />
     </div>
   );

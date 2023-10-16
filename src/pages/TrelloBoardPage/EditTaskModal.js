@@ -4,10 +4,9 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { updateTask } from '../Interface.js'
 
-function EditTaskModal({ open, onClose, onSave, task }) {
+function EditTaskModal({ open, onClose, onSave, task, priorityError2, setPriorityError2, setDescriptionError2, descriptionError2 }) {
   const [taskContent, setTaskContent] = useState(task?.content || "");
   const [selectedPriority, setSelectedPriority] = useState(task?.priority || "medium");
-  const [errorMessage, setErrorMessage] = useState('');
 
   const priorities = ["high", "medium", "low"];
 
@@ -23,19 +22,19 @@ function EditTaskModal({ open, onClose, onSave, task }) {
 
   const handleSave = async () => {
     const result = await updateTask(task.id, taskContent, selectedPriority); // Call the update function
-    if (result) { // If the task was successfully updated
+    if (result === true) { // If the task was successfully updated
         onSave(task.id, taskContent, selectedPriority);
+        onClose();
     } else if (result === "Bad Request1") {
       // Handle error messages
-      setErrorMessage("Description cannot be empty!")
+      setDescriptionError2("Description cannot be empty!")
       console.error("Description cannot be empty!");
     } else if (result === "Bad Request2") {
-      setErrorMessage("Priority cannot be empty!")
+      setPriorityError2("Priority cannot be empty!")
       console.error("Priority cannot be empty!");
     } 
-    onClose();
   };
-
+  
   return (
     <Modal show={open} onHide={onClose}>
       <Modal.Header closeButton>
@@ -44,13 +43,22 @@ function EditTaskModal({ open, onClose, onSave, task }) {
       <Modal.Body>
         <Autocomplete
           value={selectedPriority}
-          onChange={(event, newValue) => setSelectedPriority(newValue)}
+          onChange={(event, newValue) => { setSelectedPriority(newValue);
+            if (priorityError2) {
+              setPriorityError2('');
+            }
+          }}
           id="priority-box-demo"
           options={priorities}
           getOptionLabel={(option) => option}
           style={{ width: 200, marginBottom:"1rem" }}
           renderInput={(params) => (
-            <TextField {...params} label="Priority" />
+            <TextField 
+              {...params}
+              label="Priority"
+              error={!!priorityError2}
+              helperText={priorityError2}
+            />
           )}
         />
         <TextField
@@ -59,7 +67,13 @@ function EditTaskModal({ open, onClose, onSave, task }) {
           multiline 
           rows={4}
           value={taskContent}
-          onChange={(e) => setTaskContent(e.target.value)}
+          onChange={(e) => { setTaskContent(e.target.value);
+            if (descriptionError2) {
+              setDescriptionError2('');
+            }
+          }}
+          error={!!descriptionError2}
+          helperText={descriptionError2}
         />
       </Modal.Body>
       <Modal.Footer>

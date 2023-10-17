@@ -544,12 +544,13 @@ export async function getTask(columnId) {
 }
 
 
-export async function updateTask(taskId, taskContent, taskPriority) {
+export async function updateTask(taskId, taskContent, taskPriority, columnId) {
     try {
         // Assuming the backend accepts a JSON payload with the task's content and priority
         const response = await axios.put(`http://127.0.0.1:8000/trello/task/?str=${taskId}`, {
             content: taskContent,
             priority: taskPriority,
+            column: columnId
         });
         
         // If the update was successful on the backend
@@ -648,9 +649,39 @@ export async function getNote() {
         // Log different message based on the status code in error response.
         if (error.response && error.response.status === 403) {
             console.error("getNote Forbidden (403): ", error.response.data);
-        } else {
-            console.error("getNote Request Failed: ", error);
+        } else if (error.response.status === 404){
+            return "Not Found";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
         }
+        return false;
+    }
+}
+
+export async function updateTaskColumn(taskId, columnId) {
+    try {
+        // Assuming the backend accepts a JSON payload with only the task's column
+        const response = await axios.put(`http://127.0.0.1:8000/trello/task/?str=${taskId}`, {
+            column: columnId
+        });
+        
+        // If the update was successful on the backend
+        if (response.status === 200) {
+            console.log("Successfully updated task's column!");
+            return response.data;
+        } 
+        // In case the server returns any other status code, consider it as a failure.
+        console.log("updateTaskColumn failed with status: ", response.status);
+        return false;
+    } catch (error) {
+        if (error.response && error.response.status) {
+            if (error.response.status === 400){
+                return "Bad Request";
+            } else if (error.response.status === 500) {
+                return "Internal server wrong";
+            }
+        }
+        console.error("Error updating task's column:", error);
         return false;
     }
 }

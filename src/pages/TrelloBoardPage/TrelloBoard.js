@@ -5,13 +5,14 @@ import SideBar from "../../components/Bar";
 import Column from "./Column";
 import "./TrelloBoardStyles.css";
 import EditTaskModal from "./EditTaskModal";
-import { addColumn,getColumn,getTask,deleteT } from '../Interface.js'
+import { addColumn,getColumn,getTask,deleteT,updateTaskColumn } from '../Interface.js'
 
 const TrelloBoard = () => {
   console.log("TrelloBoard Mounted")
   const [priorityError2, setPriorityError2] = useState("");
   const [descriptionError2, setDescriptionError2] = useState("");
   const [hasInitialized, setHasInitialized] = useState(false);
+  // const [refresh, setRefresh] = useState(true);
   const [state, setState] = useState({
     tasks: {},
     columns: {},
@@ -99,71 +100,9 @@ const TrelloBoard = () => {
       }
     }
     fetchColumnsForUser();
+    // setRefresh(false)
   }, [hasInitialized]);
-  
 
-  // React.useEffect(() => {
-  //   if (hasInitialized === null) {
-  //     const checkAndInitializeColumns = async () => {
-  //       const userColumns = await getColumn();
-  //       if (userColumns.length === 0) {
-  //         await initializeColumnsForNewUser();
-  //       }
-  //       setHasInitialized(true);
-  //     };
-  
-  //     checkAndInitializeColumns();
-  //   }
-  // }, [hasInitialized]);
-  
-  // React.useEffect(() => {
-
-  //   if (hasInitialized) {
-  //   const fetchColumnsForUser = async () => {
-      
-  //     try {
-  //       const userColumns = await getColumn();
-        
-  //       const updatedColumns = userColumns.map(column => {
-  //         // Modify each task in the tasks array to its desired string representation
-  //         const modifiedTasks = column.tasks.map(task => `${task.id}`);
-  //         // Return a new column object with the modified tasks array
-  //         return {
-  //           ...column,
-  //           tasks: modifiedTasks
-  //         };
-  //       });
-  //       // Fetch tasks for each column
-  //       const tasksForColumnsPromises = userColumns.map(column => getTask(column.id));
-  //       const tasksForColumns = await Promise.all(tasksForColumnsPromises);
-  
-  //       // Aggregating tasks from all columns and the fetched tasks
-  //       const allTasks = userColumns.reduce((acc, column, index) => {
-  //         // Combine tasks from column and fetched tasks
-  //         const combinedTasks = [...column.tasks, ...tasksForColumns[index]];
-  
-  //         combinedTasks.forEach(task => {
-  //           acc[task.id] = task;
-  //         });
-  //         return acc;
-  //       }, {});
-  
-  //         setState(prevState => ({
-  //           ...prevState,
-  //           tasks: allTasks,  // Here we set the accumulated tasks
-  //           columns: updatedColumns.reduce((acc, column) => {
-  //             acc[column.id] = column;
-  //             return acc;
-  //           }, {}),
-  //           columnsOrder: userColumns.map(column => column.id)
-  //         }));
-  //     } catch (error) {
-  //       console.error("Failed to fetch columns!", error.message);
-  //     }
-  //   }
-  //   fetchColumnsForUser();
-  // }
-  // }, [hasInitialized]);
   
 
   const handleAddNewTask = (task, columnId) => {
@@ -196,6 +135,9 @@ const TrelloBoard = () => {
     ) {
       return;
     }
+
+    // console.log(`Task with ID ${result.draggableId} was dragged from column with ID 
+    // ${source.droppableId} to column with ID ${destination.droppableId}`);
 
     /* drag and drop column */
     if (type === "column") {
@@ -262,7 +204,7 @@ const TrelloBoard = () => {
         [updatedFinishColumn.id]: updatedFinishColumn,
       },
     };
-
+    updateTaskColumn(result.draggableId, parseInt(destination.droppableId.split('-')[1], 10));
     setState(newState);
   };
 
@@ -392,6 +334,7 @@ const TrelloBoard = () => {
         setDescriptionError2={setDescriptionError2}
         priorityError2={priorityError2}
         setPriorityError2={setPriorityError2}
+        // setRefresh={setRefresh}
       />
     </div>
   );

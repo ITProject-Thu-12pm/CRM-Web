@@ -33,12 +33,12 @@ function LoadResetPage() {
         if (newPassword !== reEnteredPassword) {
             setOldPaErrorMessage('ALL_RED');
             setNewPaErrorMessage('New passwords are inconsistent');
-        } else if (newPassword == '') {
+        } else if (newPassword === '') {
             setNewPaErrorMessage('New passwords must be enter');
             //setReEnteredPaErrorMessage('Please enter a new password');
         } else {
             if (newPassword.length >= 6) {
-                Reset_Passowrd(oldPassword, newPassword).then(data => {
+                Reset_Passowrd(oldPassword, newPassword, 'profile', '').then(data => {
                     if (data === true) {
                         navigate('/login');
                         console.log('Reset Success!');

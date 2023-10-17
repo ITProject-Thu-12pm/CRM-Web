@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import InputForm from "../components/Inputs/Input.js";
 import "./LoginStyles.css";
 import "./SignUpStyles.css";
-import { SignUp } from "./Interface.js"
+import { SignUp } from "./Interface.js";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 function LoadSignPage() {
   const [firstName, setFirstName] = useState("");
@@ -120,6 +122,10 @@ function LoadSignPage() {
             shakeError={shakeError}
           />
           <LogInButtons handleCreateAccountClick={handleCreateAccountClick} />
+          <LogDialog 
+          show = {show}
+          setShow = {setShow}
+          errorMessage= {errorMessage}/>
         </form>
       </div>
     </div>
@@ -133,7 +139,7 @@ function SignUpForm({ firstName, setFirstName, lastName, setLastName, email, set
         inputTitle="First Name"
         value={firstName}
         onChange={(e) => {setFirstName(e.target.value); setFirstNameError('')}}
-        error={firstNameError}
+        error={firstNameError}  
       />
       <InputForm
         inputTitle="Last Name"
@@ -155,6 +161,7 @@ function SignUpForm({ firstName, setFirstName, lastName, setLastName, email, set
         onChange={(e) => {setPassword(e.target.value); setPasswordError('')}}
         error={passwordError}
       />
+      
     </div>
   );
 }
@@ -212,5 +219,30 @@ function LogInButtons({ handleCreateAccountClick }) {
     </form>
   );
 }
-
+function LogDialog({show, setShow, errorMessage}) {
+  const handleClose = () => setShow(false);
+  return (
+    <>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Sign Up Warning</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        {errorMessage} 
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>Understood</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
 export default LoadSignPage;

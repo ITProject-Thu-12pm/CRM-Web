@@ -91,7 +91,7 @@ function LoadProfilePage() {
 
     const saveChanges = () => {
          if (profile.tempAvatar) {
-            
+            localStorage.setItem('avatar', profile.tempAvatar);
            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar}));
          }
          let formattedDob;
@@ -100,6 +100,7 @@ function LoadProfilePage() {
          } else {
             formattedDob = null;
          }
+         localStorage.setItem('userName', profile.firstName);
          
          //console.log(profile.avatar);
          UpdateUserProfile(profile, formattedDob);
@@ -114,7 +115,7 @@ function LoadProfilePage() {
         Logout().then(data => {
             console.log("Dadsa");
             if (data) {
-                navigate("/login");
+                navigate("/login", {replace: true});
             } else {  
             }
         })

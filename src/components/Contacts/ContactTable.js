@@ -15,7 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import "../ButtonStyle.css";
-import { addByEmail, DeleteUserContact } from '../../pages/Interface.js';
+import { addByEmail, DeleteUserContact, GetUserContact } from '../../pages/Interface.js';
 import { UpdateContactTag } from "../../pages/Interface";
 
 const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
@@ -55,10 +55,14 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
 
   const handleAddByEmail = async () => {
     const success = await addByEmail(emailValue);
+    
     if (success === 201) {
         // You might want to reset the email input value after a successful addition
         setEmailValue("");
         setShowEmailModal(false);
+        // const contactss = await GetUserContact();
+        // console.log(contactss);
+        // setContacts(contactss);
         console.log("Add by email succeed!")
         // Maybe show a success notification here
     } else if (success === 500){

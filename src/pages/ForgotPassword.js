@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import InputForm from "../components/Inputs/Input.js";
 import "./ForgotPasswordStyles.css";
 import emailjs from "@emailjs/browser";
+import { Reset_Passowrd } from "./Interface.js";
 
 function LoadForgotPage() {
   const navigate = useNavigate();
@@ -29,8 +30,12 @@ function LoadForgotPage() {
         alert("Passwords do not match. Please re-enter.");
         return;
     }
-
+    if (newPassword.length < 6) {
+      alert("Password must made up of more than six digits of numbers, letters, symbols");
+        return;
+    }
     //Todo: implement change password here!
+    Reset_Passowrd('',newPassword, 'Login', email);
     navigate("/login");
   };
 
@@ -90,10 +95,10 @@ function ResetForm(props) {
         "service_pduei9j",
         "template_jfx4wqp",
         {
+          email_to: props.email,
           from_name: "My Circle",
-          email_from: props.email,
+          email_from: "aazhuoying@gmail.com",
           verification_code: props.verificationCode,
-          reply_to: "bbzhuoying@gmail.com",
         },
         "qONCoXhfVWko-j4vy"
       )

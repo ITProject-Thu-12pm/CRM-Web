@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import InputForm from "../components/Inputs/Input.js";
 import "./LoginStyles.css";
 import "./SignUpStyles.css";
+import { SignUp } from "./Interface.js"
 
 function LoadSignPage() {
   const [firstName, setFirstName] = useState("");
@@ -13,11 +14,16 @@ function LoadSignPage() {
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState('');
   /* check authentication */
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [shakeError, setShakeError] = useState(false);
-
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const handleLogInClick = () => {
+    navigate("/login");
+  };
+  const handleShow = () => setShow(true);
   const validateInputs = () => {
     let isValid = true;
 
@@ -66,6 +72,19 @@ function LoadSignPage() {
     if (validateInputs()) {
       // Proceed with account creation logic
       console.log("Account creation logic goes here.");
+      SignUp(firstName, lastName, email, password).then(data => {
+        if (data === 'SUCCESS') {
+          console.log("SignUp success!");
+          handleLogInClick();
+        } else if (data === 'ALREADY EXIEST'){
+          setErrorMessage("That email is taken. Try another.");
+          handleShow();
+          console.log("SignUp Fail!");
+        } else {
+          handleShow();
+          setErrorMessage("That email format is invalid. Try another.");
+        }
+      })  
     }
   };
 

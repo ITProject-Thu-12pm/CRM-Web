@@ -14,6 +14,7 @@ function Contacts() {
   const [contacts, setContacts] = useState(contactsData);
   const [selectedContactId, setSelectedContactId] = useState(null); 
   const [activeUser, setActiveUser] = useState(0);
+  const [refreshStatus, setRefreshStatus] = useState(true);
   useEffect(() => {
           // Asynchronously fetch user data
         const fetchData = async () => {
@@ -32,6 +33,7 @@ function Contacts() {
                     }
                   }
                   setContacts(datas);
+                  setRefreshStatus(false);
                   setActiveUser(active);
               } catch (error) {
                   console.error("Error fetching user data:", error);
@@ -39,7 +41,7 @@ function Contacts() {
           };
           // Invoke the asynchronous function
           fetchData();
-      }, []);
+      }, [refreshStatus]);
 
   if (selectedContactId) {
     /* direct to contact details when click contact name */
@@ -63,7 +65,8 @@ function Contacts() {
               <ContactTable
                 contacts={contacts}
                 setContacts={setContacts}
-                onSelectContact={(id) => setSelectedContactId(id)} // Pass the handler as a prop
+                onSelectContact={(id) => setSelectedContactId(id)}
+                setRefreshStatus = {setRefreshStatus} // Pass the handler as a prop
               />
             </div>
           </div>

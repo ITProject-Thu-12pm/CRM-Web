@@ -18,7 +18,7 @@ import "../ButtonStyle.css";
 import { addByEmail, DeleteUserContact, GetUserContact } from '../../pages/Interface.js';
 import { UpdateContactTag } from "../../pages/Interface";
 
-const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
+const ContactTable = ({ contacts, setContacts, onSelectContact, setRefreshStatus }) => {
   
   /* add a tag */
   var allTags;
@@ -76,13 +76,30 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const handleDeleteConfirmation = () => {
+  const handleDeleteConfirmation = async () => {
     console.log("Selected rows to delete:", selectedRows);
     const deleteContacts = contacts.filter(
       (contact) => selectedRows.includes(contact.id)
-    );;
-    DeleteUserContact(deleteContacts);
-
+    );
+    
+    await DeleteUserContact(deleteContacts);
+    setRefreshStatus(true);
+    // const contactss = await GetUserContact();
+    // var active = 0;
+    // for (let data in contactss) {
+                    
+    //   contactss[data]["address"] = {"street_address" : contactss[data]["address"],
+    //                                 "city": contactss[data]["city"],
+    //                                 "state": contactss[data]["state"],
+    //                                 "postcode": contactss[data]["postcode"]}
+    //                 if (contactss[data]["is_user"]) { 
+    //                     active += 1;
+    //                     contactss[data]["status"] = "Active";
+    //                 }
+    //               }
+    //               setContacts(contactss);
+    //               setActiveUser(active);
+    // setContacts(contactss);
     //setContacts(updatedContacts);
     setSelectedRows([]); // Clear the selection after deletion
     setShowDeleteModal(false); // Close the modal

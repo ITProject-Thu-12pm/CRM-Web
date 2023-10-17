@@ -57,25 +57,31 @@ export async function Logout() {
 }
 
 
-export async function Reset_Passowrd(old_password, new_password) {
+export async function Reset_Passowrd(old_password, new_password, type, email) {
     let success = false;
-
+    var response2;
     
     try {
-
-        const response2 = await axios.put('http://127.0.0.1:8000/user/resetpassword/', {
-            old_password: old_password,
-            new_password: new_password
-        });
-
-             if (response2.status === 201) {
-                 console.log("Reset Password Success!");
-                 success = true
-             } else {
-                 console.log("User reset password Fail!");
-                 success = false
-             } 
-         }
+        if (type === 'profile') {
+            response2 = await axios.put('http://127.0.0.1:8000/user/resetpassword/', {
+                old_password: old_password,
+                new_password: new_password,
+            });
+        } else {
+            response2 = await axios.put('http://127.0.0.1:8000/user/resetpasswordWithoutOld/', {
+                new_password: new_password,
+                email : email
+            });
+        }
+        
+         if (response2.status === 201) {
+             console.log("Reset Password Success!");
+             success = true
+         } else {
+             console.log("User reset password Fail!");
+             success = false
+        } 
+    }
      catch (error) {
         success = false;
         //console.error("Request Fail: ", error);
@@ -271,6 +277,7 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
         return false;
     } catch (error) {
         // Log different message based on the status code in error response.
+        return false;
     
     }
 }

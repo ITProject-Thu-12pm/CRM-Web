@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Reset_Passowrd } from './Interface.js';
 import PriorityHighRoundedIcon from '@mui/icons-material/PriorityHighRounded';
 import SideBar from '../components/Bar.js'
 import InputForm from '../components/Inputs/Input.js'
 import './ProfilePage/ProfileStyles.css';
 import './ResetPasswordStyles.css'
+import { Reset_Passowrd } from "./Interface.js";
 
 
 function LoadResetPage() {
@@ -33,12 +33,12 @@ function LoadResetPage() {
         if (newPassword !== reEnteredPassword) {
             setOldPaErrorMessage('ALL_RED');
             setNewPaErrorMessage('New passwords are inconsistent');
-        } else if (newPassword == '') {
+        } else if (newPassword === '') {
             setNewPaErrorMessage('New passwords must be enter');
             //setReEnteredPaErrorMessage('Please enter a new password');
         } else {
             if (newPassword.length >= 6) {
-                Reset_Passowrd(oldPassword, newPassword).then(data => {
+                Reset_Passowrd(oldPassword, newPassword, 'profile', '').then(data => {
                     if (data === true) {
                         navigate('/login');
                         console.log('Reset Success!');
@@ -114,7 +114,7 @@ function LoadResetPage() {
 
                     <div>
                         <InputForm
-                            inputTitle="enter New Password"
+                            inputTitle="Re-enter Old Password"
                             inputType="password"
                             value={newPassword}
                             onChange={e => {setNewPassword(e.target.value);
@@ -126,7 +126,7 @@ function LoadResetPage() {
                     </div>
 
                     <InputForm
-                        inputTitle="re-enter New Password"
+                        inputTitle="enter New Password"
                         inputType="password"
                         value={reEnteredPassword}
                         onChange={e => {setReEnteredPassword(e.target.value);

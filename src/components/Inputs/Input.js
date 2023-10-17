@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import './InputStyles.css';
 
 const InputForm = ({ inputTitle, inputType, value, onChange, error }) => {
-
     return (
         <div className="mb-3 form-floating ">
            

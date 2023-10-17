@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hello-pangea/dnd": "^16.3.0",
@@ -17,6 +18,7 @@
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.11.1",
     "date-fns": "^2.30.0",
+    "firebase": "^10.5.0",
     "react": "^18.2.0",
     "react-big-calendar": "^1.8.4",
     "react-bootstrap": "^2.8.0",

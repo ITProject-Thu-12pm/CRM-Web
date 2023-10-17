@@ -1,64 +1,66 @@
 import React, { useState } from "react";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
-import InputForm from "../components/Inputs/Input.js"
+import InputForm from "../components/Inputs/Input.js";
 import "./LoginStyles.css";
 import "./SignUpStyles.css";
-import { SignUp } from './Interface.js';
-
+import { SignUp } from "./Interface.js";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 function LoadSignPage() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [show, setShow] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
+  /* check authentication */
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [shakeError, setShakeError] = useState(false);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
   const handleLogInClick = () => {
-      navigate("/login");
+    navigate("/login");
   };
   const handleShow = () => setShow(true);
   const validateInputs = () => {
     let isValid = true;
 
     if (!firstName.trim()) {
-      setFirstNameError('First name cannot be empty.');
+      setFirstNameError("First name cannot be empty.");
       isValid = false;
     } else {
-      setFirstNameError('');
+      setFirstNameError("");
     }
 
     if (!lastName.trim()) {
-      setLastNameError('Last name cannot be empty.');
+      setLastNameError("Last name cannot be empty.");
       isValid = false;
     } else {
-      setLastNameError('');
+      setLastNameError("");
     }
 
     if (!email.trim()) {
-      setEmailError('Email cannot be empty.');
+      setEmailError("Email cannot be empty.");
       isValid = false;
     } else {
-      setEmailError('');
+      setEmailError("");
     }
     console.log(password.length);
     if (!password) {
-      setPasswordError('Password cannot be empty.');
+      setPasswordError("Password cannot be empty.");
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password is made up of more than six digits of numbers, letters, symbols');
       isValid = false;
     } else if (password.length < 6) {
       setPasswordError('Password is made up of more than six digits of numbers, letters, symbols');
       isValid = false;
     } else {
-      setPasswordError('');
+      setPasswordError("");
     }
     return isValid;
   };
@@ -70,7 +72,7 @@ function LoadSignPage() {
       return;
     }
     if (validateInputs()) {
-      // Here you can proceed with the account creation logic, e.g., API call
+      // Proceed with account creation logic
       console.log("Account creation logic goes here.");
       SignUp(firstName, lastName, email, password).then(data => {
         if (data === 'SUCCESS') {
@@ -119,14 +121,7 @@ function LoadSignPage() {
             setIsTermsChecked={setIsTermsChecked}
             shakeError={shakeError}
           />
-          <LogInButtons 
-          handleCreateAccountClick={handleCreateAccountClick}
-          firstName = {firstName}
-          lastName = {lastName}
-          email={email}
-          password={password}
-          setShow = {setShow}
-          setErrorMessage = {setErrorMessage} />
+          <LogInButtons handleCreateAccountClick={handleCreateAccountClick} />
           <LogDialog 
           show = {show}
           setShow = {setShow}
@@ -144,7 +139,7 @@ function SignUpForm({ firstName, setFirstName, lastName, setLastName, email, set
         inputTitle="First Name"
         value={firstName}
         onChange={(e) => {setFirstName(e.target.value); setFirstNameError('')}}
-        error={firstNameError}
+        error={firstNameError}  
       />
       <InputForm
         inputTitle="Last Name"
@@ -166,6 +161,7 @@ function SignUpForm({ firstName, setFirstName, lastName, setLastName, email, set
         onChange={(e) => {setPassword(e.target.value); setPasswordError('')}}
         error={passwordError}
       />
+      
     </div>
   );
 }
@@ -187,21 +183,18 @@ function Authentication({ setIsTermsChecked, shakeError }) {
           onChange={handleClick}
         />
         <span className="authentication-text">
-          By creating an account, I agree to our Terms of Use{" "}
-          and Privacy Policy
+          By creating an account, I agree to our Terms of Use and Privacy Policy
         </span>
       </div>
     </div>
   );
 }
 
-function LogInButtons({handleCreateAccountClick, userFirstName, userLastName, user_email, user_password, setShow, setErrorMessage}) {
-
-  const handleShow = () => setShow(true);
+function LogInButtons({ handleCreateAccountClick }) {
   const navigate = useNavigate();
 
   const handleLogInClick = () => {
-      navigate("/login");
+    navigate("/login");
   };
 
   return (
@@ -223,11 +216,9 @@ function LogInButtons({handleCreateAccountClick, userFirstName, userLastName, us
           Log in
         </button>
       </div>
-
     </form>
   );
 }
-
 function LogDialog({show, setShow, errorMessage}) {
   const handleClose = () => setShow(false);
   return (
@@ -254,6 +245,4 @@ function LogDialog({show, setShow, errorMessage}) {
     </>
   );
 }
-
-
 export default LoadSignPage;

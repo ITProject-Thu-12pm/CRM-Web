@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../../components/Bar.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
-import DateInput from '../../components/DateInput.js'
-import { addUserContact } from '../Interface.js'
+import DateInput from '../../components/DateInput.js';
+import Modal from 'react-bootstrap/Modal';
+import { addUserContact } from "../Interface.js";
+import Button from 'react-bootstrap/Button';
 
 function AddContactManually() {
     const [id, setId] = useState(null);
@@ -21,8 +23,8 @@ function AddContactManually() {
     const [status, setStatus] = useState('');
     const [gender, setGender] = useState('M');
     const [avatar, setAvatar] = useState('https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true');
-    const [avatarDataUrl, setAvatarDataUrl] = useState(null);
-    const [shouldAddUser, setShouldAddUser] = useState(false);
+    const [emailError, setEmailError] = useState('');
+    const [show, setShow] = useState('');
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -32,10 +34,10 @@ function AddContactManually() {
             };
             reader.readAsDataURL(file);
         }
-        
     }
 
     const navigate = useNavigate();
+    const handleShow = () => setShow(true);
     const formatDate = (date) => {
         if (!date) {
             return null;
@@ -58,8 +60,15 @@ function AddContactManually() {
             return;
         }
         console.log(gender);   
-        addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatar);
-        navigate('/contacts', {replace: true});
+        addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatar).then(data => {
+            if (!data) {
+                handleShow();
+                setEmailError("That email format is invalid. Try another.");
+            } else {
+                navigate('/contacts', {replace: true});
+            }
+        });
+        
         
         
         // todo: Logic to save the contact goes here   
@@ -114,6 +123,10 @@ function AddContactManually() {
                                 inputType="email"
                                 isEditing={true}
                             />
+                            <LogDialog 
+                            show = {show}
+                            setShow = {setShow}
+                            errorMessage= {emailError}/>
                         </div>
                         <div className='col-md-6'>
                             <InputFormProfile
@@ -200,5 +213,30 @@ function AddContactManually() {
         </div>
     );
 }
-
+function LogDialog({show, setShow, errorMessage}) {
+    const handleClose = () => setShow(false);
+    return (
+      <>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Sign Up Warning</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          {errorMessage} 
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>Understood</Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  }
 export default AddContactManually;

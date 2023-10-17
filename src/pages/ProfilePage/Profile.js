@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
@@ -63,19 +63,6 @@ function LoadProfilePage() {
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
     };
-
-    const handleAvatarChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-
     const formatDate = (date) => {
         const d = new Date(date);
         let month = '' + (d.getMonth() + 1);
@@ -89,10 +76,22 @@ function LoadProfilePage() {
     
         return [year, month, day].join('-');
     }
-    
+    const handleAvatarChange = (event) => {
+        
+        const file = event.target.files[0];
+        if (file) {
+            
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const saveChanges = () => {
          if (profile.tempAvatar) {
-            
+            localStorage.setItem('avatar', profile.tempAvatar);
            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar}));
          }
          let formattedDob;
@@ -101,6 +100,7 @@ function LoadProfilePage() {
          } else {
             formattedDob = null;
          }
+         localStorage.setItem('userName', profile.firstName);
          
          //console.log(profile.avatar);
          UpdateUserProfile(profile, formattedDob);
@@ -115,7 +115,7 @@ function LoadProfilePage() {
         Logout().then(data => {
             console.log("Dadsa");
             if (data) {
-                navigate("/login");
+                navigate("/login", {replace: true});
             } else {  
             }
         })
@@ -191,7 +191,6 @@ function LoadProfilePage() {
                             type="button"
                             className="btn btn-primary rounded-5 change-color-btn"
                             onClick={isEditing ? saveChanges : handleEditToggle}
-                            
                         >
                             {isEditing ? 'Save' : 'Edit'}
                         </button>

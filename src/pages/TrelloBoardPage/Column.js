@@ -86,8 +86,9 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick, onAddNewTask }) 
           {column.title}
         </h2>
       )}
+      {/* render Task */}
       <Droppable droppableId={column.id} type="task">
-        {(provided, snapshot) => (
+        {(provided) => (
           <div
             className="task-column"
             ref={provided.innerRef}

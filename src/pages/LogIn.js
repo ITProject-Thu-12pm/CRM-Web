@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'; 
-import InputForm from '../components/Inputs/Input.js'
-import '../components/ButtonStyle.css'
+import InputForm from '../components/Inputs/Input.js';
+import '../components/ButtonStyle.css';
 import './ButtonStyles.css';
 import './LoginStyles.css';
-import { Login } from './Interface.js';
-
+import { Login } from "./Interface.js";
 
 function LoadLogInPage() {
-  const [user_email, setUserEmail] = useState('');
-  const [user_password, setUserPassword] = useState('');
+  const [email, setUserEmail] = useState('');
+  const [password, setUserPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -17,14 +16,14 @@ function LoadLogInPage() {
   const validateInputs = () => {
     let isValid = true;
   
-    if (!user_email.trim()) {
+    if (!email.trim()) {
       setEmailError('Email cannot be empty.');
       isValid = false;
     } else {
       setEmailError('');
     }
   
-    if (!user_password) {
+    if (!password) {
       setPasswordError('Password cannot be empty.');
       isValid = false;
     } else {
@@ -33,8 +32,8 @@ function LoadLogInPage() {
   
     return isValid;
   };
+
   return (
-    
     <div className="container-all">
 
       <div className="container-left">
@@ -50,9 +49,9 @@ function LoadLogInPage() {
           </div>
           
           <LogInForm 
-            user_email = {user_email}
+            email = {email}
             setUserEmail = {setUserEmail}
-            user_password = {user_password}
+            password = {password}
             setUserPassword = {setUserPassword}
             loginStatus = {loginStatus}
             emailError={emailError}
@@ -62,8 +61,8 @@ function LoadLogInPage() {
           />
           <Buttons 
             validateInputs={validateInputs}
-            user_email = {user_email}
-            user_password = {user_password}
+            user_email = {email}
+            user_password = {password}
             loginStatus = {loginStatus}
             setLoginStatus = {setLoginStatus}
             setEmailError={setEmailError}
@@ -74,7 +73,8 @@ function LoadLogInPage() {
         </form>
       </div>
     </div>
-  );
+);
+
 }
 
 function LogInForm({user_email, setUserEmail, user_password, setUserPassword, loginStatus, emailError, passwordError, setEmailError, setPasswordError}) {
@@ -126,19 +126,16 @@ function Buttons({validateInputs, user_email, user_password, loginStatus, setLog
 
   return (
     <div className="btns">
-
       <button type="button" className="rounded-5 btn login" onClick={handleLoginClick}>Log in</button>
       <button type="button" className="rounded-5 btn forgot-pass" onClick={handleForgotClick}>Forgot password?</button>
-
       <div className="new-acc">
         <span>Don't have an account?</span>
         <button type="button" className="btn-outline-secondary sign-up water-button" onClick={handleSignUpClick}>Sign up</button>
-
       </div>
-
     </div>
   );
 }
+
 
 
 export default LoadLogInPage;

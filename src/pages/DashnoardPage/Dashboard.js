@@ -346,6 +346,7 @@ function NoteCard() {
     // Check if the click was outside of the note component
     if (noteRef.current && !noteRef.current.contains(event.target)) {
       saveNote()
+      // setIsNewNote(false);
       // if (!getNote()){
       //   addNote({ content: note });
       // } else {
@@ -354,12 +355,15 @@ function NoteCard() {
   }};
 
   const saveNote = async () => {
-    if (!getNote()) {
+    const fNote = await getNote();
+    if (fNote === "Not Found") {
+      console.log(1);
       const success = await addNote({ content: note });
       if (success) {
         setIsNewNote(false);
       }
     } else {
+      console.log(2);
       await updateNote({ content: note });
     }
   };
@@ -368,6 +372,7 @@ function NoteCard() {
   const handleNoteChange = async (event) => {
     const updatedNote = event.target.value;
     setNote(updatedNote);
+    
     // TODO: bankend link here
   };
 

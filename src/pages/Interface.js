@@ -641,8 +641,10 @@ export async function getNote() {
         // Log different message based on the status code in error response.
         if (error.response && error.response.status === 403) {
             console.error("getNote Forbidden (403): ", error.response.data);
-        } else {
-            console.error("getNote Request Failed: ", error);
+        } else if (error.response.status === 404){
+            return "Not Found";
+        } else if (error.response.status === 500) {
+            return "Internal server wrong";
         }
         return false;
     }

@@ -129,6 +129,7 @@ function NoteCard() {
   // Handler for updating the note content
   const handleNoteChange = (event) => {
     const updatedNote = event.target.value;
+    console.log(updatedNote);
     setNote(updatedNote);
     // TODO: bankend link here
   };

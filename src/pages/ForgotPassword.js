@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import InputForm from "../components/Inputs/Input.js";
 import "./ForgotPasswordStyles.css";
 import emailjs from "@emailjs/browser";
+import MuiAlert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 function LoadForgotPage() {
   const navigate = useNavigate();
@@ -15,23 +17,50 @@ function LoadForgotPage() {
   );
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("info");
+
+  const handleOpenAlert = (message, severity) => {
+    setAlertMessage(message);
+    setAlertSeverity(severity);
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleVerifyCode = () => {
     const currentTime = new Date().getTime();
     const maxSeconds = 10 * 60 * 1000;
 
+   
+
     if ((enteredCode !== verificationCode) || (currentTime - codeGenerationTime > maxSeconds)) {
-      alert("The verification code you entered is incorrect. Please try again.");
+      handleOpenAlert("The verification code you entered is incorrect. Please try again.", "error");
       return;
     }
 
-    if (newPassword !== confirmPassword) {
-        alert("Passwords do not match. Please re-enter.");
+    if (!newPassword || !confirmPassword) {
+        handleOpenAlert("Please fill in both password fields.", "error");
         return;
+      }
+
+    if (newPassword !== confirmPassword) {
+      handleOpenAlert("Passwords do not match. Please re-enter.", "error");
+      return;
     }
 
     //Todo: implement change password here!
-    navigate("/login");
+    handleOpenAlert("Reset successfully! Directing to login page...", "success");
+    setTimeout(() => {
+        navigate("/login");
+    }, 3000);
+    
   };
 
   return (
@@ -63,6 +92,11 @@ function LoadForgotPage() {
           </button>
         </form>
       </div>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity={alertSeverity}>
+          {alertMessage}
+        </MuiAlert>
+      </Snackbar>
     </div>
   );
 }

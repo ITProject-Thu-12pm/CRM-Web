@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import Button from "react-bootstrap/Button";
 // Styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./DashboardStyles.css";
@@ -128,16 +128,18 @@ function NoteCard() {
 
   // Handler for updating the note content
   const handleNoteChange = (event) => {
-    const updatedNote = event.target.value;
-    console.log(updatedNote);
-    setNote(updatedNote);
-    // TODO: bankend link here
+    setNote(event.target.value);
+  };
+
+  const saveNote = () => {
+    console.log("Saving note:", note);
+    // TODO: save note here!
   };
 
   return (
     <Card className="card-radius quick-note-card">
       <Card.Header>Quick Note</Card.Header>
-      <Card.Body>
+      <Card.Body className="quick-note-body">
         <TextField
           id="standard-multiline-static"
           multiline
@@ -149,6 +151,9 @@ function NoteCard() {
           onChange={handleNoteChange}
         />
       </Card.Body>
+      <button className="quick-note-save" onClick={saveNote}>
+        save
+      </button>
     </Card>
   );
 }
@@ -229,9 +234,7 @@ function ContactList({ id, name, age, dob, avatar }) {
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          
-            <Avatar src={avatar} />
-          
+          <Avatar src={avatar} />
         </ListItemAvatar>
         <ListItemText
           primary={name}

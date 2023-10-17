@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import InputForm from "../components/Inputs/Input.js";
 import "./ForgotPasswordStyles.css";
 import emailjs from "@emailjs/browser";
-import MuiAlert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
 function LoadForgotPage() {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function LoadForgotPage() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -38,17 +38,21 @@ function LoadForgotPage() {
     const currentTime = new Date().getTime();
     const maxSeconds = 10 * 60 * 1000;
 
-   
-
-    if ((enteredCode !== verificationCode) || (currentTime - codeGenerationTime > maxSeconds)) {
-      handleOpenAlert("The verification code you entered is incorrect. Please try again.", "error");
+    if (
+      enteredCode !== verificationCode ||
+      currentTime - codeGenerationTime > maxSeconds
+    ) {
+      handleOpenAlert(
+        "The verification code you entered is incorrect. Please try again.",
+        "error"
+      );
       return;
     }
 
     if (!newPassword || !confirmPassword) {
-        handleOpenAlert("Please fill in both password fields.", "error");
-        return;
-      }
+      handleOpenAlert("Please fill in both password fields.", "error");
+      return;
+    }
 
     if (newPassword !== confirmPassword) {
       handleOpenAlert("Passwords do not match. Please re-enter.", "error");
@@ -56,11 +60,13 @@ function LoadForgotPage() {
     }
 
     //Todo: implement change password here!
-    handleOpenAlert("Reset successfully! Directing to login page...", "success");
+    handleOpenAlert(
+      "Reset successfully! Directing to login page...",
+      "success"
+    );
     setTimeout(() => {
-        navigate("/login");
+      navigate("/login");
     }, 3000);
-    
   };
 
   return (
@@ -93,7 +99,12 @@ function LoadForgotPage() {
         </form>
       </div>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity={alertSeverity}>
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          onClose={handleClose}
+          severity={alertSeverity}
+        >
           {alertMessage}
         </MuiAlert>
       </Snackbar>
@@ -124,10 +135,10 @@ function ResetForm(props) {
         "service_pduei9j",
         "template_jfx4wqp",
         {
+          email_to: props.email,
           from_name: "My Circle",
-          email_from: props.email,
+          email_from: "aazhuoying@gmail.com",
           verification_code: props.verificationCode,
-          reply_to: "bbzhuoying@gmail.com",
         },
         "qONCoXhfVWko-j4vy"
       )
@@ -162,16 +173,16 @@ function ResetForm(props) {
             className="btn-outline-secondary rounded-5 get-code"
             onClick={handleGetCodeClick}
           >
-            {btnDisabled ? `${countdown}s` : 'Get Code'}
+            {btnDisabled ? `${countdown}s` : "Get Code"}
           </button>
         </div>
       </div>
-      <InputForm 
-        inputTitle="New Password" 
+      <InputForm
+        inputTitle="New Password"
         onChange={(e) => props.setNewPassword(e.target.value)}
       />
-      <InputForm 
-        inputTitle="Re-enter New Password" 
+      <InputForm
+        inputTitle="Re-enter New Password"
         onChange={(e) => props.setConfirmPassword(e.target.value)}
       />
     </div>

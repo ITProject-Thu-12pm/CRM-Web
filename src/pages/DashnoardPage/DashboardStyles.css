@@ -194,7 +194,18 @@
     border: 0 !important;
 }
 
+.quick-note-body {
+    padding-bottom: 0 !important;
+}
 
+.quick-note-save {
+    border: none;
+    background: transparent;
+    font-size: 1.25rem;
+    max-width: 5rem;
+    margin-bottom: 0.5rem;
+ 
+}
 /* .dashboard-middle-container {
     display: grid;
     grid-template-columns: 1.5fr 1fr;

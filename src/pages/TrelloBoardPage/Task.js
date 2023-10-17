@@ -23,7 +23,9 @@ function Task({ task, index, onDelete, columnId, onEditClick }) {
 
   return (
     <Draggable draggableId={task.id} index={index}>
+     
       {(provided, snapshot) => (
+        
         <div
           className="task-item"
           ref={provided.innerRef}

@@ -8,7 +8,7 @@ import "./TrelloBoardStyles.css";
 import EditTaskModal from "./EditTaskModal";
 
 const TrelloBoard = () => {
-  console.log("trello start");
+  
   const [state, setState] = useState(boardData);
 
   /* drag and drop logic*/
@@ -25,7 +25,7 @@ const TrelloBoard = () => {
     ) {
       return;
     }
-
+    console.log(`Task with ID ${result.draggableId} was dragged from column with ID ${source.droppableId} to column with ID ${destination.droppableId}`);
     /* drag and drop column */
     if (type === "column") {
       const newColumnsOrder = Array.from(state.columnsOrder);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Greetings from "../../components/Contacts/Greeting";
 import Summary from "../../components/Contacts/ContactSummary";
 import ContactTable from "../../components/Contacts/ContactTable";
@@ -7,7 +7,7 @@ import SideBar from "../../components/Bar.js";
 import contactsData from "./ContactsInfo.json";
 import "../../components/RightSideStyles.css";
 import "./ContactStyles.css";
-import {GetUserContact} from "../Interface.js";
+import { GetUserContact } from "../Interface";
 
 function Contacts() {
 

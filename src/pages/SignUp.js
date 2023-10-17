@@ -1,64 +1,58 @@
 import React, { useState } from "react";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
-import InputForm from "../components/Inputs/Input.js"
+import InputForm from "../components/Inputs/Input.js";
 import "./LoginStyles.css";
 import "./SignUpStyles.css";
-import { SignUp } from './Interface.js';
-
 
 function LoadSignPage() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [show, setShow] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  /* check authentication */
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [shakeError, setShakeError] = useState(false);
-  const navigate = useNavigate();
 
-  const handleLogInClick = () => {
-      navigate("/login");
-  };
-  const handleShow = () => setShow(true);
   const validateInputs = () => {
     let isValid = true;
 
     if (!firstName.trim()) {
-      setFirstNameError('First name cannot be empty.');
+      setFirstNameError("First name cannot be empty.");
       isValid = false;
     } else {
-      setFirstNameError('');
+      setFirstNameError("");
     }
 
     if (!lastName.trim()) {
-      setLastNameError('Last name cannot be empty.');
+      setLastNameError("Last name cannot be empty.");
       isValid = false;
     } else {
-      setLastNameError('');
+      setLastNameError("");
     }
 
     if (!email.trim()) {
-      setEmailError('Email cannot be empty.');
+      setEmailError("Email cannot be empty.");
       isValid = false;
     } else {
-      setEmailError('');
+      setEmailError("");
     }
     console.log(password.length);
     if (!password) {
-      setPasswordError('Password cannot be empty.');
+      setPasswordError("Password cannot be empty.");
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password is made up of more than six digits of numbers, letters, symbols');
       isValid = false;
     } else if (password.length < 6) {
       setPasswordError('Password is made up of more than six digits of numbers, letters, symbols');
       isValid = false;
     } else {
-      setPasswordError('');
+      setPasswordError("");
     }
     return isValid;
   };
@@ -70,21 +64,8 @@ function LoadSignPage() {
       return;
     }
     if (validateInputs()) {
-      // Here you can proceed with the account creation logic, e.g., API call
+      // Proceed with account creation logic
       console.log("Account creation logic goes here.");
-      SignUp(firstName, lastName, email, password).then(data => {
-        if (data === 'SUCCESS') {
-          console.log("SignUp success!");
-          handleLogInClick();
-        } else if (data === 'ALREADY EXIEST'){
-          setErrorMessage("That email is taken. Try another.");
-          handleShow();
-          console.log("SignUp Fail!");
-        } else {
-          handleShow();
-          setErrorMessage("That email format is invalid. Try another.");
-        }
-      })  
     }
   };
 
@@ -119,18 +100,7 @@ function LoadSignPage() {
             setIsTermsChecked={setIsTermsChecked}
             shakeError={shakeError}
           />
-          <LogInButtons 
-          handleCreateAccountClick={handleCreateAccountClick}
-          firstName = {firstName}
-          lastName = {lastName}
-          email={email}
-          password={password}
-          setShow = {setShow}
-          setErrorMessage = {setErrorMessage} />
-          <LogDialog 
-          show = {show}
-          setShow = {setShow}
-          errorMessage= {errorMessage}/>
+          <LogInButtons handleCreateAccountClick={handleCreateAccountClick} />
         </form>
       </div>
     </div>
@@ -187,21 +157,18 @@ function Authentication({ setIsTermsChecked, shakeError }) {
           onChange={handleClick}
         />
         <span className="authentication-text">
-          By creating an account, I agree to our Terms of Use{" "}
-          and Privacy Policy
+          By creating an account, I agree to our Terms of Use and Privacy Policy
         </span>
       </div>
     </div>
   );
 }
 
-function LogInButtons({handleCreateAccountClick, userFirstName, userLastName, user_email, user_password, setShow, setErrorMessage}) {
-
-  const handleShow = () => setShow(true);
+function LogInButtons({ handleCreateAccountClick }) {
   const navigate = useNavigate();
 
   const handleLogInClick = () => {
-      navigate("/login");
+    navigate("/login");
   };
 
   return (
@@ -223,37 +190,8 @@ function LogInButtons({handleCreateAccountClick, userFirstName, userLastName, us
           Log in
         </button>
       </div>
-
     </form>
   );
 }
-
-function LogDialog({show, setShow, errorMessage}) {
-  const handleClose = () => setShow(false);
-  return (
-    <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Sign Up Warning</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        {errorMessage} 
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>Understood</Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
-
 
 export default LoadSignPage;

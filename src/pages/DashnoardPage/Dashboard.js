@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { getColumn, GetUserContact, updateNote, addNote, getNote } from '../Interface.js'
+import { getColumn, GetUserContact, updateNote, addNote, getNote, getEvent } from '../Interface.js'
 
 // Styles
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,7 +47,8 @@ function LoadDashboardPage() {
   const [contacts, setContacts] = useState([]);
   const [filterContacts, setFilterContacts] = useState([]);
   const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
-  const { events } = DashboardData;
+  // const { events } = DashboardData;
+  const [allEvents, setAllEvents] = useState([]);
 
 
   useEffect(() => {
@@ -177,6 +178,58 @@ function LoadDashboardPage() {
     setUpcomingBirthdays(filteredContacts);
   }, [filterContacts]);
 
+
+  // Event
+  const transformEvents = (events) => {
+    return events.map(event => {
+      const startDate = new Date(event.start);
+      const endDate = new Date(event.end);
+  
+      const formatDate = date => {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // +1 because months are 0-indexed
+        const year = date.getFullYear();
+        return `${year}-${month}-${day}`;
+      };
+  
+      const formatTime = date => {
+        const hours = String(date.getUTCHours() - 1).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+      };
+  
+      return {
+        id: String(event.id),
+        title: event.title,
+        date: formatDate(startDate),
+        time: `${formatTime(startDate)}AM - ${formatTime(endDate)}PM` // Adjust AM/PM accordingly
+      };
+    });
+  };
+  
+  
+    useEffect(() => {
+      const fetchEvents = async () => {
+        try {
+          const fetchedEvents = await getEvent();
+          if (fetchedEvents) {
+            const transformedEvents = transformEvents(fetchedEvents);
+            setAllEvents(transformedEvents);
+          } else {
+            console.error("Failed to fetch events");
+            // Optionally, handle the error in your UI.
+          }
+        } catch (error) {
+          console.error("Error fetching events:", error);
+          // Handle the error, maybe set some state to show an error message to the user.
+        }
+      };
+  
+      fetchEvents();
+    }, []);
+  
+  
+
   // Main layout of the dashboard page
   return (
     <div className="parent">
@@ -220,7 +273,7 @@ function LoadDashboardPage() {
           </Grid>
 
           <div className="contacts-cards">
-            <EventCard events={events} />
+            <EventCard events={allEvents} />
           </div>
         </div>
       </div>
@@ -293,6 +346,7 @@ function NoteCard() {
     // Check if the click was outside of the note component
     if (noteRef.current && !noteRef.current.contains(event.target)) {
       saveNote()
+      // setIsNewNote(false);
       // if (!getNote()){
       //   addNote({ content: note });
       // } else {
@@ -301,12 +355,15 @@ function NoteCard() {
   }};
 
   const saveNote = async () => {
-    if (!getNote()) {
+    const fNote = await getNote();
+    if (fNote === "Not Found") {
+      console.log(1);
       const success = await addNote({ content: note });
       if (success) {
         setIsNewNote(false);
       }
     } else {
+      console.log(2);
       await updateNote({ content: note });
     }
   };
@@ -315,6 +372,7 @@ function NoteCard() {
   const handleNoteChange = async (event) => {
     const updatedNote = event.target.value;
     setNote(updatedNote);
+    
     // TODO: bankend link here
   };
 
@@ -340,6 +398,7 @@ function NoteCard() {
 
 // Component to list individual events in a summary
 function EventList({ id, title, date, time }) {
+  
   return (
     <>
       <Divider variant="middle" component="li" />
@@ -473,28 +532,10 @@ function BirthdayCard({ birthdays }) {
 // Component to display current date and time
 function TimeCard() {
   const [dateTime, setDateTime] = useState(new Date());
-  const [year, setYear] = useState('');
-  const [time, setTime] = useState('');
-  const setAll = (time) => {
-    var year;
-    var ti;
-    year = time.substring(0,10);
-    ti = time.substring(11, 20);
-    if (time.substring(20, 23) === 'AM' && ti.substring(0, 2) === '12') {
-      ti = "00" + time.substring(13, 20);
-    }
-    setYear(year);
-    setTime(ti);
-  }
+
   useEffect(() => {
     const interval = setInterval(() => {
-      const melbourneTimeZone = 'Australia/Melbourne';
-      const date = new Date();
-      const options = { timeZone: melbourneTimeZone };
-      const localTimeInMelbourne = date.toLocaleString('en-US', options);
-      //console.log(localTimeInMelbourne);
-        setAll(localTimeInMelbourne);
-        setDateTime(localTimeInMelbourne);
+      setDateTime(new Date());
     }, 1000);
 
     return () => clearInterval(interval);
@@ -502,8 +543,8 @@ function TimeCard() {
 
   return (
     <Card className="card-radius time-card">
-      <div className="curr-time">{time}</div>
-      <div className="curr-date">{year}</div>
+      <div className="curr-time">{dateTime.toLocaleTimeString()}</div>
+      <div className="curr-date">{dateTime.toLocaleDateString()}</div>
     </Card>
   );
 }

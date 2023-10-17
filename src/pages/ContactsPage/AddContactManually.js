@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../../components/Bar.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
-import DateInput from '../../components/DateInput.js'
-import { addUserContact } from '../Interface.js'
+import DateInput from '../../components/DateInput.js';
+import { addUserContact } from "../Interface.js"
 
 function AddContactManually() {
     const [id, setId] = useState(null);
@@ -21,8 +21,7 @@ function AddContactManually() {
     const [status, setStatus] = useState('');
     const [gender, setGender] = useState('M');
     const [avatar, setAvatar] = useState('https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true');
-    const [avatarDataUrl, setAvatarDataUrl] = useState(null);
-    const [shouldAddUser, setShouldAddUser] = useState(false);
+
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -32,7 +31,6 @@ function AddContactManually() {
             };
             reader.readAsDataURL(file);
         }
-        
     }
 
     const navigate = useNavigate();

@@ -59,3 +59,8 @@ right: -80%;
     background-color: #4924d0 !important;
     color: white;
 }
+
+.button-transparent {
+    border: none;
+    background-color: transparent;
+  }

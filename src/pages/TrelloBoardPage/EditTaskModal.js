@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { updateTask } from '../Interface.js'
 
-function EditTaskModal({ open, onClose, onSave, task, priorityError2, setPriorityError2, setDescriptionError2, descriptionError2 }) {
+function EditTaskModal({ open, onClose, onSave, task, priorityError2, setPriorityError2, setDescriptionError2, descriptionError2, setRefresh }) {
   const [taskContent, setTaskContent] = useState(task?.content || "");
   const [selectedPriority, setSelectedPriority] = useState(task?.priority || "medium");
 
@@ -22,17 +22,19 @@ function EditTaskModal({ open, onClose, onSave, task, priorityError2, setPriorit
 
   const handleSave = async () => {
     const result = await updateTask(task.id, taskContent, selectedPriority); // Call the update function
-    if (result === true) { // If the task was successfully updated
-        onSave(task.id, taskContent, selectedPriority);
-        onClose();
-    } else if (result === "Bad Request1") {
+    // await getTask(task.id);
+    if (result === "Bad Request1") {
       // Handle error messages
       setDescriptionError2("Description cannot be empty!")
       console.error("Description cannot be empty!");
     } else if (result === "Bad Request2") {
       setPriorityError2("Priority cannot be empty!")
       console.error("Priority cannot be empty!");
-    } 
+    } else if (result) {
+      // setRefresh(true)
+      onSave(task.id, taskContent, selectedPriority);
+      onClose();
+    }
   };
   
   return (

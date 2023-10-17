@@ -312,73 +312,43 @@ function TrelloSummary({ todo, in_progress, completed }) {
   );
 }
 
-// Component to create and handle quick notes
+
 function NoteCard() {
-  // Component to create and handle quick notes
   const [note, setNote] = useState("");
-  const noteRef = useRef(null);  // create a ref for the card component
-  const [isNewNote, setIsNewNote] = useState(true);
-  // const fetchedNoteRef = useRef(null); // Ref to hold the fetchedNote
+  // const [fetchedNote, setFetchedNote] = useState(null);  // State to store the fetched note
 
   useEffect(() => {
     async function fetchNote() {
-      const fetchedNote = await getNote();
-      if (fetchedNote) {
-        setNote(fetchedNote.content);
-        setIsNewNote(false);
-        // fetchedNoteRef.current = fetchedNote; // Store the fetchedNote in the ref
+      const fetchedNoteFromDB = await getNote();
+      if (fetchedNoteFromDB) {
+        setNote(fetchedNoteFromDB.content);
+        // setFetchedNote(fetchedNoteFromDB); // Store the fetchedNote in the state
       }
     }
 
     fetchNote();
 
-    // Add event listener when the component mounts
-    document.addEventListener("click", handleClickOutside);
-
-    // Cleanup when the component unmounts
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
   }, []);
 
-
-  const handleClickOutside = (event) => {
-    // Check if the click was outside of the note component
-    if (noteRef.current && !noteRef.current.contains(event.target)) {
-      saveNote()
-      // setIsNewNote(false);
-      // if (!getNote()){
-      //   addNote({ content: note });
-      // } else {
-      //   updateNote({ content: note });
-      // }
-  }};
-
   const saveNote = async () => {
-    const fNote = await getNote();
-    if (fNote === "Not Found") {
-      console.log(1);
-      const success = await addNote({ content: note });
-      if (success) {
-        setIsNewNote(false);
-      }
+    const fn = await getNote();
+    if (fn === "Not Found") {
+      console.log("Adding note", note);
+      await addNote({ content: note });
     } else {
-      console.log(2);
+      console.log("Updating note", note);
       await updateNote({ content: note });
     }
   };
 
   // Handler for updating the note content
-  const handleNoteChange = async (event) => {
+  const handleNoteChange = (event) => {
     const updatedNote = event.target.value;
     setNote(updatedNote);
-    
-    // TODO: bankend link here
   };
 
-  
   return (
-    <Card ref={noteRef} className="card-radius quick-note-card">
+    <Card className="card-radius quick-note-card">
       <Card.Header>Quick Note</Card.Header>
       <Card.Body>
         <TextField
@@ -392,9 +362,13 @@ function NoteCard() {
           onChange={handleNoteChange}
         />
       </Card.Body>
+      <button className="quick-note-save button-transparent" onClick={saveNote}>
+          save
+      </button>
     </Card>
   );
 }
+
 
 // Component to list individual events in a summary
 function EventList({ id, title, date, time }) {

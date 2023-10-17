@@ -60,9 +60,8 @@ const ContactTable = ({ contacts, setContacts, onSelectContact }) => {
         // You might want to reset the email input value after a successful addition
         setEmailValue("");
         setShowEmailModal(false);
-        // const contactss = await GetUserContact();
-        // console.log(contactss);
-        // setContacts(contactss);
+        const contactss = await GetUserContact();
+        setContacts(contactss);
         console.log("Add by email succeed!")
         // Maybe show a success notification here
     } else if (success === 500){

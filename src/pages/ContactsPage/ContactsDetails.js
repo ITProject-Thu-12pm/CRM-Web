@@ -6,7 +6,7 @@ import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
 import { UpdatedContact } from '../Interface'
 
-function ContactDetails({id, contacts, setSelectedContactId}) {
+function ContactDetails({id, contacts, setSelectedContactId, setRefreshStatus}) {
 // function ContactDetails({ setSelectedContactId }) {
     // console.log("Contacts:", contacts);
     // const { id, contacts } = useParams();
@@ -91,6 +91,7 @@ function ContactDetails({id, contacts, setSelectedContactId}) {
 
     const handleContactClick = () => {
         setSelectedContactId(null);
+        setRefreshStatus(true);
         navigate("/contacts", { replace: true });
     };
 

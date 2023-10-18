@@ -30,6 +30,8 @@ function Contacts() {
                     if (datas[data]["is_user"]) { 
                         active += 1;
                         datas[data]["status"] = "Active";
+                    } else {
+                      datas[data]["status"] = "InActive";
                     }
                   }
                   setContacts(datas);
@@ -45,7 +47,7 @@ function Contacts() {
 
   if (selectedContactId) {
     /* direct to contact details when click contact name */
-    return <ContactDetails id={selectedContactId} contacts = {contacts} setSelectedContactId = {setSelectedContactId}/>;
+    return <ContactDetails id={selectedContactId} contacts = {contacts} setSelectedContactId = {setSelectedContactId} setRefreshStatus= {setRefreshStatus}/>;
   } else {
     return (
         /* contact page */

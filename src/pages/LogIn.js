@@ -4,7 +4,7 @@ import InputForm from '../components/Inputs/Input.js';
 import '../components/ButtonStyle.css';
 import './ButtonStyles.css';
 import './LoginStyles.css';
-import { Login } from "./Interface.js";
+import { Login, GetUserInfor } from "./Interface.js";
 
 function LoadLogInPage() {
   const [email, setUserEmail] = useState('');
@@ -109,6 +109,7 @@ function Buttons({validateInputs, user_email, user_password, loginStatus, setLog
     if (validateInputs()) {
       Login(user_email, user_password).then(data => {
         if (data === true) {
+          GetUserInfor();
           navigate('/dashboard');
         } else {
           setLoginStatus(false);

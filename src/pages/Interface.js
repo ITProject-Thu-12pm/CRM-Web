@@ -191,7 +191,7 @@ export async function UpdateContactTag(id, tags, idContact) {
 }
 
 
-export async function GetUserInfor({loginStatus}) {
+export async function GetUserInfor() {
     try {
         // Send a request to the backend and get the infor except avatar
         const response = await axios.get('http://127.0.0.1:8000/user/me/');

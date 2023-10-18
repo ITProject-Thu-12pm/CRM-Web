@@ -31,7 +31,7 @@ function LoadProfilePage() {
         const fetchData = async () => {
             if (loginStatus) {
                 try {
-                    const data = await GetUserInfor(loginStatus);
+                    const data = await GetUserInfor();
                     // Update the profile state with the fetched data
                     setProfile(prevProfile => ({ 
                         firstName: data.first_name,

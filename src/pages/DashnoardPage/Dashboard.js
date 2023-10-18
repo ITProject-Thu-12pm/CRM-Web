@@ -44,7 +44,7 @@ function LoadDashboardPage() {
     total_in_progress: '0',
     total_completed: '0'
   });
-  const [contacts, setContacts] = useState([]);
+  // const [contacts, setContacts] = useState([]);
   const [filterContacts, setFilterContacts] = useState([]);
   const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
   // const { events } = DashboardData;
@@ -113,27 +113,34 @@ function LoadDashboardPage() {
     const fetchData = async () => {
         try {
             const datas = await GetUserContact();
+
+            function updateYear(dateString) {
+              const parts = dateString.split('-');
+              parts[0] = new Date().getFullYear();  // Replace the year
+              return parts.join('-');
+            }
             
             // Filter and format contacts with upcoming birthdays
             const filterContacts = datas.filter(contact => contact.dob).map(contact => ({
                 id: contact.id.toString(),
                 name: `${contact.first_name} ${contact.last_name}`,
                 age: new Date().getFullYear() - parseInt(contact.dob.split('-')[0], 10),
-                dob: contact.dob,
+                dob: updateYear(contact.dob),
                 avatar: contact.avatar
             }));
-            
+          
+
             setFilterContacts(filterContacts);
 
-            for (let data in datas) {
-              datas[data]["address"] = {
-                "street_address": datas[data]["address"],
-                "city": datas[data]["city"],
-                "state": datas[data]["state"],
-                "postcode": datas[data]["postcode"]
-              };
-            }
-            setContacts(datas);
+            // for (let data in datas) {
+            //   datas[data]["address"] = {
+            //     "street_address": datas[data]["address"],
+            //     "city": datas[data]["city"],
+            //     "state": datas[data]["state"],
+            //     "postcode": datas[data]["postcode"]
+            //   };
+            // }
+            // setContacts(datas);
 
         } catch (error) {
             console.error("Error fetching user data:", error);

@@ -47,11 +47,7 @@ function MyCalendar() {
         alert("Failed to delete the event. Please try again later.");
     }
   };
-  
-  // const handleDeleteEvent = (e) => {
-  //   const updatedEvents = allEvents.filter(event => event.id !== e.id);
-  //   setAllEvents(updatedEvents);
-  // };
+
 
   const handleUpdateEvent = async (updatedEvent) => {
     const response = await updateEvent(updatedEvent, updatedEvent.id);
@@ -136,3 +132,4 @@ function MyCalendar() {
 }
 
 export default MyCalendar;
+

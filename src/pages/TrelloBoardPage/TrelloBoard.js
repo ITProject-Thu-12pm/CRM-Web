@@ -269,9 +269,9 @@ const TrelloBoard = () => {
         <div className="trello-container">
           <div className="header-container-blur trello-header-row">
             <h1 className="trello-header-title">To Do List</h1>
-            <Button className="btn change-color-btn board-add-list">
+            {/* <Button className="btn change-color-btn board-add-list">
               Add a List
-            </Button>
+            </Button> */}
           </div>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable

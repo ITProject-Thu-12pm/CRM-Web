@@ -113,7 +113,6 @@ function LoadProfilePage() {
         setLoginStatus(false);
         navigate("/login");
         Logout().then(data => {
-            console.log("Dadsa");
             if (data) {
                 navigate("/login", {replace: true});
             } else {  

@@ -227,8 +227,12 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
         // Send a request to the backend
         const response = await axios.get('http://127.0.0.1:8000/contacts/');
         for (let eachContact in response.data) {
-            if (response.data[eachContact]["avatar"]) {
+            if (response.data[eachContact]["avatar"] === "https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true") {
+                response.data[eachContact]["avatar"] = "data:image/png;base64," + defaultValue
+            } else if (response.data[eachContact]["avatar"]) {
                 response.data[eachContact]["avatar"] = "data:image/png;base64," + response.data[eachContact]["avatar"];
+            } else {
+                response.data[eachContact]["avatar"] = "data:image/png;base64," + defaultValue
             }
              
         }

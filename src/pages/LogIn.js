@@ -109,7 +109,7 @@ function Buttons({validateInputs, user_email, user_password, loginStatus, setLog
     if (validateInputs()) {
       Login(user_email, user_password).then(data => {
         if (data === true) {
-          navigate('/profile');
+          navigate('/dashboard');
         } else {
           setLoginStatus(false);
           //setErrorMessage('Please ensure Email or Password is correct and retry again!');

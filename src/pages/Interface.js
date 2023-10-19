@@ -60,7 +60,7 @@ export async function Logout() {
 export async function Reset_Passowrd(old_password, new_password, type, email) {
     let success = false;
     var response2;
-    
+    axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
     try {
         if (type === 'profile') {
             response2 = await axios.put('http://127.0.0.1:8000/user/resetpassword/', {
@@ -118,7 +118,7 @@ export async function SignUp(firstName, lastName, email, user_password) {
 }
 
 export async function UpdateUserProfile(profile, newDate) {
-    
+    axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
     try {
         // Send a request to the backend
         const response = await axios.put('http://127.0.0.1:8000/user/profile/', {
@@ -155,6 +155,7 @@ export async function UpdateUserProfile(profile, newDate) {
 }
 
 export async function UpdateContactTag(id, tags, idContact) {
+    axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
     const full_url = 'http://127.0.0.1:8000/contacts/' + id + '/';
     console.log(tags);
     try {
@@ -193,6 +194,7 @@ export async function UpdateContactTag(id, tags, idContact) {
 
 export async function GetUserInfor() {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Send a request to the backend and get the infor except avatar
         const response = await axios.get('http://127.0.0.1:8000/user/me/');
         if (response.data["avatar"]) {
@@ -225,6 +227,7 @@ export async function GetUserInfor() {
 export async function GetUserContact(firstName, lastName, email, user_password) {
     try {
         // Send a request to the backend
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.get('http://127.0.0.1:8000/contacts/');
         for (let eachContact in response.data) {
             if (response.data[eachContact]["avatar"] === "https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true") {
@@ -252,7 +255,9 @@ export async function GetUserContact(firstName, lastName, email, user_password) 
 }
 
 export async function addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, dob, gender, avatar) {
+
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         if (avatar === "https://github.com/ITProject-Thu-12pm/Assets/blob/main/broken_avatar.png?raw=true") {
             avatar = defaultValue
         }
@@ -288,6 +293,7 @@ export async function addUserContact(firstName, lastName, tags, phone, email, st
 export async function UpdatedContact(id, firstName, lastName, phone, email, streetAddress, city, state, postcode, dob, gender, avatar) {
     const full_url = 'http://127.0.0.1:8000/contacts/' + id + '/';
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Send a request to the backend
         const response = await axios.put(full_url, {
             first_name : firstName,
@@ -322,6 +328,7 @@ export async function UpdatedContact(id, firstName, lastName, phone, email, stre
 export async function DeleteUserContact(contacts) {
     var deleteAll;
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Send a request to the backend
         for (let contact in contacts) {
             const id = contacts[contact]["id"];  
@@ -345,7 +352,7 @@ export async function DeleteUserContact(contacts) {
 
 export async function addByEmail(email) {
     try {
-
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Send a request to the backend
         const response = await axios.post('http://127.0.0.1:8000/contacts/', {
             email : email
@@ -376,6 +383,7 @@ export async function addByEmail(email) {
 
 export async function addEvent(eventData) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.post('http://127.0.0.1:8000/event/', eventData);
         
         // Check if the request was successful
@@ -398,6 +406,7 @@ export async function addEvent(eventData) {
 
 export async function getEvent() {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Send a request to the backend
         const response = await axios.get('http://127.0.0.1:8000/event/');
 
@@ -422,6 +431,7 @@ export async function getEvent() {
 
 export async function updateEvent(eventData, id) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.put(`http://127.0.0.1:8000/event/${id}/`, eventData);
         
         if (response.status === 200) {
@@ -439,6 +449,7 @@ export async function updateEvent(eventData, id) {
 
 export async function deleteEvent(id) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.delete(`http://127.0.0.1:8000/event/${id}/`);
 
         if (response.status === 204) { // 204 No Content is the typical response for a successful DELETE request
@@ -456,6 +467,7 @@ export async function deleteEvent(id) {
 
 export async function addTask(taskData) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.post('http://127.0.0.1:8000/trello/task/', taskData);
         
         // Check if the request was successful
@@ -481,6 +493,7 @@ export async function addTask(taskData) {
 
 export async function addColumn(columnData) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.post('http://127.0.0.1:8000/trello/column/', columnData);
         
         // Check if the request was successful
@@ -503,6 +516,7 @@ export async function addColumn(columnData) {
 
 export async function getColumn() {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.get('http://127.0.0.1:8000/trello/column/');
         
         // If sign up was successful on the backend
@@ -526,6 +540,7 @@ export async function getColumn() {
 
 export async function getTask(columnId) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.get(`http://127.0.0.1:8000/trello/task/?str=${columnId}`);
         
         // If sign up was successful on the backend
@@ -550,6 +565,7 @@ export async function getTask(columnId) {
 
 export async function updateTask(taskId, taskContent, taskPriority, columnId) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Assuming the backend accepts a JSON payload with the task's content and priority
         const response = await axios.put(`http://127.0.0.1:8000/trello/task/?str=${taskId}`, {
             content: taskContent,
@@ -581,6 +597,7 @@ export async function updateTask(taskId, taskContent, taskPriority, columnId) {
 
 export async function deleteT(taskId) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.delete(`http://127.0.0.1:8000/trello/task/?str=${taskId}`);
 
         if (response.status === 204) { // 204 No Content is the typical response for a successful DELETE request
@@ -599,6 +616,7 @@ export async function deleteT(taskId) {
 
 export async function updateNote(notes) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.put(`http://127.0.0.1:8000/note/`, notes);
         
         if (response.status === 200) {
@@ -616,6 +634,7 @@ export async function updateNote(notes) {
 
 export async function addNote(notes) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         const response = await axios.post('http://127.0.0.1:8000/note/', notes);
         
         // Check if the request was successful
@@ -638,6 +657,7 @@ export async function addNote(notes) {
 
 export async function getNote() {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Send a request to the backend
         const response = await axios.get('http://127.0.0.1:8000/note/');
 
@@ -664,6 +684,7 @@ export async function getNote() {
 
 export async function updateTaskColumn(taskId, columnId) {
     try {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem('token');
         // Assuming the backend accepts a JSON payload with only the task's column
         const response = await axios.put(`http://127.0.0.1:8000/trello/task/?str=${taskId}`, {
             column: columnId

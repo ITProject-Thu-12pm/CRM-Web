@@ -21,6 +21,7 @@ function LoadSignPage() {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [shakeError, setShakeError] = useState(false);
   const [show, setShow] = useState(false);
+  
   const navigate = useNavigate();
   const handleLogInClick = () => {
     navigate("/login");
@@ -49,7 +50,6 @@ function LoadSignPage() {
     } else {
       setEmailError("");
     }
-    console.log(password.length);
     if (!password) {
       setPasswordError("Password cannot be empty.");
       isValid = false;

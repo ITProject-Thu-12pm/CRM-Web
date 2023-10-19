@@ -139,10 +139,12 @@ function ResetForm(props) {
       </div>
       <InputForm 
         inputTitle="New Password" 
+        inputType="password"
         onChange={(e) => props.setNewPassword(e.target.value)}
       />
       <InputForm 
-        inputTitle="Re-enter New Password" 
+        inputTitle="Re-enter New Password"
+        inputType="password" 
         onChange={(e) => props.setConfirmPassword(e.target.value)}
       />
     </div>

@@ -12,7 +12,7 @@ const TrelloBoard = () => {
   const [priorityError2, setPriorityError2] = useState("");
   const [descriptionError2, setDescriptionError2] = useState("");
   const [hasInitialized, setHasInitialized] = useState(false);
-  // const [refresh, setRefresh] = useState(true);
+  const [refresh, setRefresh] = useState(true);
   const [state, setState] = useState({
     tasks: {},
     columns: {},
@@ -100,8 +100,8 @@ const TrelloBoard = () => {
       }
     }
     fetchColumnsForUser();
-    // setRefresh(false)
-  }, [hasInitialized]);
+    setRefresh(false)
+  }, [hasInitialized, refresh]);
 
   
 
@@ -312,6 +312,7 @@ const TrelloBoard = () => {
                               onAddNewTask={handleAddNewTask}
                               onDeleteTask={deleteTask}
                               onEditTaskClick={handleEditTaskClick}
+                              setRefresh={setRefresh}
                             />
                           </div>
                         )}

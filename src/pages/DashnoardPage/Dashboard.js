@@ -44,10 +44,8 @@ function LoadDashboardPage() {
     total_in_progress: '0',
     total_completed: '0'
   });
-  // const [contacts, setContacts] = useState([]);
   const [filterContacts, setFilterContacts] = useState([]);
   const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
-  // const { events } = DashboardData;
   const [allEvents, setAllEvents] = useState([]);
 
 
@@ -87,26 +85,6 @@ function LoadDashboardPage() {
     fetchColumnsForUser();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const datas = await GetUserContact();
-  //       for (let data in datas) {
-  //         datas[data]["address"] = {
-  //           "street_address": datas[data]["address"],
-  //           "city": datas[data]["city"],
-  //           "state": datas[data]["state"],
-  //           "postcode": datas[data]["postcode"]
-  //         };
-  //       }
-  //       setContacts(datas);
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //     }
-  //   };
-    
-  //   fetchData();
-  // }, []);
 
   useEffect(() => {
     // Asynchronously fetch user data
@@ -131,16 +109,6 @@ function LoadDashboardPage() {
           
 
             setFilterContacts(filterContacts);
-
-            // for (let data in datas) {
-            //   datas[data]["address"] = {
-            //     "street_address": datas[data]["address"],
-            //     "city": datas[data]["city"],
-            //     "state": datas[data]["state"],
-            //     "postcode": datas[data]["postcode"]
-            //   };
-            // }
-            // setContacts(datas);
 
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -410,17 +378,17 @@ function EventCard({ events }) {
         <Card.Title className="event-card-title">Recent Events</Card.Title>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant="h6" className="event-col-title">
+            <Typography variant="h6">
               Events
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography variant="h6" className="event-col-date">
+            <Typography variant="h6">
               Date
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography variant="h6" className="event-col-time">
+            <Typography variant="h6" className="table-padding-time">
               Time
             </Typography>
           </Grid>

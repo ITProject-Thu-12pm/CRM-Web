@@ -340,10 +340,8 @@ function NoteCard() {
   const saveNote = async () => {
     const fn = await getNote();
     if (fn === "Not Found") {
-      console.log("Adding note", note);
       await addNote({ content: note });
     } else {
-      console.log("Updating note", note);
       await updateNote({ content: note });
     }
   };

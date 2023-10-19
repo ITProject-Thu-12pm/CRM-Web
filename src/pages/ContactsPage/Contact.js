@@ -21,7 +21,6 @@ function Contacts() {
           // Asynchronously fetch user data
         const fetchData = async () => {
               localStorage.setItem('token', token);
-              console.log(localStorage.getItem('token'));
               try {
                   const datas = await GetUserContact();
                   var active = 0;
@@ -53,7 +52,6 @@ function Contacts() {
     /* direct to contact details when click contact name */
     return <ContactDetails id={selectedContactId} contacts = {contacts} setSelectedContactId = {setSelectedContactId} setRefreshStatus= {setRefreshStatus}/>;
   } else {
-    console.log(contacts);
     return (
         /* contact page */
       <div className="parent">
@@ -66,7 +64,7 @@ function Contacts() {
               <Greetings username={localStorage.getItem('userName')} />
             </div>
             <div className="summary contacts-cards">
-              <Summary total={totalUser} active={activeUser} inactive={totalUser - activeUser} />
+              <Summary total={contacts.length} active={activeUser} inactive={contacts.length - activeUser} />
             </div>
             <div className="table contacts-cards">
               <ContactTable

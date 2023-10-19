@@ -3,11 +3,13 @@ import "bootstrap";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import './BarStyles.css';
+import { Logout } from "../pages/Interface";
 
 function SideBar() {
     const navigate = useNavigate();
 
     const handleSignOutClick = () => {
+        Logout();
         navigate("/login");
     };
     const handleProfileClick = () => {

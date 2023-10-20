@@ -48,42 +48,55 @@ Ensure you have the following installed on your local machine:
 
    Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### Backend (Django)
+### Backend (Django) - Need Python version less than 3.9
 
-1. Navigate to the backend directory:
-
+1. Clone the repository to your local machine:
    ```bash
-   cd backend
+   git clone https://github.com/ITProject-Thu-12pm/CRM-BACKEND.git
    ```
 
-2. Create a virtual environment:
-
+2. Navigate to the backend directory:
    ```bash
-   python -m venv venv
+   cd CRM-BACKEND
    ```
 
-3. Activate the virtual environment:
+3. Create a virtual environment:
+   ```bash
+   python -m venv env
+   ```
+   Note: Use `python3` instead of `python` if your default Python version is Python 2.x.
 
-   - On Windows: `venv\Scripts\activate`
-   - On macOS and Linux: `source venv/bin/activate`
+4. Activate the virtual environment:
+   - On Windows: `env\Scripts\activate`
+   - On macOS and Linux: `source env/bin/activate`
 
-4. Install the required packages:
-
+5. Install the required packages:
+   - On macOS and Linux:
    ```bash
    pip install -r requirements.txt
    ```
+   - On Windows:
+   ```
+   python -m pip install -r requirements.txt
+   ```
+   Note: Use `pip3` instead of `pip` if you are using Python 3 and have both Python 2 and Python 3 installed.
 
-5. Run migrations:
+6. Navigate to the directory where manage.py is located:
+   ```bash
+   cd crm
+   ```
 
+7. Run migrations:
    ```bash
    python manage.py migrate
    ```
+   Note: Use `python3` instead of `python` if your default Python version is Python 2.x.
 
-6. Start the Django server:
-
+8. Start the Django server:
    ```bash
-   python manage.py runserver	
+   python manage.py runserver
    ```
+   Note: Use `python3` instead of `python` if your default Python version is Python 2.x.
 
 ## Usage
 

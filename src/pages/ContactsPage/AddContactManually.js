@@ -59,7 +59,6 @@ function AddContactManually() {
             alert("Name and Email are mandatory!");
             return;
         }
-        console.log(gender);   
         addUserContact(firstName, lastName, tags, phone, email, streetAddress, city, state, postcode, formatDate(dob), gender, avatar).then(data => {
             if (!data) {
                 handleShow();

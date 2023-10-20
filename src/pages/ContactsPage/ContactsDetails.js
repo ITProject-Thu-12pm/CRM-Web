@@ -23,9 +23,8 @@ function ContactDetails({id, contacts, setSelectedContactId, setRefreshStatus}) 
     const [zipCode, setZipCode] = useState(contact.address.postcode);
     const [email, setEmail] = useState(contact.email);
     const [phone, setPhone] = useState(contact.phone);
-    const [dob, setDob] = useState(new Date(contact.dob));
+    const [dob, setDob] = useState(contact.dob ? new Date(contact.dob) : null);
     const [gender, setGender] = useState(contact.gender);
-
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {

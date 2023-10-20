@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import './InputStyles.css';
 
-const InputForm = ({ inputTitle, inputType, value, onChange, error }) => {
+const InputForm = ({ inputTitle, inputType, value, onChange, error, handleLoginClick }) => {
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleLoginClick();
+        }
+    };
     return (
         <div className="mb-3 form-floating ">
            
@@ -13,6 +18,7 @@ const InputForm = ({ inputTitle, inputType, value, onChange, error }) => {
                 autocomplete="off"
                 value={value}
                 onChange={onChange}
+                onKeyPress={handleKeyPress}
             />
                <label htmlFor="floatingInput">{inputTitle}</label>
             {error && <div className="invalid-feedback">

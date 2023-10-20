@@ -1,38 +1,86 @@
-import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
+import React, { useState, useEffect } from 'react';
 import './ProfileStyles.css';
 import SideBar from '../../components/Bar.js'
 import DateInput from '../../components/DateInput.js'
 import { useNavigate } from 'react-router-dom';
-import profileInfo from './ProfileInfo.json';
+import {GetUserInfor, UpdateUserProfile, Logout} from '../Interface.js'
+
 import InputFormProfile from '../../components/Inputs/InputProfile';
 
 
 function LoadProfilePage() {
-
-    const [profile, setProfile] = useState({
-        avatar: profileInfo.profile_picture,
-        tempAvatar: null,
-        firstName: profileInfo.first_name,
-        lastName: profileInfo.last_name,
-        address: profileInfo.street_address,
-        city: profileInfo.city,
-        state: profileInfo.state,
-        postCode: profileInfo.postcode,
-        email: profileInfo.email,
-        phone: profileInfo.phone,
-        dob: new Date(profileInfo.dob)
-    });
-
+    const [loginStatus, setLoginStatus] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const [profile, setProfile] = useState({
+        avatar: null,
+        tempAvatar: null,
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        state: '',
+        postCode: '',
+        email: '',
+        phone: '',
+        dob: ''
+    });
+    
+    
+    useEffect(() => {
+    
+        const fetchData = async () => {
+            if (loginStatus) {
+                try {
+                    const data = await GetUserInfor();
+                    // Update the profile state with the fetched data
+                    setProfile(prevProfile => ({ 
+                        firstName: data.first_name,
+                        lastName: data.last_name,
+                        email: data.email,
+                        address: data.address,
+                        city: data.city,
+                        state: data.state,
+                        postCode: data.postcode,
+                        phone: data.phone,
+                        avatar : data.avatar,
+                        dob: data.dob ? new Date(data.dob) : prevProfile.dob
+                        // Add other fields as needed
+                    }));
+                    //console.log(profile.avatar);
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                    navigate('/login');
+                }
+            }
+            
+        };
+    
+        fetchData();
+    }, []);
+            
+    
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
     };
-
+    const formatDate = (date) => {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
     const handleAvatarChange = (event) => {
+        
         const file = event.target.files[0];
         if (file) {
+            
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfile(prevProfile => ({ ...prevProfile, tempAvatar: reader.result }));
@@ -42,16 +90,36 @@ function LoadProfilePage() {
     };
 
     const saveChanges = () => {
-        if (profile.tempAvatar) {
-            setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar, tempAvatar: null }));
-        }
-        handleEditToggle();
+         if (profile.tempAvatar) {
+            localStorage.setItem('avatar', profile.tempAvatar);
+           setProfile(prevProfile => ({ ...prevProfile, avatar: profile.tempAvatar}));
+         }
+         let formattedDob;
+         if (profile.dob) {
+            formattedDob = formatDate(profile.dob);
+         } else {
+            formattedDob = null;
+         }
+         localStorage.setItem('userName', profile.firstName);
+         
+         //console.log(profile.avatar);
+         UpdateUserProfile(profile, formattedDob);
+         handleEditToggle();
     };
 
     const navigate = useNavigate();
 
     const handleLogInClick = () => {
+        setLoginStatus(false);
         navigate("/login");
+        Logout().then(data => {
+            if (data) {
+                navigate("/login", {replace: true});
+            } else {  
+            }
+        })
+        
+        
     };
 
     const handleResetClick = () => {

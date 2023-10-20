@@ -4,13 +4,6 @@
     box-sizing: border-box;
 }
 
-
-/* .input {
-    position: relative;
-    top: 40px;
-    min-width: 200px;
-} */
-
 .log-in-img {
     /* width: 767px;
     height: 1000px; */
@@ -63,14 +56,18 @@
 }
 
 .loginTitle1 {
-    font-size: 50px;
+    font-size: 4rem;
     font-family: "Poppins";
     font-weight: 900;
+    color: rgba(0, 0, 0, 0.725);
+   
 }
 
 .loginTitle2 {
     font-size: 40px;
-    font-weight: normal;
+    font-family: "Poppins";
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.725);
 }
 
 /* login and forgot-pass btn */
@@ -94,7 +91,12 @@
     color: white;
     outline: none;
     font-size: 1.2rem;
+    background: linear-gradient(100deg, #76daec 0%, #bd66ce 100%);
 } 
+
+.login:hover {
+    color: white;
+}
 
 .forgot-pass {
     display: block;

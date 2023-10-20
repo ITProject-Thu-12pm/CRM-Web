@@ -1,15 +1,15 @@
 import React from "react";
 import "bootstrap";
-import './BarStyles.css';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
-
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import './BarStyles.css';
+import { Logout } from "../pages/Interface";
 
 function SideBar() {
     const navigate = useNavigate();
 
     const handleSignOutClick = () => {
+        Logout();
         navigate("/login");
     };
     const handleProfileClick = () => {
@@ -60,11 +60,11 @@ function SideBar() {
                     aria-expanded="false"
                 >
                     <img
-                        src="https://github.com/ITProject-Thu-12pm/Assets/blob/main/user-photo.png?raw=true" // Replace with actual image URL
+                        src={localStorage.getItem('avatar')} // Replace with actual image URL
                         alt="User Avatar"
                         className="rounded-circle me-2 avatar"
                     />
-                    <span className="d-none d-sm-inline user-name">Evano</span>
+                    <span className="d-none d-sm-inline user-name">{localStorage.getItem('userName')}</span>
                 </a>
                 <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
                     {/* Dropdown menu items */}

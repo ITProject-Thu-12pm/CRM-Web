@@ -27,7 +27,7 @@ function AddEvent({ newEvent, setNewEvent, handleAddEvent }) {
     <>
       <button
         type="button"
-        className="btn btn-primary change-color-btn add-event-btn"
+        className="btn btn-primary change-color-btn calendar-header-create-event"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >

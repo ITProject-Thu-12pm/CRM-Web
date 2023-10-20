@@ -1,34 +1,48 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import contactsData from './ContactsInfo.json';
 import SideBar from '../../components/Bar'
 import DateInput from '../../components/DateInput.js'
 import InputFormProfile from '../../components/Inputs/InputProfile';
 import '../ProfilePage/ProfileStyles.css';
+import { UpdatedContact } from '../Interface'
 
-function ContactDetails() {
-    let { id } = useParams();
-    const contact = contactsData.find(contact => contact.id === parseInt(id));
-
-    const [avatar, setAvatar] = useState(contact.avatar);
+function ContactDetails({id, contacts, setSelectedContactId, setRefreshStatus}) {
+// function ContactDetails({ setSelectedContactId }) {
+    // console.log("Contacts:", contacts);
+    // const { id, contacts } = useParams();
+    // console.log("id:", id);
+    // console.log("Contacts:", contacts);
+    const contact = contacts.find(contact => contact.id === parseInt(id));
+    const [avatar, setAvatar] = useState(contact["avatar"]);
     const [tempAvatar, setTempAvatar] = useState(null);
-    const [firstName, setFirstName] = useState(contact.firstName);
-    const [lastName, setLastName] = useState(contact.lastName);
-    const [address, setAddress] = useState(contact.address.streetAddress);
+    const [firstName, setFirstName] = useState(contact.first_name);
+    const [lastName, setLastName] = useState(contact.last_name);
+    const [address, setAddress] = useState(contact.address.street_address);
     const [city, setCity] = useState(contact.address.city);
     const [state, setState] = useState(contact.address.state);
     const [zipCode, setZipCode] = useState(contact.address.postcode);
     const [email, setEmail] = useState(contact.email);
     const [phone, setPhone] = useState(contact.phone);
-    const [dob, setDob] = useState(new Date(contact.dob));
+    const [dob, setDob] = useState(contact.dob ? new Date(contact.dob) : null);
     const [gender, setGender] = useState(contact.gender);
-
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
     };
-
+    const formatDate = (date) => {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -39,7 +53,7 @@ function ContactDetails() {
             reader.readAsDataURL(file);
         }
     };
-    const initialContacts = contactsData;
+    const initialContacts = contacts;
     const [contactsList, setContactsList] = useState(initialContacts);
 
     const saveChanges = () => {
@@ -51,15 +65,33 @@ function ContactDetails() {
         const updatedContacts = contactsList.map(c =>
             c.id === contact.id ? { ...contact, firstName, lastName } : c
         );
+        let formattedDob;
+         if (dob) {
+            formattedDob = formatDate(dob);
+         } else {
+            formattedDob = null;
+         }
+         if (tempAvatar) {
+            UpdatedContact(id, firstName, lastName, phone, email, address, city, state, zipCode, formattedDob, gender, tempAvatar).then(data => {
+                setContactsList(data);
+            })
+         } else {
+            UpdatedContact(id, firstName, lastName, phone, email, address, city, state, zipCode, formattedDob, gender, avatar).then(data => {
+                setContactsList(data);
+            })
+         }
+        
 
-        setContactsList(updatedContacts); // Update the contacts state (if you maintain it here)
-        localStorage.setItem('contactsData', JSON.stringify(updatedContacts));
+        ; // Update the contacts state
+        //localStorage.setItem('contacts', JSON.stringify(updatedContacts));
     };
 
     const navigate = useNavigate();
 
     const handleContactClick = () => {
-        navigate("/contacts");
+        setSelectedContactId(null);
+        setRefreshStatus(true);
+        navigate("/contacts", { replace: true });
     };
 
 
@@ -107,7 +139,7 @@ function ContactDetails() {
                         <div className='col-md-6'>
                             <DateInput
                                 inputTitle="Date of Birth"
-                                selectedDate={dob}
+                                selectedDate= {dob}
                                 setSelectedDate={setDob}
                                 isEditing={isEditing}
                             />

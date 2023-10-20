@@ -5,6 +5,7 @@ import SideBar from '../components/Bar.js'
 import InputForm from '../components/Inputs/Input.js'
 import './ProfilePage/ProfileStyles.css';
 import './ResetPasswordStyles.css'
+import { Reset_Passowrd } from "./Interface.js";
 
 
 function LoadResetPage() {
@@ -22,33 +23,66 @@ function LoadResetPage() {
 
     /* check old password */
     const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [reEnteredPassword, setReEnteredPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-
+    const [oldPaErrorMessage, setOldPaErrorMessage] = useState('');
+    const [newPaErrorMessage, setNewPaErrorMessage] = useState('');
+    const [rePaErrorMessage, setRePaErrorMessage] = useState('');
     /* helper func */
     const handlePasswordCheck = () => {
-        console.log("Checking passwords...");
-
-        if (oldPassword !== reEnteredPassword) {
-            setErrorMessage('Passwords do not match');
+        if (newPassword !== reEnteredPassword) {
+            setOldPaErrorMessage('ALL_RED');
+            setNewPaErrorMessage('New passwords are inconsistent');
+        } else if (newPassword === '') {
+            setNewPaErrorMessage('New passwords must be enter');
+            //setReEnteredPaErrorMessage('Please enter a new password');
         } else {
+            if (newPassword.length >= 6) {
+                Reset_Passowrd(oldPassword, newPassword, 'profile', '').then(data => {
+                    if (data === true) {
+                        navigate('/login');
+                        console.log('Reset Success!');
+                    } else {
+                        setOldPaErrorMessage('Old password is incorrect')
+                        console.log('Reset Fail');
+                      
+                    }
+                  })
+            } else {
+                setNewPaErrorMessage("Password must made up of more than six digits of numbers, letters, symbols")
+            }
+            
+                
+            
             /* setErrorMessage(''); */
-            // Proceed with other logic, e.g., API call to update the password
+            /* Proceed with other logic, e.g., API call to update the password */
         }
     };
 
-    const checkOldPass = () => {
-        if (errorMessage) {
-            return (
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <PriorityHighRoundedIcon fontSize="small" style={{ color: 'red' }} />
-                    <span style={{ color: 'red' }}>{errorMessage}</span>
-                </div>
-            );
-        }
-        return null;
-    };
-
+    // const checkOldPass = () => {
+    //     if (oldPaErrorMessage) {
+    //         return (
+    //             <div style={{ display: 'flex', alignItems: 'center' }}>
+    //                 <PriorityHighRoundedIcon fontSize="small" style={{ color: 'red' }} />
+    //                 <span style={{ color: 'red' }}>{oldPaErrorMessage}</span>
+    //             </div>
+    //         );
+    //     }
+         
+    //     return null;
+    // };
+    // const checkNewPass = () => {
+    //     if (newPaErrorMessage) {
+    //         return (
+    //             <div style={{ display: 'flex', alignItems: 'center' }}>
+    //                 <PriorityHighRoundedIcon fontSize="small" style={{ color: 'red' }} />
+    //                 <span style={{ color: 'red' }}>{newPaErrorMessage}</span>
+    //             </div>
+    //         );
+    //     }
+         
+    //     return null;
+    // };
 
     return (
 
@@ -68,9 +102,13 @@ function LoadResetPage() {
                             inputTitle="Enter Old Password"
                             inputType="password"
                             value={oldPassword}
-                            onChange={e => setOldPassword(e.target.value)}
+                            onChange={e => {setOldPassword(e.target.value);
+                                            if (oldPaErrorMessage){
+                                                setOldPaErrorMessage('');
+                                            }
+                                        }}
+                            error = {oldPaErrorMessage}
                         />
-                        {checkOldPass()}
 
                     </div>
 
@@ -78,16 +116,24 @@ function LoadResetPage() {
                         <InputForm
                             inputTitle="Re-enter Old Password"
                             inputType="password"
-                            value={reEnteredPassword}
-                            onChange={e => setReEnteredPassword(e.target.value)}
+                            value={newPassword}
+                            onChange={e => {setNewPassword(e.target.value);
+                                            if (newPaErrorMessage){
+                                                setNewPaErrorMessage('');
+                                            }setOldPaErrorMessage('');}}
+                            error={newPaErrorMessage}
                         />
-                        {checkOldPass()}
                     </div>
 
                     <InputForm
                         inputTitle="enter New Password"
                         inputType="password"
-
+                        value={reEnteredPassword}
+                        onChange={e => {setReEnteredPassword(e.target.value);
+                                            if (newPaErrorMessage){
+                                                setNewPaErrorMessage('');
+                                        } setOldPaErrorMessage('');}}
+                        error={newPaErrorMessage}
                     />
                     </div>
                    

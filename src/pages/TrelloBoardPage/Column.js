@@ -4,9 +4,9 @@ import Button from "react-bootstrap/Button";
 import Task from "./Task";
 import AddTaskModal from "./AddTaskModal";
 import "../../components/ButtonStyle.css";
-import { addTask } from '../Interface.js'
+import { addTask, getColumn, getTask } from '../Interface.js'
 
-function Column({ column, tasks, onDeleteTask, onEditTaskClick, onAddNewTask, setRefresh }) {
+function Column({ column, tasks, onDeleteTask, onEditTaskClick, setState }) {
   /* add task modal */
   const [openModal, setOpenModal] = useState(false);
   const [priorityError, setPriorityError] = useState("");
@@ -33,9 +33,43 @@ function Column({ column, tasks, onDeleteTask, onEditTaskClick, onAddNewTask, se
     if (response === true) {
       console.log("Task added successfully!");
       // onAddNewTask(taskData, column.id);
-      // onClose();
-      setRefresh(true);
+      // setRefresh(true);
       setOpenModal(false);  // close the modal
+      const userColumns = await getColumn();
+      const updatedColumns = userColumns.map(column => {
+        // Modify each task in the tasks array to its desired string representation
+        const modifiedTasks = column.tasks.map(task => `${task.id}`);
+        // Return a new column object with the modified tasks array
+        return {
+          ...column,
+          tasks: modifiedTasks
+        };
+      });
+      // Fetch tasks for each column
+      const tasksForColumnsPromises = userColumns.map(column => getTask(column.id));
+      const tasksForColumns = await Promise.all(tasksForColumnsPromises);
+  
+      // Aggregating tasks from all columns and the fetched tasks
+      const allTasks = userColumns.reduce((acc, column, index) => {
+        // Combine tasks from column and fetched tasks
+        const combinedTasks = [...column.tasks, ...tasksForColumns[index]];
+        
+        combinedTasks.forEach(task => {
+          acc[task.id] = task;
+        });
+        return acc;
+      }, {});
+  
+      setState(prevState => ({
+        ...prevState,
+        tasks: allTasks,  // Here we set the accumulated tasks
+        columns: updatedColumns.reduce((acc, column) => {
+          acc[column.id] = column;
+            return acc;
+        }, {}),
+        columnsOrder: userColumns.map(column => column.id)
+      }));
+
     } else if (response === "Bad Request1") {
       // Handle error messages
       setDescriptionError("Description cannot be empty!")

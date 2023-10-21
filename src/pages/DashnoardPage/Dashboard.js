@@ -177,7 +177,7 @@ function LoadDashboardPage() {
         id: String(event.id),
         title: event.title,
         date: formatDate(startDate),
-        time: `${formatTime(startDate)}AM - ${formatTime(endDate)}PM` // Adjust AM/PM accordingly
+        time: `${formatTime(startDate)} - ${formatTime(endDate)}` // Adjust AM/PM accordingly
       };
     });
   };
